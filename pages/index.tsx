@@ -1,8 +1,8 @@
-import React from "react";
-import { bindActionCreators } from "redux";
-import { startClock, addCount, serverRenderClock } from "../actions";
-import { connect } from "react-redux";
-import Page from "../components/Page";
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { startClock, addCount, serverRenderClock } from '../actions';
+import { connect } from 'react-redux';
+import Page from '../components/Page';
 
 interface Props {
   startClock: Function;
@@ -34,11 +34,11 @@ class Counter extends React.Component<Props> {
 const mapDispatchToProps = dispatch => {
   return {
     addCount: bindActionCreators(addCount, dispatch),
-    startClock: bindActionCreators(startClock, dispatch)
+    startClock: bindActionCreators(startClock, dispatch),
   };
 };
 
 export default connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Counter);

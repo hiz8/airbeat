@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { connect } from "react-redux";
-import Clock from "./Clock";
-import AddCount from "./AddCount";
+import Link from 'next/link';
+import { connect } from 'react-redux';
+import Clock from './Clock';
+import AddCount from './AddCount';
 
 export default connect(state => state)(
   ({ title, linkTo, lastUpdate, light }: any) => {
@@ -17,5 +17,5 @@ export default connect(state => state)(
         </nav>
       </div>
     );
-  }
+  },
 );

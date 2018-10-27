@@ -1,5 +1,5 @@
-import { exampleInitialState } from "../store";
-import { actionTypes } from "../actions";
+import { exampleInitialState } from '../store';
+import { actionTypes } from '../actions';
 
 // REDUCERS
 export const reducer = (state = exampleInitialState, action) => {
@@ -7,11 +7,11 @@ export const reducer = (state = exampleInitialState, action) => {
     case actionTypes.TICK:
       return Object.assign({}, state, {
         lastUpdate: action.ts,
-        light: !!action.light
+        light: !!action.light,
       });
     case actionTypes.ADD:
       return Object.assign({}, state, {
-        count: state.count + 1
+        count: state.count + 1,
       });
     default:
       return state;

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { addCount } from "../actions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addCount } from '../actions';
 
 interface Props {
   addCount: () => void;
@@ -36,11 +36,11 @@ const mapStateToProps = ({ count }) => ({ count });
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCount: bindActionCreators(addCount, dispatch)
+    addCount: bindActionCreators(addCount, dispatch),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AddCount);

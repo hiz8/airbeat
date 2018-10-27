@@ -1,9 +1,9 @@
-import React from "react";
-import { Store } from "redux";
-import { Provider } from "react-redux";
-import App, { Container } from "next/app";
-import withRedux from "next-redux-wrapper";
-import { initStore } from "../store";
+import React from 'react';
+import { Store } from 'redux';
+import { Provider } from 'react-redux';
+import App, { Container } from 'next/app';
+import withRedux from 'next-redux-wrapper';
+import { initStore } from '../store';
 
 interface Props {
   store: Store;
@@ -15,7 +15,7 @@ export default withRedux(initStore)(
       return {
         pageProps: Component.getInitialProps
           ? await Component.getInitialProps(ctx)
-          : {}
+          : {},
       };
     }
 
@@ -29,5 +29,5 @@ export default withRedux(initStore)(
         </Container>
       );
     }
-  }
+  },
 );

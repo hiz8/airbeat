@@ -1,6 +1,6 @@
 export default ({ lastUpdate, light }) => {
   return (
-    <div className={light ? "light" : ""}>
+    <div className={light ? 'light' : ''}>
       {format(new Date(lastUpdate))}
       <style jsx>{`
         div {
