@@ -1,25 +1,18 @@
-export default ({ lastUpdate, light }) => {
-  return (
-    <div className={light ? 'light' : ''}>
-      {format(new Date(lastUpdate))}
-      <style jsx>{`
-        div {
-          padding: 15px;
-          display: inline-block;
-          color: #82fa58;
-          font: 50px menlo, monaco, monospace;
-          background-color: #000;
-        }
+import styled from 'styled-components';
 
-        .light {
-          background-color: #999;
-        }
-      `}</style>
-    </div>
-  );
+export default ({ lastUpdate, light }) => {
+  return <Clock light={light}>{format(new Date(lastUpdate))}</Clock>;
 };
 
 const format = t =>
   `${pad(t.getUTCHours())}:${pad(t.getUTCMinutes())}:${pad(t.getUTCSeconds())}`;
 
 const pad = n => (n < 10 ? `0${n}` : n);
+
+const Clock = styled.div`
+  padding: 15px;
+  display: inline-block;
+  color: #82fa58;
+  font: 50px menlo, monaco, monospace;
+  background-color: ${props => (props.light ? '#999' : '#000')};
+`;

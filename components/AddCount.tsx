@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addCount } from '../actions';
+import styled from 'styled-components';
 
 interface Props {
   addCount: () => void;
@@ -17,17 +18,12 @@ class AddCount extends Component<Props> {
   public render() {
     const { count } = this.props;
     return (
-      <div>
-        <style jsx>{`
-          div {
-            padding: 0 0 20px 0;
-          }
-        `}</style>
+      <Wrapper>
         <h1>
           AddCount: <span>{count}</span>
         </h1>
         <button onClick={this.add}>Add To Count</button>
-      </div>
+      </Wrapper>
     );
   }
 }
@@ -44,3 +40,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(AddCount);
+
+const Wrapper = styled.div`
+  padding: 0 0 20px 0;
+`;
