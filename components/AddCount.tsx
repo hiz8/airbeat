@@ -28,8 +28,6 @@ class AddCount extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ count }) => ({ count });
-
 const mapDispatchToProps = dispatch => {
   return {
     addCount: bindActionCreators(addCount, dispatch),
@@ -37,7 +35,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(AddCount);
 

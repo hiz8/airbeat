@@ -1,19 +1,14 @@
-import { exampleInitialState } from '../store';
-import { actionTypes } from '../actions';
+import { combineReducers } from 'redux';
+import tick, { State as TickState } from './tick';
+import add, { State as AddState } from './add';
+
+export type RootState = {
+  TickState;
+  AddState;
+};
 
 // REDUCERS
-export const reducer = (state = exampleInitialState, action) => {
-  switch (action.type) {
-    case actionTypes.TICK:
-      return Object.assign({}, state, {
-        lastUpdate: action.ts,
-        light: !!action.light,
-      });
-    case actionTypes.ADD:
-      return Object.assign({}, state, {
-        count: state.count + 1,
-      });
-    default:
-      return state;
-  }
-};
+export default combineReducers({
+  tick,
+  add,
+});

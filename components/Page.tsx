@@ -3,19 +3,17 @@ import { connect } from 'react-redux';
 import Clock from './Clock';
 import AddCount from './AddCount';
 
-export default connect(state => state)(
-  ({ title, linkTo, lastUpdate, light }: any) => {
-    return (
-      <div>
-        <h1>{title}</h1>
-        <Clock lastUpdate={lastUpdate} light={light} />
-        <AddCount />
-        <nav>
-          <Link href={linkTo}>
-            <a>Navigate</a>
-          </Link>
-        </nav>
-      </div>
-    );
-  },
-);
+export default connect(state => state)(({ title, linkTo, tick, add }: any) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      <Clock lastUpdate={tick.lastUpdate} light={tick.light} />
+      <AddCount count={add.count} />
+      <nav>
+        <Link href={linkTo}>
+          <a>Navigate</a>
+        </Link>
+      </nav>
+    </div>
+  );
+});
