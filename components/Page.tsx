@@ -5,7 +5,7 @@ import AddCount from './AddCount';
 
 export default connect(state => state)(({ title, linkTo, tick, add }: any) => {
   return (
-    <div>
+    <>
       <h1>{title}</h1>
       <Clock lastUpdate={tick.lastUpdate} light={tick.light} />
       <AddCount count={add.count} />
@@ -14,6 +14,6 @@ export default connect(state => state)(({ title, linkTo, tick, add }: any) => {
           <a>Navigate</a>
         </Link>
       </nav>
-    </div>
+    </>
   );
 });
