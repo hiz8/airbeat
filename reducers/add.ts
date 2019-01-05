@@ -8,7 +8,7 @@ const initialState: State = {
   count: 0,
 };
 
-const add = (state = initialState, action: any) => {
+export const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case actionTypes.ADD:
       return {
@@ -19,5 +19,3 @@ const add = (state = initialState, action: any) => {
       return state;
   }
 };
-
-export default add;

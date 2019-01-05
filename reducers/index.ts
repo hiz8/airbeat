@@ -1,14 +1,9 @@
 import { combineReducers } from 'redux';
-import tick, { State as TickState } from './tick';
-import add, { State as AddState } from './add';
-
-export type RootState = {
-  TickState;
-  AddState;
-};
+import { reducer as tickReducer } from './tick';
+import { reducer as addReducer } from './add';
 
 // REDUCERS
 export default combineReducers({
-  tick,
-  add,
+  tick: tickReducer,
+  add: addReducer,
 });

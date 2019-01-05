@@ -5,12 +5,12 @@ import { bindActionCreators } from 'redux';
 import { addCount } from '../actions';
 import styled from 'styled-components';
 
-interface Props {
+interface IProps {
   addCount: () => void;
   count: number;
 }
 
-class AddCount extends Component<Props> {
+class AddCount extends Component<IProps> {
   private add = () => {
     this.props.addCount();
   };
