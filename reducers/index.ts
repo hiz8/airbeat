@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { reducer as tickReducer } from './tick';
 import { reducer as addReducer } from './add';
-import { reducer as updatePlayingReducer } from './updatePlayin';
+import { reducer as updateRunStatusReducer } from './updateRunStatus';
 
 // REDUCERS
 export default combineReducers({
   tick: tickReducer,
   add: addReducer,
-  updatePlaying: updatePlayingReducer,
+  updateRunStatus: updateRunStatusReducer,
 });

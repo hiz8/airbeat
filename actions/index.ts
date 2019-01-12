@@ -1,7 +1,7 @@
 export enum actionTypes {
   ADD = 'ADD',
   TICK = 'TICK',
-  UPDATE_PLAYING = 'UPDATE_PLAYING',
+  UPDATE_RUN_STATUS = 'UPDATE_RUN_STATUS',
 }
 
 // ACTIONS
@@ -20,6 +20,6 @@ export const addCount = () => dispatch => {
   return dispatch({ type: actionTypes.ADD });
 };
 
-export const updatePlaying = () => dispatch => {
-  return dispatch({ type: actionTypes.UPDATE_PLAYING });
+export const updateRunStatus = () => dispatch => {
+  return dispatch({ type: actionTypes.UPDATE_RUN_STATUS });
 };

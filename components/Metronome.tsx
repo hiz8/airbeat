@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updatePlaying } from '../actions';
+import { updateRunStatus } from '../actions';
 
 const notesInQueue: any[] = [];
 const noteLength: number = 0.05;
@@ -15,8 +15,8 @@ let timerWorker;
 let last16thNoteDrawn = -1; // the last "box" we drew on the screen / 最後に画面上に描いた "ボックス"
 
 interface IProps {
-  updatePlaying: () => void;
-  playing: boolean;
+  updateRunStatus: () => void;
+  runStatus: boolean;
 }
 
 interface IState {
@@ -35,10 +35,10 @@ class UpdatePlaying extends Component<IProps, IState> {
     };
   }
 
-  private updatePlaying = () => {
-    const { playing } = this.props;
+  private _handleButtonClick = () => {
+    const { runStatus } = this.props;
 
-    if (playing) {
+    if (runStatus) {
       // start playing
       timerWorker.postMessage('stop');
     } else {
@@ -47,21 +47,21 @@ class UpdatePlaying extends Component<IProps, IState> {
       timerWorker.postMessage('start');
     }
 
-    this.props.updatePlaying();
+    this.props.updateRunStatus();
   };
 
-  private scheduler() {
+  private _scheduler() {
     // console.log('in scheduler');
     // 次の区間の前に演奏する必要がある音符がある間、
     // それらをスケジュールし、ポインタを前進させます。
 
     while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime) {
-      this.scheduleNote(current16thNote, nextNoteTime);
-      this.nextNote();
+      this._scheduleNote(current16thNote, nextNoteTime);
+      this._nextNote();
     }
   }
 
-  private scheduleNote(beatNumber, time) {
+  private _scheduleNote(beatNumber, time) {
     /**
      * 出す音のコントロール
      */
@@ -96,7 +96,7 @@ class UpdatePlaying extends Component<IProps, IState> {
     oscillator.stop(time + noteLength);
   }
 
-  private nextNote() {
+  private _nextNote() {
     // 16分音符で現在のノートと時間を進める...
     let secondsPerBeat = 60.0 / this.tempo;
 
@@ -115,7 +115,7 @@ class UpdatePlaying extends Component<IProps, IState> {
 
     timerWorker.onmessage = e => {
       if (e.data == 'tick') {
-        this.scheduler();
+        this._scheduler();
       } else {
         console.log('message: ' + e.data);
       }
@@ -127,16 +127,16 @@ class UpdatePlaying extends Component<IProps, IState> {
   }
 
   public render() {
-    const { playing } = this.props;
-    const playText = playing ? '停止' : '再生';
+    const { runStatus } = this.props;
+    const runStatusText = runStatus ? '停止' : '再生';
 
-    return <button onClick={this.updatePlaying}>{playText}</button>;
+    return <button onClick={this._handleButtonClick}>{runStatusText}</button>;
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    updatePlaying: bindActionCreators(updatePlaying, dispatch),
+    updateRunStatus: bindActionCreators(updateRunStatus, dispatch),
   };
 };
 

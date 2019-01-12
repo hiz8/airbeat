@@ -1,19 +1,19 @@
 import { actionTypes } from '../actions';
 
 export type State = {
-  playing: boolean;
+  runStatus: boolean;
 };
 
 const initialState: State = {
-  playing: false,
+  runStatus: false,
 };
 
 export const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case actionTypes.UPDATE_PLAYING:
+    case actionTypes.UPDATE_RUN_STATUS:
       return {
         ...state,
-        playing: !state.playing,
+        runStatus: !state.runStatus,
       };
     default:
       return state;
