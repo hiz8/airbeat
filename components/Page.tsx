@@ -1,19 +1,19 @@
 import Link from 'next/link';
 import { connect } from 'react-redux';
-import Clock from './Clock';
-import AddCount from './AddCount';
+import Metronome from './Metronome';
 
-export default connect(state => state)(({ title, linkTo, tick, add }: any) => {
-  return (
-    <>
-      <h1>{title}</h1>
-      <Clock lastUpdate={tick.lastUpdate} light={tick.light} />
-      <AddCount count={add.count} />
-      <nav>
-        <Link href={linkTo}>
-          <a>Navigate</a>
-        </Link>
-      </nav>
-    </>
-  );
-});
+export default connect(state => state)(
+  ({ title, linkTo, updatePlaying }: any) => {
+    return (
+      <>
+        <h1>{title}</h1>
+        <Metronome playing={updatePlaying.playing} />
+        <nav>
+          <Link href={linkTo}>
+            <a>Navigate</a>
+          </Link>
+        </nav>
+      </>
+    );
+  },
+);

@@ -1,6 +1,7 @@
 export enum actionTypes {
   ADD = 'ADD',
   TICK = 'TICK',
+  UPDATE_PLAYING = 'UPDATE_PLAYING',
 }
 
 // ACTIONS
@@ -17,4 +18,8 @@ export const startClock = () => dispatch => {
 
 export const addCount = () => dispatch => {
   return dispatch({ type: actionTypes.ADD });
+};
+
+export const updatePlaying = () => dispatch => {
+  return dispatch({ type: actionTypes.UPDATE_PLAYING });
 };
