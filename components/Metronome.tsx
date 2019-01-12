@@ -4,35 +4,27 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateRunStatus } from '../actions';
 
-const notesInQueue: any[] = [];
-const noteLength: number = 0.05;
+const notesInQueue = [];
+const noteLength = 0.05;
+const lookahead = 25.0;
+
 let nextNoteTime: number = 0.0;
 let scheduleAheadTime: number = 0.1;
 let current16thNote: number;
-let audioCtx;
-let timerWorker;
-
-let last16thNoteDrawn = -1; // the last "box" we drew on the screen / 最後に画面上に描いた "ボックス"
+let audioCtx: AudioContext;
+let timerWorker: Worker;
 
 interface IProps {
   updateRunStatus: () => void;
   runStatus: boolean;
 }
 
-interface IState {
-  lookahead: number;
-}
-
-class UpdatePlaying extends Component<IProps, IState> {
+class UpdatePlaying extends Component<IProps> {
   private readonly beat = '8beat';
   private readonly tempo = 120;
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      lookahead: 25.0,
-    };
   }
 
   private _handleButtonClick = () => {
@@ -122,7 +114,7 @@ class UpdatePlaying extends Component<IProps, IState> {
     };
 
     timerWorker.postMessage({
-      interval: this.state.lookahead,
+      interval: lookahead,
     });
   }
 
