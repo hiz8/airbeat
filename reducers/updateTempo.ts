@@ -13,7 +13,7 @@ export const reducer = (state = initialState, action: any) => {
     case actionTypes.UPDATE_TEMPO:
       return {
         ...state,
-        tempo: !state.tempo,
+        tempo: action.payload,
       };
     default:
       return state;
