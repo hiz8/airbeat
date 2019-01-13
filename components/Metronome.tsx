@@ -4,16 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateRunStatus } from '../actions';
 
-const notesInQueue = [];
-const noteLength = 0.05;
-const lookahead = 25.0;
-
-let nextNoteTime: number = 0.0;
-let scheduleAheadTime: number = 0.1;
-let current16thNote: number;
-let audioCtx: AudioContext;
-let timerWorker: Worker;
-
 interface IProps {
   updateRunStatus: () => void;
   runStatus: boolean;
@@ -22,6 +12,16 @@ interface IProps {
 class UpdatePlaying extends Component<IProps> {
   private readonly beat = '8beat';
   private readonly tempo = 120;
+  private readonly notesInQueue = [];
+  private readonly noteLength = 0.05;
+  private readonly lookahead = 25.0;
+
+  private nextNoteTime: number = 0.0;
+  private scheduleAheadTime: number = 0.1;
+  private current16thNote: number;
+
+  private audioCtx: AudioContext;
+  private timerWorker: Worker;
 
   constructor(props) {
     super(props);
@@ -32,32 +32,40 @@ class UpdatePlaying extends Component<IProps> {
 
     if (runStatus) {
       // start playing
-      timerWorker.postMessage('stop');
+      this.timerWorker.postMessage('stop');
     } else {
-      current16thNote = 0;
-      nextNoteTime = audioCtx.currentTime;
-      timerWorker.postMessage('start');
+      this.current16thNote = 0;
+      this.nextNoteTime = this.audioCtx.currentTime;
+      this.timerWorker.postMessage('start');
     }
 
     this.props.updateRunStatus();
   };
 
-  private _scheduler() {
-    // console.log('in scheduler');
-    // 次の区間の前に演奏する必要がある音符がある間、
-    // それらをスケジュールし、ポインタを前進させます。
-
-    while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime) {
-      this._scheduleNote(current16thNote, nextNoteTime);
+  /**
+   * 次の区間の前に演奏する必要がある音符がある間、それらをスケジュールし、ポインタを前進させます。
+   */
+  private _scheduler(): void {
+    while (
+      this.nextNoteTime <
+      this.audioCtx.currentTime + this.scheduleAheadTime
+    ) {
+      this._scheduleNote(this.current16thNote, this.nextNoteTime);
       this._nextNote();
     }
   }
 
-  private _scheduleNote(beatNumber, time) {
+  /**
+   * テンポに応じて音を出す
+   *
+   * @param beatNumber
+   * @param time
+   */
+  private _scheduleNote(beatNumber: number, time: number): void {
     /**
      * 出す音のコントロール
      */
-    notesInQueue.push({ note: beatNumber, time: time });
+    this.notesInQueue.push({ note: beatNumber, time: time });
 
     const noteResolution = this.beat;
 
@@ -70,8 +78,8 @@ class UpdatePlaying extends Component<IProps> {
       return;
     }
 
-    const oscillator = audioCtx.createOscillator();
-    oscillator.connect(audioCtx.destination);
+    const oscillator = this.audioCtx.createOscillator();
+    oscillator.connect(this.audioCtx.destination);
 
     if (beatNumber % 16 === 0) {
       // beat 0 == high pitch
@@ -85,27 +93,29 @@ class UpdatePlaying extends Component<IProps> {
     }
 
     oscillator.start(time);
-    oscillator.stop(time + noteLength);
+    oscillator.stop(time + this.noteLength);
   }
 
-  private _nextNote() {
-    // 16分音符で現在のノートと時間を進める...
+  /**
+   * 16分音符で現在のノートと時間を進める
+   */
+  private _nextNote(): void {
     let secondsPerBeat = 60.0 / this.tempo;
 
-    nextNoteTime += 0.25 * secondsPerBeat;
-    current16thNote++;
+    this.nextNoteTime += 0.25 * secondsPerBeat;
+    this.current16thNote++;
 
-    if (current16thNote == 16) {
-      current16thNote = 0;
+    if (this.current16thNote == 16) {
+      this.current16thNote = 0;
     }
   }
 
   public componentDidMount() {
-    audioCtx = new AudioContext();
+    this.audioCtx = new AudioContext();
 
-    timerWorker = new Worker('/static/js/metronome.worker.js');
+    this.timerWorker = new Worker('/static/js/metronome.worker.js');
 
-    timerWorker.onmessage = e => {
+    this.timerWorker.onmessage = e => {
       if (e.data == 'tick') {
         this._scheduler();
       } else {
@@ -113,8 +123,8 @@ class UpdatePlaying extends Component<IProps> {
       }
     };
 
-    timerWorker.postMessage({
-      interval: lookahead,
+    this.timerWorker.postMessage({
+      interval: this.lookahead,
     });
   }
 
