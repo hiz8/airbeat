@@ -7,11 +7,11 @@ import { updateRunStatus } from '../actions';
 interface IProps {
   updateRunStatus: () => void;
   runStatus: boolean;
+  tempo: number;
+  beat: string;
 }
 
 class UpdatePlaying extends Component<IProps> {
-  private readonly beat = '8beat';
-  private readonly tempo = 120;
   private readonly notesInQueue = [];
   private readonly noteLength = 0.05;
   private readonly lookahead = 25.0;
@@ -29,6 +29,8 @@ class UpdatePlaying extends Component<IProps> {
 
   private _handleButtonClick = () => {
     const { runStatus } = this.props;
+
+    console.log('this.props', this.props);
 
     if (runStatus) {
       // start playing
@@ -67,7 +69,7 @@ class UpdatePlaying extends Component<IProps> {
      */
     this.notesInQueue.push({ note: beatNumber, time: time });
 
-    const noteResolution = this.beat;
+    const noteResolution = this.props.beat;
 
     // beat に応じて
     if (noteResolution === '8beat' && beatNumber % 2) {
@@ -100,7 +102,7 @@ class UpdatePlaying extends Component<IProps> {
    * 16分音符で現在のノートと時間を進める
    */
   private _nextNote(): void {
-    let secondsPerBeat = 60.0 / this.tempo;
+    let secondsPerBeat = 60.0 / this.props.tempo;
 
     this.nextNoteTime += 0.25 * secondsPerBeat;
     this.current16thNote++;
