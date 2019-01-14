@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateBeat } from '../actions';
+import { Beats } from '../reducers/updateBeat';
 
 interface IProps {
   updateBeat: (value: string) => void;
+  beat: string;
 }
 
 class BeatController extends Component<IProps> {
@@ -18,14 +20,23 @@ class BeatController extends Component<IProps> {
   }
 
   public render() {
+    const options = [];
+
+    for (let i in Beats) {
+      options.push(
+        <option value={Beats[i]} key={i}>
+          {Beats[i]}
+        </option>,
+      );
+    }
+
     return (
-      <>
-        <select onChange={this._handleBeatSelectChange.bind(this)}>
-          <option value="4beat">𝅘𝅥 4 beat</option>
-          <option value="8beat">𝅘𝅥𝅮 8 beat</option>
-          <option value="16beat">𝅘𝅥𝅯 16 beat</option>
-        </select>
-      </>
+      <select
+        onChange={this._handleBeatSelectChange.bind(this)}
+        value={this.props.beat}
+      >
+        {options}
+      </select>
     );
   }
 }

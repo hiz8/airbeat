@@ -30,8 +30,6 @@ class UpdatePlaying extends Component<IProps> {
   private _handleButtonClick = () => {
     const { runStatus } = this.props;
 
-    console.log('this.props', this.props);
-
     if (runStatus) {
       // start playing
       this.timerWorker.postMessage('stop');

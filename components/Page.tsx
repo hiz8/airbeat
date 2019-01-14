@@ -14,7 +14,7 @@ export default connect(state => state)(
           beat={updateBeat.beat}
         />
         <TempoController tempo={updateTempo.tempo} />
-        <BeatController />
+        <BeatController beat={updateBeat.beat} />
       </>
     );
   },

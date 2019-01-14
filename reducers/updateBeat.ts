@@ -4,8 +4,14 @@ export type State = {
   beat: string;
 };
 
+export enum Beats {
+  OPTION1 = '4beat',
+  DEFAULT = '8beat',
+  OPTION2 = '16beat',
+}
+
 const initialState: State = {
-  beat: '8beat',
+  beat: Beats.DEFAULT,
 };
 
 export const reducer = (state = initialState, action: any) => {

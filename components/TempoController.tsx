@@ -20,6 +20,8 @@ class TempoController extends Component<IProps> {
     super(props);
   }
 
+  private _handleChangeEvent(): void {}
+
   public componentDidMount() {
     /**
      * プラス・マイナスボタンのクリックイベントからストリームを生成
@@ -82,6 +84,7 @@ class TempoController extends Component<IProps> {
           max={this.MAXIMUM_TEMPO}
           step="1"
           value={this.props.tempo}
+          onChange={this._handleChangeEvent}
         />
       </>
     );
