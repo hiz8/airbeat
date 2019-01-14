@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateRunStatus } from '../actions';
+import color from '../const/color';
 
 interface IProps {
   updateRunStatus: () => void;
@@ -15,6 +16,7 @@ class UpdatePlaying extends Component<IProps> {
   private readonly notesInQueue = [];
   private readonly noteLength = 0.05;
   private readonly lookahead = 25.0;
+  private last16thNoteDrawn = -1; // the last "box" we drew on the screen / 最後に画面上に描いた "ボックス"
 
   private nextNoteTime: number = 0.0;
   private scheduleAheadTime: number = 0.1;
@@ -25,6 +27,47 @@ class UpdatePlaying extends Component<IProps> {
 
   constructor(props) {
     super(props);
+  }
+
+  private _draw() {
+    let currentNote = this.last16thNoteDrawn;
+    const currentTime = this.audioCtx.currentTime;
+    const button = document.getElementById('playButton');
+
+    while (
+      this.notesInQueue.length &&
+      this.notesInQueue[0].time < currentTime
+    ) {
+      currentNote = this.notesInQueue[0].note;
+      this.notesInQueue.splice(0, 1); // remove note from queue / キューからメモを削除する
+    }
+
+    // We only need to draw if the note has moved.
+    // ノートが移動した場合にのみ描画する必要があります。
+    if (this.last16thNoteDrawn != currentNote) {
+      this.last16thNoteDrawn = currentNote;
+
+      if (currentNote % 4 === 0) {
+        const activeColor =
+          currentNote === 0 ? color.SECONDARY : color.TERTIARY;
+        button.animate(
+          [
+            {
+              backgroundColor: activeColor,
+              easing: 'steps(1, start)',
+            },
+            { backgroundColor: activeColor, easing: 'linear' },
+          ],
+          {
+            duration: 20000 / this.props.tempo,
+            iterations: 1,
+          },
+        );
+      }
+    }
+
+    // set up to draw again / 再び描画するように設定する
+    requestAnimationFrame(this._draw.bind(this));
   }
 
   private _handleButtonClick = () => {
@@ -112,6 +155,7 @@ class UpdatePlaying extends Component<IProps> {
 
   public componentDidMount() {
     this.audioCtx = new AudioContext();
+    requestAnimationFrame(this._draw.bind(this)); // start the drawing loop.
 
     this.timerWorker = new Worker('/static/js/metronome.worker.js');
 
@@ -132,7 +176,11 @@ class UpdatePlaying extends Component<IProps> {
     const { runStatus } = this.props;
     const runStatusText = runStatus ? '停止' : '再生';
 
-    return <button onClick={this._handleButtonClick}>{runStatusText}</button>;
+    return (
+      <button onClick={this._handleButtonClick} id="playButton">
+        {runStatusText}
+      </button>
+    );
   }
 }
 
