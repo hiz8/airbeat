@@ -13,7 +13,7 @@ export const reducer = (state = initialState, action: any) => {
     case actionTypes.UPDATE_BEAT:
       return {
         ...state,
-        tempo: !state.beat,
+        beat: action.payload,
       };
     default:
       return state;

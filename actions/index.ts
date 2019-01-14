@@ -20,6 +20,6 @@ export const updateTempo = (value: number) => dispatch => {
   return dispatch({ type: actionTypes.UPDATE_TEMPO, payload: value });
 };
 
-export const updateBeat = () => dispatch => {
-  return dispatch({ type: actionTypes.UPDATE_BEAT });
+export const updateBeat = (value: string) => dispatch => {
+  return dispatch({ type: actionTypes.UPDATE_BEAT, payload: value });
 };

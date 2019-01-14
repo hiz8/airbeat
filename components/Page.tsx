@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Metronome from './Metronome';
 import TempoController from './TempoController';
+import BeatController from './BeatController';
 
 export default connect(state => state)(
   ({ title, updateRunStatus, updateTempo, updateBeat }: any) => {
@@ -13,6 +14,7 @@ export default connect(state => state)(
           beat={updateBeat.beat}
         />
         <TempoController tempo={updateTempo.tempo} />
+        <BeatController />
       </>
     );
   },
