@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import styled from 'styled-components';
 import { updateRunStatus } from '../actions';
 import color from '../const/color';
 
@@ -177,9 +178,9 @@ class UpdatePlaying extends Component<IProps> {
     const runStatusText = runStatus ? '停止' : '再生';
 
     return (
-      <button onClick={this._handleButtonClick} id="playButton">
+      <Button onClick={this._handleButtonClick} id="playButton">
         {runStatusText}
-      </button>
+      </Button>
     );
   }
 }
@@ -194,3 +195,28 @@ export default connect(
   null,
   mapDispatchToProps,
 )(UpdatePlaying);
+
+const Button = styled.button`
+  box-shadow: none;
+  background: none;
+  background-color: ${props => (props.active ? color.BASE : color.PRIMARY)};
+  border: 2px solid #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  width: 110px;
+  height: 45px;
+  text-align: center;
+  cursor: pointer;
+  margin: 1.5em auto 1em;
+  padding: 0;
+  display: block;
+  padding: 0;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  box-shadow: ${props =>
+    props.active ? '0 0 0 4px rgba(255, 255, 255, .4)' : 'none'};
+  &:focus {
+    outline: none;
+  }
+`;

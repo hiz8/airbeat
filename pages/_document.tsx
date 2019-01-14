@@ -19,7 +19,13 @@ export default class MyDocument extends Document<IProps> {
   public render() {
     return (
       <html>
-        <Head>{this.props.styleTags}</Head>
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
+          {this.props.styleTags}
+        </Head>
         <body>
           <Main />
           <NextScript />
