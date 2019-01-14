@@ -27,17 +27,17 @@ class TempoController extends Component<IProps> {
      * プラス・マイナスボタンのクリックイベントからストリームを生成
      */
     const plusButton: HTMLElement = document.getElementById('plus');
-    const plusStream = fromEvent(plusButton, 'click').pipe(mapTo(1));
+    const plusStream$ = fromEvent(plusButton, 'click').pipe(mapTo(1));
     const minusButton: HTMLElement = document.getElementById('minus');
-    const minusStream = fromEvent(minusButton, 'click').pipe(mapTo(-1));
+    const minusStream$ = fromEvent(minusButton, 'click').pipe(mapTo(-1));
 
-    const clickStream = merge(plusStream, minusStream);
+    const clickStream$ = merge(plusStream$, minusStream$);
 
     /**
      * Range input の操作からストリームを生成
      */
     const rangeInput = document.getElementById('range');
-    const rangeInputStream = fromEvent(rangeInput, 'input').pipe(
+    const rangeInputStream$ = fromEvent(rangeInput, 'input').pipe(
       map((val: any) => {
         return val.target.value;
       }),
@@ -46,7 +46,7 @@ class TempoController extends Component<IProps> {
     /**
      * ストリームをマージし、stateの更新へ
      */
-    merge(clickStream, rangeInputStream)
+    merge(clickStream$, rangeInputStream$)
       .pipe(
         scan((acc, curr) => {
           if (curr >= 2) {
