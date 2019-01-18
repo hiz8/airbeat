@@ -30,9 +30,9 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 400;
     src: local('Overpass Mono Regular'), local('OverpassMono-Regular'),
-      url('./fonts/overpass-mono-v3-latin-regular.woff2') format('woff2'),
-      url('./fonts/overpass-mono-v3-latin-regular.woff') format('woff'),
-      url('./fonts/overpass-mono-v3-latin-regular.ttf') format('truetype');
+      url('/static/fonts/overpass-mono-v3-latin-regular.woff2') format('woff2'),
+      url('/static/fonts/overpass-mono-v3-latin-regular.woff') format('woff'),
+      url('/static/fonts/overpass-mono-v3-latin-regular.ttf') format('truetype');
   }
   html, body {
     margin: 0;
