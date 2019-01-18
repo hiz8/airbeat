@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import styled from 'styled-components';
 import { updateBeat } from '../actions';
 import { Beats } from '../reducers/updateBeat';
 
@@ -31,12 +32,12 @@ class BeatController extends Component<IProps> {
     }
 
     return (
-      <select
+      <Select
         onChange={this._handleBeatSelectChange.bind(this)}
         value={this.props.beat}
       >
         {options}
-      </select>
+      </Select>
     );
   }
 }
@@ -51,3 +52,17 @@ export default connect(
   null,
   mapDispatchToProps,
 )(BeatController);
+
+const Select = styled.select`
+  padding: 5px;
+  border: none;
+  font-size: 1rem;
+  margin: 0 auto 0.5em;
+  display: block;
+  text-align: center;
+  appearance: none;
+  cursor: pointer;
+  background: none;
+  color: #fff;
+  font-family: inherit;
+`;

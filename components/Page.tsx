@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import Metronome from './Metronome';
 import TempoController from './TempoController';
 import BeatController from './BeatController';
@@ -9,7 +9,7 @@ import color from '../const/color';
 export default connect(state => state)(
   ({ updateRunStatus, updateTempo, updateBeat }: any) => {
     return (
-      <>
+      <Wrapper>
         <GlobalStyle />
         <DisplayTempo tempo={updateTempo.tempo} />
         <TempoController tempo={updateTempo.tempo} />
@@ -19,7 +19,7 @@ export default connect(state => state)(
           tempo={updateTempo.tempo}
           beat={updateBeat.beat}
         />
-      </>
+      </Wrapper>
     );
   },
 );
@@ -45,4 +45,12 @@ const GlobalStyle = createGlobalStyle`
     color: #fff;
     font-family: 'Overpass Mono', monospace;
   }
+`;
+
+const Wrapper = styled.div`
+  font-size: 2.4em;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
