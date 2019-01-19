@@ -4,11 +4,14 @@ import Metronome from './Metronome';
 import TempoController from './TempoController';
 import BeatController from './BeatController';
 import DisplayTempo from './DisplayTempo';
+import List from './List';
 import AppBar from './AppBar';
 import color from '../const/color';
 
 export default connect(state => state)(
-  ({ updateRunStatus, updateTempo, updateBeat }: any) => {
+  ({ updateRunStatus, updateTempo, updateBeat, toggleListMenu }: any) => {
+    console.log('updateBeat', updateBeat);
+    console.log('toggleListMenu', toggleListMenu);
     return (
       <>
         <AppBar />
@@ -23,6 +26,7 @@ export default connect(state => state)(
             beat={updateBeat.beat}
           />
         </Wrapper>
+        {toggleListMenu.listDisplayStatus ? <List /> : null}
       </>
     );
   },
@@ -53,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrapper = styled.div`
   font-size: 2.4em;
-  height: 100vh;
+  height: calc(100vh - 44px);
   display: flex;
   flex-direction: column;
   justify-content: center;

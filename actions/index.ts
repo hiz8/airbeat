@@ -2,6 +2,7 @@ export enum actionTypes {
   UPDATE_RUN_STATUS = 'UPDATE_RUN_STATUS',
   UPDATE_TEMPO = 'UPDATE_TEMPO',
   UPDATE_BEAT = 'UPDATE_BEAT',
+  TOGGLE_LIST_MENU = 'TOGGLE_LIST_MENU',
 }
 
 /**
@@ -22,4 +23,11 @@ export const updateTempo = (value: number) => dispatch => {
 
 export const updateBeat = (value: string) => dispatch => {
   return dispatch({ type: actionTypes.UPDATE_BEAT, payload: value });
+};
+
+/**
+ * 楽曲リストのメニューを切り替え
+ */
+export const toggleListMenu = () => dispatch => {
+  return dispatch({ type: actionTypes.TOGGLE_LIST_MENU });
 };
