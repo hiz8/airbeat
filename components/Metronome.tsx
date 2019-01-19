@@ -175,10 +175,14 @@ class UpdatePlaying extends Component<IProps> {
 
   public render() {
     const { runStatus } = this.props;
-    const runStatusText = runStatus ? '停止' : '再生';
+    const runStatusText = runStatus ? 'Stop' : 'Play';
 
     return (
-      <Button onClick={this._handleButtonClick} id="playButton">
+      <Button
+        onClick={this._handleButtonClick}
+        runStatus={runStatus}
+        id="playButton"
+      >
         {runStatusText}
       </Button>
     );
@@ -199,7 +203,7 @@ export default connect(
 const Button = styled.button`
   box-shadow: none;
   background: none;
-  background-color: ${props => (props.active ? color.BASE : color.PRIMARY)};
+  background-color: ${props => (props.runStatus ? color.BASE : color.PRIMARY)};
   border: 2px solid #fff;
   border-radius: 30px;
   text-decoration: none;
