@@ -10,11 +10,9 @@ import color from '../const/color';
 
 export default connect(state => state)(
   ({ updateRunStatus, updateTempo, updateBeat, toggleListMenu }: any) => {
-    console.log('updateBeat', updateBeat);
-    console.log('toggleListMenu', toggleListMenu);
     return (
       <>
-        <AppBar />
+        <AppBar listDisplayStatus={toggleListMenu.listDisplayStatus} />
         <Wrapper>
           <GlobalStyle />
           <DisplayTempo tempo={updateTempo.tempo} />

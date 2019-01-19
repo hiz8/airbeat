@@ -5,9 +5,11 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import { toggleListMenu } from '../actions';
 import IconList from 'react-feather/dist/icons/list';
+import IconX from 'react-feather/dist/icons/x';
 
 interface IProps {
   toggleListMenu: () => void;
+  listDisplayStatus: boolean;
 }
 
 class AppBar extends Component<IProps> {
@@ -16,15 +18,15 @@ class AppBar extends Component<IProps> {
   }
 
   private _handleListButtonClick() {
-    console.log('button click');
     this.props.toggleListMenu();
   }
 
   public render() {
+    const Icon = this.props.listDisplayStatus ? <IconX /> : <IconList />;
     return (
       <NavBar>
         <ListButton href="#" onClick={this._handleListButtonClick.bind(this)}>
-          <IconList />
+          {Icon}
         </ListButton>
       </NavBar>
     );
