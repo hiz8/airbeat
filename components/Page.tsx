@@ -4,22 +4,26 @@ import Metronome from './Metronome';
 import TempoController from './TempoController';
 import BeatController from './BeatController';
 import DisplayTempo from './DisplayTempo';
+import AppBar from './AppBar';
 import color from '../const/color';
 
 export default connect(state => state)(
   ({ updateRunStatus, updateTempo, updateBeat }: any) => {
     return (
-      <Wrapper>
-        <GlobalStyle />
-        <DisplayTempo tempo={updateTempo.tempo} />
-        <TempoController tempo={updateTempo.tempo} />
-        <BeatController beat={updateBeat.beat} />
-        <Metronome
-          runStatus={updateRunStatus.runStatus}
-          tempo={updateTempo.tempo}
-          beat={updateBeat.beat}
-        />
-      </Wrapper>
+      <>
+        <AppBar />
+        <Wrapper>
+          <GlobalStyle />
+          <DisplayTempo tempo={updateTempo.tempo} />
+          <TempoController tempo={updateTempo.tempo} />
+          <BeatController beat={updateBeat.beat} />
+          <Metronome
+            runStatus={updateRunStatus.runStatus}
+            tempo={updateTempo.tempo}
+            beat={updateBeat.beat}
+          />
+        </Wrapper>
+      </>
     );
   },
 );
