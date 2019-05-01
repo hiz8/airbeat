@@ -4,11 +4,23 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import IconSave from 'react-feather/dist/icons/save';
 
+import * as actions from '../actions';
 import ListItems from './ListItems';
 import ListStore from '../model/list';
 const listStore = new ListStore();
 
-export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateTempo: (n: any) => dispatch(actions.updateTempo(n)),
+    updateBeat: (n: any) => dispatch(actions.updateBeat(n)),
+    toggleListMenu: () => dispatch(actions.toggleListMenu()),
+  };
+};
+
+export default connect(
+  state => state,
+  mapDispatchToProps,
+)(({ updateTempo, updateBeat, toggleListMenu }: any) => {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
   const [items, setItems] = useState(null);
@@ -72,6 +84,20 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
     }
   }
 
+  function setItem(e) {
+    e.preventDefault();
+
+    const { tempo, beat } = e.currentTarget.dataset;
+
+    updateBeat(beat);
+    toggleListMenu();
+
+    const event = new CustomEvent('input');
+    const tempoInput: any = document.getElementById('range');
+    tempoInput.value = tempo;
+    tempoInput.dispatchEvent(event);
+  }
+
   const list: Array<any> = [];
 
   if (items) {
@@ -83,7 +109,7 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
           name={name}
           tempo={data[name].tempo}
           beat={data[name].beat}
-          // setItem={this.setItem.bind(this)}
+          setItem={setItem}
           deleteItem={deleteItem.bind(this)}
         />,
       );
