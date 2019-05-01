@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import IconTrash from 'react-feather/dist/icons/trash';
 
 export default (props): any => {
-  console.log({ props });
   return (
     <ItemWrapper>
       <ListItemInfo
@@ -21,7 +20,7 @@ export default (props): any => {
       <ListItemControlle>
         <ListItemControlleDelete
           data-key={props.name}
-          // onClick={props.deleteItem.bind(this)}
+          onClick={props.deleteItem}
         >
           <IconTrash />
         </ListItemControlleDelete>
@@ -81,5 +80,9 @@ const ListItemControlleDelete = styled.button`
   cursor: pointer;
   &:hover {
     background-color: rgba(255, 255, 255, 0.25);
+  }
+
+  svg {
+    pointer-events: none;
   }
 `;

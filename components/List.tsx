@@ -8,8 +8,6 @@ import ListItems from './ListItems';
 import ListStore from '../model/list';
 const listStore = new ListStore();
 
-let init = true;
-
 export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
@@ -59,6 +57,21 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
       });
   }
 
+  function deleteItem(e) {
+    const key = e.target.dataset.key;
+
+    if (confirm('Delete the item?')) {
+      listStore
+        .removeItem(key)
+        .then(() => {
+          updateItems();
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+
   const list: Array<any> = [];
 
   if (items) {
@@ -71,7 +84,7 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
           tempo={data[name].tempo}
           beat={data[name].beat}
           // setItem={this.setItem.bind(this)}
-          // deleteItem={this.deleteItem.bind(this)}
+          deleteItem={deleteItem.bind(this)}
         />,
       );
     });
