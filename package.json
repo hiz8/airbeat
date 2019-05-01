@@ -13,8 +13,8 @@
     "localforage-getitems": "^1.4.2",
     "next": "^7.0.2",
     "next-redux-wrapper": "^2.1.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-feather": "^1.1.5",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
@@ -26,8 +26,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/next": "^7.0.6",
-    "@types/react": "^16.7.18",
-    "@types/react-dom": "^16.0.11",
+    "@types/react": "^16.8.15",
+    "@types/react-dom": "^16.8.4",
     "@types/react-redux": "^6.0.12",
     "typescript": "^3.2.2"
   }
