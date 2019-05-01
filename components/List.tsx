@@ -4,12 +4,16 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import IconSave from 'react-feather/dist/icons/save';
 
+import ListItems from './ListItems';
 import ListStore from '../model/list';
 const listStore = new ListStore();
+
+let init = true;
 
 export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
+  const [items, setItems] = useState(null);
 
   function handleChangeEvent(e) {
     if (e.target.value.length) {
@@ -19,6 +23,17 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
       setName('');
       setSaveButton(false);
     }
+  }
+
+  function updateItems() {
+    listStore
+      .getItems()
+      .then(res => {
+        setItems(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   function saveItem(e) {
@@ -34,6 +49,7 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
     listStore
       .setItem(name, setItam)
       .then(() => {
+        updateItems();
         input.value = '';
         input.blur();
         setSaveButton(false);
@@ -41,6 +57,26 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
       .catch(err => {
         console.error(err);
       });
+  }
+
+  const list: Array<any> = [];
+
+  if (items) {
+    const data = items;
+    Object.keys(data).forEach((name, i) => {
+      list.push(
+        <ListItems
+          key={i}
+          name={name}
+          tempo={data[name].tempo}
+          beat={data[name].beat}
+          // setItem={this.setItem.bind(this)}
+          // deleteItem={this.deleteItem.bind(this)}
+        />,
+      );
+    });
+  } else {
+    updateItems();
   }
 
   return (
@@ -67,6 +103,7 @@ export default connect(state => state)(({ updateTempo, updateBeat }: any) => {
           </ListItemControlleSave>
         </ListItemControlle>
       </ListItem>
+      {list}
     </ListWrapper>
   );
 });
