@@ -2,6 +2,7 @@ import React from 'react';
 import { Store } from 'redux';
 import { Provider } from 'react-redux';
 import App, { Container } from 'next/app';
+import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../store';
 
@@ -23,6 +24,9 @@ class MyApp extends App<IProps> {
 
     return (
       <Container>
+        <Head>
+          <title>airbeat</title>
+        </Head>
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>

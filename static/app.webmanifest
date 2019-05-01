@@ -1,0 +1,19 @@
+{
+  "lang": "en",
+  "name": "airbeat",
+  "short_name": "airbeat",
+  "description": "Offline supported metronome application",
+  "dir": "ltr",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#16364b",
+  "theme_color": "#1baab1"
+}
