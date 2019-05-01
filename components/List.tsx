@@ -9,18 +9,22 @@ import ListItems from './ListItems';
 import ListStore from '../model/list';
 const listStore = new ListStore();
 
+const mapStateToProps = state => ({
+  tempo: state.updateTempo.tempo,
+  beat: state.updateBeat.beat,
+});
+
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateTempo: (n: any) => dispatch(actions.updateTempo(n)),
     updateBeat: (n: any) => dispatch(actions.updateBeat(n)),
     toggleListMenu: () => dispatch(actions.toggleListMenu()),
   };
 };
 
 export default connect(
-  state => state,
+  mapStateToProps,
   mapDispatchToProps,
-)(({ updateTempo, updateBeat, toggleListMenu }: any) => {
+)(({ updateBeat, toggleListMenu, tempo, beat }: any) => {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
   const [items, setItems] = useState(null);
@@ -49,15 +53,13 @@ export default connect(
   function saveItem(e) {
     e.preventDefault();
 
-    const setItam = {
-      tempo: updateTempo.tempo,
-      beat: updateBeat.beat,
-    };
-
     const input = e.target.name;
 
     listStore
-      .setItem(name, setItam)
+      .setItem(name, {
+        tempo,
+        beat,
+      })
       .then(() => {
         updateItems();
         input.value = '';
@@ -129,8 +131,8 @@ export default connect(
             placeholder="Save as..."
             onChange={handleChangeEvent.bind(this)}
           />
-          <ListItemInfoTempo>BPM:{updateTempo.tempo}</ListItemInfoTempo>
-          <ListItemInfoBeat>{updateBeat.beat}</ListItemInfoBeat>
+          <ListItemInfoTempo>BPM:{tempo}</ListItemInfoTempo>
+          <ListItemInfoBeat>{beat}</ListItemInfoBeat>
         </ListItemInfo>
         <ListItemControlle>
           <ListItemControlleSave
