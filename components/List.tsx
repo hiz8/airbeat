@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useState } from 'react';
-import { Dispatch } from 'redux';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import IconSave from 'react-feather/dist/icons/save';
@@ -15,7 +14,7 @@ const mapStateToProps = state => ({
   beat: state.updateBeat.beat,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = dispatch => {
   return {
     updateBeat: (n: string) => dispatch(actions.updateBeat(n)),
     toggleListMenu: () => dispatch(actions.toggleListMenu()),
