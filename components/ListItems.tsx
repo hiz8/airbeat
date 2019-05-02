@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import IconTrash from 'react-feather/dist/icons/trash';
 
 interface IProps {
+  itemKey: string;
   beat: string;
   tempo: string;
   name: string;
@@ -27,7 +28,7 @@ export default (props: IProps): any => {
       </ListItemInfo>
       <ListItemControlle>
         <ListItemControlleDelete
-          data-key={props.name}
+          data-key={props.itemKey}
           onClick={props.deleteItem}
         >
           <IconTrash />

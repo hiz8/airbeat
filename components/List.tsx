@@ -56,7 +56,8 @@ export default connect(
     const input = e.target.name;
 
     listStore
-      .setItem(name, {
+      .setItem({
+        name,
         tempo,
         beat,
       })
@@ -103,14 +104,14 @@ export default connect(
   const list: Array<any> = [];
 
   if (items) {
-    const data = items;
-    Object.keys(data).forEach((name, i) => {
+    Object.keys(items).forEach((key, i) => {
       list.push(
         <ListItems
           key={i}
-          name={name}
-          tempo={data[name].tempo}
-          beat={data[name].beat}
+          itemKey={key}
+          name={items[key].name}
+          tempo={items[key].tempo}
+          beat={items[key].beat}
           setItem={setItem}
           deleteItem={deleteItem.bind(this)}
         />,

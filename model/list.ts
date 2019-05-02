@@ -1,5 +1,12 @@
 import * as localforage from 'localforage';
 import 'localforage-getitems';
+import uuidv4 from 'uuid/v4';
+
+export type TSet = {
+  name: string;
+  tempo: number;
+  beat: string;
+};
 
 export default class List {
   private myLF: any;
@@ -21,11 +28,11 @@ export default class List {
     return this.myLF.getItems();
   }
 
-  public setItem(key, value) {
-    return this.myLF.setItem(key, value);
+  public setItem(setData: TSet) {
+    return this.myLF.setItem(uuidv4(), setData);
   }
 
-  public removeItem(key) {
+  public removeItem(key: string) {
     return this.myLF.removeItem(key);
   }
 }
