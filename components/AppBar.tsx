@@ -17,7 +17,8 @@ class AppBar extends Component<IProps> {
     super(props);
   }
 
-  private _handleListButtonClick() {
+  private _handleListButtonClick(e) {
+    e.preventDefault();
     this.props.toggleListMenu();
   }
 
