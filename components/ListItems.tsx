@@ -2,7 +2,15 @@ import * as React from 'react';
 import styled from 'styled-components';
 import IconTrash from 'react-feather/dist/icons/trash';
 
-export default (props): any => {
+interface IProps {
+  beat: string;
+  tempo: string;
+  name: string;
+  setItem: (e: any) => void;
+  deleteItem: () => void;
+}
+
+export default (props: IProps): any => {
   return (
     <ItemWrapper>
       <ListItemInfo
