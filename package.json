@@ -2,16 +2,20 @@
   "name": "airbeat",
   "version": "0.3.0",
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc"
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "koa-send": "^5.0.0",
     "localforage": "^1.7.3",
     "localforage-getitems": "^1.4.2",
     "next": "^8.1.0",
+    "next-offline": "^3.3.8",
     "next-redux-wrapper": "^2.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
