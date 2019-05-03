@@ -30,12 +30,12 @@ class TempoController extends Component<IProps> {
     const plusButton: HTMLElement = document.getElementById('plus');
     const minusButton: HTMLElement = document.getElementById('minus');
 
-    const plusButtonDown$ = fromEvent(plusButton, 'mousedown');
-    const minusButtonDown$ = fromEvent(minusButton, 'mousedown');
-    const plusButtonUp$ = fromEvent(plusButton, 'mouseup').pipe(mapTo(1));
-    const minusButtonUp$ = fromEvent(minusButton, 'mouseup').pipe(mapTo(-1));
+    const plusButtonDown$ = fromEvent(plusButton, 'pointerdown');
+    const minusButtonDown$ = fromEvent(minusButton, 'pointerdown');
+    const plusButtonUp$ = fromEvent(plusButton, 'pointerup').pipe(mapTo(1));
+    const minusButtonUp$ = fromEvent(minusButton, 'pointerup').pipe(mapTo(-1));
 
-    const documentUp$ = fromEvent(document, 'mouseup');
+    const documentUp$ = fromEvent(document, 'pointerup');
     const buttonsUp$ = merge(plusButtonUp$, minusButtonUp$);
     const buttonsDown$ = merge(plusButtonDown$, minusButtonDown$).pipe(
       switchMap((e: MouseEvent) => {
