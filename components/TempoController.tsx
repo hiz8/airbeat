@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import { updateTempo } from '../actions';
 
-import { merge, fromEvent } from 'rxjs';
-import { map, mapTo, scan } from 'rxjs/operators';
+import { merge, fromEvent, of, interval } from 'rxjs';
+import { map, mapTo, scan, switchMap, delay, takeUntil } from 'rxjs/operators';
 
 interface IProps {
   updateTempo: (value: number) => void;
@@ -28,11 +28,27 @@ class TempoController extends Component<IProps> {
      * プラス・マイナスボタンのクリックイベントからストリームを生成
      */
     const plusButton: HTMLElement = document.getElementById('plus');
-    const plusStream$ = fromEvent(plusButton, 'click').pipe(mapTo(1));
     const minusButton: HTMLElement = document.getElementById('minus');
-    const minusStream$ = fromEvent(minusButton, 'click').pipe(mapTo(-1));
 
-    const clickStream$ = merge(plusStream$, minusStream$);
+    const plusButtonDown$ = fromEvent(plusButton, 'mousedown');
+    const minusButtonDown$ = fromEvent(minusButton, 'mousedown');
+    const plusButtonUp$ = fromEvent(plusButton, 'mouseup').pipe(mapTo(1));
+    const minusButtonUp$ = fromEvent(minusButton, 'mouseup').pipe(mapTo(-1));
+
+    const documentUp$ = fromEvent(document, 'mouseup');
+    const buttonsUp$ = merge(plusButtonUp$, minusButtonUp$);
+    const buttonsDown$ = merge(plusButtonDown$, minusButtonDown$).pipe(
+      switchMap((e: MouseEvent) => {
+        const value = (e.target as HTMLElement).id === 'plus' ? 1 : -1;
+        return of(e).pipe(
+          delay(300),
+          switchMap(() => {
+            return interval(50).pipe(mapTo(value));
+          }),
+          takeUntil(documentUp$),
+        );
+      }),
+    );
 
     /**
      * Range input の操作からストリームを生成
@@ -47,7 +63,7 @@ class TempoController extends Component<IProps> {
     /**
      * ストリームをマージし、stateの更新へ
      */
-    merge(clickStream$, rangeInputStream$)
+    merge(buttonsUp$, buttonsDown$, rangeInputStream$)
       .pipe(
         scan((acc, curr) => {
           if (curr >= 2) {
