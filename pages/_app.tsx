@@ -3,10 +3,14 @@ import { Store } from 'redux';
 import { Provider } from 'react-redux';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
+import Router from 'next/router';
 import withRedux from 'next-redux-wrapper';
 import { createGlobalStyle } from 'styled-components';
 import { initStore } from '../store';
+import * as gtag from '../lib/gtag';
 import color from '../const/color';
+
+Router.events.on('routeChangeComplete', url => gtag.pageview(url));
 
 interface IProps {
   store: Store;
