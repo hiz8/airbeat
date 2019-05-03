@@ -2,6 +2,24 @@ const withTypescript = require('@zeit/next-typescript');
 const withOffline = require('next-offline');
 
 const nextConfig = {
+  webpack: cfg => {
+    const originalEntry = cfg.entry;
+
+    cfg.entry = async () => {
+      const entries = await originalEntry();
+
+      if (
+        entries['main.js'] &&
+        !entries['main.js'].includes('./lib/polyfills.ts')
+      ) {
+        entries['main.js'].unshift('./lib/polyfills.ts');
+      }
+
+      return entries;
+    };
+
+    return cfg;
+  },
   generateInDevMode: true,
   workboxOpts: {
     globPatterns: ['static/**/*'],

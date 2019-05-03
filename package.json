@@ -18,6 +18,7 @@
     "next": "^8.1.0",
     "next-offline": "^3.3.8",
     "next-redux-wrapper": "^2.1.0",
+    "pepjs": "^0.5.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-feather": "^1.1.6",
