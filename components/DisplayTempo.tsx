@@ -1,12 +1,12 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
 interface IProps {
   tempo: number;
 }
 
-export default class DisplayTempo extends Component<IProps> {
+export default class DisplayTempo extends PureComponent<IProps> {
   constructor(props) {
     super(props);
   }

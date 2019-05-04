@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ interface IProps {
   beat: string;
 }
 
-class BeatController extends Component<IProps> {
+class BeatController extends PureComponent<IProps> {
   constructor(props) {
     super(props);
   }

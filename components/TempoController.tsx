@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ interface IProps {
   tempo: number;
 }
 
-class TempoController extends Component<IProps> {
+class TempoController extends PureComponent<IProps> {
   private readonly MAXIMUM_TEMPO = 208;
   private readonly MINIMUM_TEMPO = 40;
 

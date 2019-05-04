@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ interface IProps {
   listDisplayStatus: boolean;
 }
 
-class AppBar extends Component<IProps> {
+class AppBar extends PureComponent<IProps> {
   constructor(props) {
     super(props);
   }

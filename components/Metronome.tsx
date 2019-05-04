@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ interface IProps {
   beat: string;
 }
 
-class UpdatePlaying extends Component<IProps> {
+class UpdatePlaying extends PureComponent<IProps> {
   private readonly notesInQueue = [];
   private readonly noteLength = 0.05;
   private readonly lookahead = 25.0;
