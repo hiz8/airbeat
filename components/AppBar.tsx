@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -12,27 +12,21 @@ interface IProps {
   listDisplayStatus: boolean;
 }
 
-class AppBar extends PureComponent<IProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  private _handleListButtonClick(e) {
+const AppBar = (props: IProps) => {
+  function handleListButtonClick(e) {
     e.preventDefault();
-    this.props.toggleListMenu();
+    props.toggleListMenu();
   }
 
-  public render() {
-    const Icon = this.props.listDisplayStatus ? <IconX /> : <IconList />;
-    return (
-      <NavBar>
-        <ListButton href="#" onClick={this._handleListButtonClick.bind(this)}>
-          {Icon}
-        </ListButton>
-      </NavBar>
-    );
-  }
-}
+  const Icon = props.listDisplayStatus ? <IconX /> : <IconList />;
+  return (
+    <NavBar>
+      <ListButton href="#" onClick={handleListButtonClick.bind(this)}>
+        {Icon}
+      </ListButton>
+    </NavBar>
+  );
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -43,7 +37,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps,
-)(AppBar);
+)(React.memo(AppBar));
 
 const NavBar = styled.nav`
   display: flex;
