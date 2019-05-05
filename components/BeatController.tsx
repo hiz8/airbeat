@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -11,36 +11,27 @@ interface IProps {
   beat: string;
 }
 
-class BeatController extends PureComponent<IProps> {
-  constructor(props) {
-    super(props);
+const BeatController = (props: IProps) => {
+  function handleBeatSelectChange(e) {
+    props.updateBeat(e.target.value);
   }
 
-  private _handleBeatSelectChange(e) {
-    this.props.updateBeat(e.target.value);
-  }
+  const options = [];
 
-  public render() {
-    const options = [];
-
-    for (let i in Beats) {
-      options.push(
-        <option value={Beats[i]} key={i}>
-          {Beats[i]}
-        </option>,
-      );
-    }
-
-    return (
-      <Select
-        onChange={this._handleBeatSelectChange.bind(this)}
-        value={this.props.beat}
-      >
-        {options}
-      </Select>
+  for (let i in Beats) {
+    options.push(
+      <option value={Beats[i]} key={i}>
+        {Beats[i]}
+      </option>,
     );
   }
-}
+
+  return (
+    <Select onChange={handleBeatSelectChange.bind(this)} value={props.beat}>
+      {options}
+    </Select>
+  );
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -51,7 +42,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps,
-)(BeatController);
+)(React.memo(BeatController));
 
 const Select = styled.select`
   padding: 5px;

@@ -1,26 +1,18 @@
 /* eslint-disable */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 interface IProps {
   tempo: number;
 }
 
-export default class DisplayTempo extends PureComponent<IProps> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
-    const { tempo } = this.props;
-
-    return (
-      <OutputTempo>
-        <OutputTempoValue>{tempo}</OutputTempoValue>
-      </OutputTempo>
-    );
-  }
-}
+export default React.memo((props: IProps) => {
+  return (
+    <OutputTempo>
+      <OutputTempoValue>{props.tempo}</OutputTempoValue>
+    </OutputTempo>
+  );
+});
 
 const OutputTempo = styled.div`
   display: flex;
