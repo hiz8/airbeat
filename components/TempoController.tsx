@@ -16,14 +16,14 @@ interface IProps {
 class TempoController extends PureComponent<IProps> {
   private readonly MAXIMUM_TEMPO = 208;
   private readonly MINIMUM_TEMPO = 40;
-  private readonly plusButton: React.RefObject<HTMLElement>;
-  private readonly minusButton: React.RefObject<HTMLElement>;
+  private readonly plusButton: React.RefObject<HTMLButtonElement>;
+  private readonly minusButton: React.RefObject<HTMLButtonElement>;
 
   constructor(props) {
     super(props);
 
-    this.plusButton = React.createRef();
-    this.minusButton = React.createRef();
+    this.plusButton = React.createRef<HTMLButtonElement>();
+    this.minusButton = React.createRef<HTMLButtonElement>();
   }
 
   private _handleChangeEvent(): void {}
