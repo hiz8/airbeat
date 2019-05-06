@@ -26,14 +26,18 @@ class UpdatePlaying extends PureComponent<IProps> {
   private audioCtx: AudioContext;
   private timerWorker: Worker;
 
+  private readonly playButton: React.RefObject<HTMLButtonElement>;
+
   constructor(props) {
     super(props);
+
+    this.playButton = React.createRef<HTMLButtonElement>();
   }
 
   private _draw() {
     let currentNote = this.last16thNoteDrawn;
     const currentTime = this.audioCtx.currentTime;
-    const button = document.getElementById('playButton');
+    const button = this.playButton.current;
 
     while (
       this.notesInQueue.length &&
@@ -181,7 +185,7 @@ class UpdatePlaying extends PureComponent<IProps> {
       <Button
         onClick={this._handleButtonClick}
         runStatus={runStatus}
-        id="playButton"
+        ref={this.playButton}
       >
         {runStatusText}
       </Button>
