@@ -16,9 +16,14 @@ interface IProps {
 class TempoController extends PureComponent<IProps> {
   private readonly MAXIMUM_TEMPO = 208;
   private readonly MINIMUM_TEMPO = 40;
+  private readonly plusButton: React.RefObject<HTMLElement>;
+  private readonly minusButton: React.RefObject<HTMLElement>;
 
   constructor(props) {
     super(props);
+
+    this.plusButton = React.createRef();
+    this.minusButton = React.createRef();
   }
 
   private _handleChangeEvent(): void {}
@@ -27,8 +32,8 @@ class TempoController extends PureComponent<IProps> {
     /**
      * プラス・マイナスボタンのクリックイベントからストリームを生成
      */
-    const plusButton: HTMLElement = document.getElementById('plus');
-    const minusButton: HTMLElement = document.getElementById('minus');
+    const plusButton = this.plusButton.current;
+    const minusButton = this.minusButton.current;
 
     const plusButtonDown$ = fromEvent(plusButton, 'pointerdown');
     const minusButtonDown$ = fromEvent(minusButton, 'pointerdown');
@@ -87,7 +92,7 @@ class TempoController extends PureComponent<IProps> {
   public render() {
     return (
       <Controller>
-        <MinusButton type="button" id="minus" />
+        <MinusButton type="button" id="minus" ref={this.minusButton} />
 
         <Slider>
           <SliderInput
@@ -101,7 +106,7 @@ class TempoController extends PureComponent<IProps> {
           />
         </Slider>
 
-        <PlusButton type="button" id="plus" />
+        <PlusButton type="button" id="plus" ref={this.plusButton} />
       </Controller>
     );
   }
