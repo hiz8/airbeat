@@ -82,9 +82,11 @@ class UpdatePlaying extends PureComponent<IProps> {
       // start playing
       this.timerWorker.postMessage('stop');
     } else {
-      this.current16thNote = 0;
-      this.nextNoteTime = this.audioCtx.currentTime;
       this.timerWorker.postMessage('start');
+      setTimeout(() => {
+        this.current16thNote = 0;
+        this.nextNoteTime = this.audioCtx.currentTime;
+      }, 10);
     }
 
     this.props.updateRunStatus();
