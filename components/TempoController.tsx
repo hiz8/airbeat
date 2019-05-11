@@ -92,7 +92,13 @@ class TempoController extends PureComponent<IProps> {
   public render() {
     return (
       <Controller>
-        <MinusButton type="button" id="minus" ref={this.minusButton} />
+        <MinusButton
+          type="button"
+          id="minus"
+          ref={this.minusButton}
+          title="Subtract tempo"
+          aria-label="Subtract tempo"
+        />
 
         <Slider>
           <SliderInput
@@ -106,7 +112,13 @@ class TempoController extends PureComponent<IProps> {
           />
         </Slider>
 
-        <PlusButton type="button" id="plus" ref={this.plusButton} />
+        <PlusButton
+          type="button"
+          id="plus"
+          ref={this.plusButton}
+          title="Add tempo"
+          aria-label="Add tempo"
+        />
       </Controller>
     );
   }
