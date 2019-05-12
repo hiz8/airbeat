@@ -129,6 +129,7 @@ class UpdatePlaying extends PureComponent<IProps> {
     }
 
     const oscillator = this.audioCtx.createOscillator();
+    oscillator.type = 'square';
     oscillator.connect(this.audioCtx.destination);
 
     if (beatNumber % 16 === 0) {
