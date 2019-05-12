@@ -19,9 +19,18 @@ const AppBar = (props: IProps) => {
   }
 
   const Icon = props.listDisplayStatus ? <IconX /> : <IconList />;
+  const labelText = props.listDisplayStatus
+    ? 'Close set list'
+    : 'Open set list';
+
   return (
     <NavBar>
-      <ListButton href="#" onClick={handleListButtonClick.bind(this)}>
+      <ListButton
+        type="button"
+        onClick={handleListButtonClick.bind(this)}
+        aria-label={labelText}
+        title={labelText}
+      >
         {Icon}
       </ListButton>
     </NavBar>
@@ -42,7 +51,9 @@ export default connect(
 const NavBar = styled.nav`
   display: flex;
 `;
-const ListButton = styled.a`
+const ListButton = styled.button`
+  background: none;
+  border: none;
   margin-left: auto;
   width: 44px;
   height: 44px;
