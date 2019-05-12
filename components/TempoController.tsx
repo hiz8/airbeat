@@ -109,6 +109,7 @@ class TempoController extends PureComponent<IProps> {
             step="1"
             value={this.props.tempo}
             onChange={this._handleChangeEvent}
+            aria-label="Set the tempo"
           />
         </Slider>
 

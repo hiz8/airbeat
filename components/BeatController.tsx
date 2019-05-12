@@ -27,7 +27,11 @@ const BeatController = (props: IProps) => {
   }
 
   return (
-    <Select onChange={handleBeatSelectChange.bind(this)} value={props.beat}>
+    <Select
+      onChange={handleBeatSelectChange.bind(this)}
+      value={props.beat}
+      aria-label="Set the beat"
+    >
       {options}
     </Select>
   );
