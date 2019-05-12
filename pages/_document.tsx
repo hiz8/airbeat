@@ -19,7 +19,7 @@ export default class MyDocument extends Document<IProps> {
 
   public render() {
     return (
-      <html>
+      <html lang="en">
         <Head>
           <meta
             name="description"

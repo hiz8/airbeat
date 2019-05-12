@@ -28,7 +28,7 @@ export default connect(state => state)(
   },
 );
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   font-size: 2.4em;
   height: calc(100vh - 44px);
   display: flex;
