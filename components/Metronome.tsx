@@ -162,6 +162,10 @@ class UpdatePlaying extends PureComponent<IProps> {
   }
 
   public componentDidMount() {
+    // For Safari
+    (window as any).AudioContext =
+      (window as any).AudioContext || (window as any).webkitAudioContext;
+
     this.audioCtx = new AudioContext();
     requestAnimationFrame(this._draw.bind(this)); // start the drawing loop.
 
