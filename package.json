@@ -27,7 +27,8 @@
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.5.1",
     "styled-components": "^4.2.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "web-animations-js": "^2.3.1"
   },
   "license": "ISC",
   "devDependencies": {
