@@ -102,7 +102,7 @@ const TempoController = (props: IProps) => {
           min={MINIMUM_TEMPO}
           max={MAXIMUM_TEMPO}
           step="1"
-          value={props.tempo}
+          defaultValue={props.tempo}
           aria-label="Set the tempo"
         />
       </Slider>
