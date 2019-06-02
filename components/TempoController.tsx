@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { PureComponent } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -8,37 +8,31 @@ import { updateTempo } from '../actions';
 import { merge, fromEvent, of, interval } from 'rxjs';
 import { map, mapTo, scan, switchMap, delay, takeUntil } from 'rxjs/operators';
 
+const MAXIMUM_TEMPO = 208;
+const MINIMUM_TEMPO = 40;
+
 interface IProps {
   updateTempo: (value: number) => void;
   tempo: number;
 }
 
-class TempoController extends PureComponent<IProps> {
-  private readonly MAXIMUM_TEMPO = 208;
-  private readonly MINIMUM_TEMPO = 40;
-  private readonly plusButton: React.RefObject<HTMLButtonElement>;
-  private readonly minusButton: React.RefObject<HTMLButtonElement>;
+const TempoController = (props: IProps) => {
+  const plusButton = useRef<HTMLButtonElement>(null);
+  const minusButton = useRef<HTMLButtonElement>(null);
 
-  constructor(props) {
-    super(props);
-
-    this.plusButton = React.createRef<HTMLButtonElement>();
-    this.minusButton = React.createRef<HTMLButtonElement>();
-  }
-
-  private _handleChangeEvent(): void {}
-
-  public componentDidMount() {
+  useEffect(() => {
     /**
      * プラス・マイナスボタンのクリックイベントからストリームを生成
      */
-    const plusButton = this.plusButton.current;
-    const minusButton = this.minusButton.current;
 
-    const plusButtonDown$ = fromEvent(plusButton, 'pointerdown');
-    const minusButtonDown$ = fromEvent(minusButton, 'pointerdown');
-    const plusButtonUp$ = fromEvent(plusButton, 'pointerup').pipe(mapTo(1));
-    const minusButtonUp$ = fromEvent(minusButton, 'pointerup').pipe(mapTo(-1));
+    const plusButtonDown$ = fromEvent(plusButton.current, 'pointerdown');
+    const minusButtonDown$ = fromEvent(minusButton.current, 'pointerdown');
+    const plusButtonUp$ = fromEvent(plusButton.current, 'pointerup').pipe(
+      mapTo(1),
+    );
+    const minusButtonUp$ = fromEvent(minusButton.current, 'pointerup').pipe(
+      mapTo(-1),
+    );
 
     const documentUp$ = fromEvent(document, 'pointerup');
     const buttonsUp$ = merge(plusButtonUp$, minusButtonUp$);
@@ -68,7 +62,7 @@ class TempoController extends PureComponent<IProps> {
     /**
      * ストリームをマージし、stateの更新へ
      */
-    merge(buttonsUp$, buttonsDown$, rangeInputStream$)
+    const subscription = merge(buttonsUp$, buttonsDown$, rangeInputStream$)
       .pipe(
         scan((acc, curr) => {
           if (curr >= 2) {
@@ -76,54 +70,53 @@ class TempoController extends PureComponent<IProps> {
           } else {
             const math = acc + curr;
 
-            if (this.MINIMUM_TEMPO > math || math > this.MAXIMUM_TEMPO) {
+            if (MINIMUM_TEMPO > math || math > MAXIMUM_TEMPO) {
               return acc;
             } else {
               return math;
             }
           }
-        }, this.props.tempo),
+        }, props.tempo),
       )
       .subscribe(value => {
-        this.props.updateTempo(value);
+        props.updateTempo(value);
       });
-  }
 
-  public render() {
-    return (
-      <Controller>
-        <MinusButton
-          type="button"
-          id="minus"
-          ref={this.minusButton}
-          title="Subtract tempo"
-          aria-label="Subtract tempo"
+    return () => subscription.unsubscribe();
+  }, []);
+
+  return (
+    <Controller>
+      <MinusButton
+        type="button"
+        id="minus"
+        ref={minusButton}
+        title="Subtract tempo"
+        aria-label="Subtract tempo"
+      />
+
+      <Slider>
+        <SliderInput
+          id="range"
+          type="range"
+          min={MINIMUM_TEMPO}
+          max={MAXIMUM_TEMPO}
+          step="1"
+          value={props.tempo}
+          aria-label="Set the tempo"
         />
+      </Slider>
 
-        <Slider>
-          <SliderInput
-            id="range"
-            type="range"
-            min={this.MINIMUM_TEMPO}
-            max={this.MAXIMUM_TEMPO}
-            step="1"
-            value={this.props.tempo}
-            onChange={this._handleChangeEvent}
-            aria-label="Set the tempo"
-          />
-        </Slider>
-
-        <PlusButton
-          type="button"
-          id="plus"
-          ref={this.plusButton}
-          title="Add tempo"
-          aria-label="Add tempo"
-        />
-      </Controller>
-    );
-  }
-}
+      <PlusButton
+        type="button"
+        id="plus"
+        ref={plusButton}
+        title="Add tempo"
+        aria-label="Add tempo"
+      />
+    </Controller>
+  );
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -134,7 +127,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps,
-)(TempoController);
+)(React.memo(TempoController));
 
 const Controller = styled.div`
   display: flex;
