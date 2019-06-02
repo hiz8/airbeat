@@ -85,6 +85,8 @@ const TempoController = (props: IProps) => {
     return () => subscription.unsubscribe();
   }, []);
 
+  function _handleChangeEvent(): void {}
+
   return (
     <Controller>
       <MinusButton
@@ -102,7 +104,8 @@ const TempoController = (props: IProps) => {
           min={MINIMUM_TEMPO}
           max={MAXIMUM_TEMPO}
           step="1"
-          defaultValue={props.tempo}
+          value={props.tempo}
+          onChange={_handleChangeEvent}
           aria-label="Set the tempo"
         />
       </Slider>
