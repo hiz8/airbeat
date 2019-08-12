@@ -1,4 +1,3 @@
-const withTypescript = require('@zeit/next-typescript');
 const withOffline = require('next-offline');
 
 const nextConfig = {
@@ -59,4 +58,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withTypescript(withOffline(nextConfig));
+module.exports = withOffline(nextConfig);
