@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import IconTrash from 'react-feather/dist/icons/trash';
+import { Trash as IconTrash } from 'react-feather';
 
 interface IProps {
   itemKey: string;

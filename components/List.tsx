@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import IconSave from 'react-feather/dist/icons/save';
+import { Save as IconSave } from 'react-feather';
 
 import * as actions from '../actions';
 import ListItems from './ListItems';

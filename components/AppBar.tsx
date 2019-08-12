@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import { toggleListMenu } from '../actions';
-import IconList from 'react-feather/dist/icons/list';
-import IconX from 'react-feather/dist/icons/x';
+import { List as IconList, X as IconX } from 'react-feather';
 
 interface IProps {
   toggleListMenu: () => void;
