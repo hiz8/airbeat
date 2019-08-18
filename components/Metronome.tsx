@@ -5,12 +5,13 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import { updateRunStatus } from '../actions';
 import color from '../const/color';
+import { Beats } from '../reducers/updateBeat';
 
 interface IProps {
   updateRunStatus: () => void;
   runStatus: boolean;
   tempo: number;
-  beat: string;
+  beat: Beats;
 }
 
 class UpdatePlaying extends PureComponent<IProps> {
