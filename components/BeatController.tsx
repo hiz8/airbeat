@@ -46,7 +46,11 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps,
-)(React.memo(BeatController));
+)(
+  React.memo(BeatController, (prevProps, nextProps) => {
+    return prevProps.beat === nextProps.beat;
+  }),
+);
 
 const Select = styled.select`
   padding: 5px;

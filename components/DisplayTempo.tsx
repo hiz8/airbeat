@@ -6,13 +6,18 @@ interface IProps {
   tempo: number;
 }
 
-export default React.memo((props: IProps) => {
-  return (
-    <OutputTempo>
-      <OutputTempoValue>{props.tempo}</OutputTempoValue>
-    </OutputTempo>
-  );
-});
+export default React.memo(
+  (props: IProps) => {
+    return (
+      <OutputTempo>
+        <OutputTempoValue>{props.tempo}</OutputTempoValue>
+      </OutputTempo>
+    );
+  },
+  (prevProps, nextProps) => {
+    return prevProps.tempo === nextProps.tempo;
+  },
+);
 
 const OutputTempo = styled.div`
   display: flex;
