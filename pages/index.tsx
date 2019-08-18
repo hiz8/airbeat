@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Page from '../components/Page';
 
-class Counter extends React.Component {
-  public static getInitialProps({ isServer }) {
-    return { isServer };
-  }
-
-  componentDidMount = () => {
+export default () => {
+  useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('./service-worker.js')
@@ -14,11 +10,7 @@ class Counter extends React.Component {
     } else {
       console.log('Service worker not supported');
     }
-  };
+  });
 
-  public render() {
-    return <Page />;
-  }
-}
-
-export default Counter;
+  return <Page />;
+};

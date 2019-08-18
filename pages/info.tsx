@@ -5,38 +5,30 @@ import styled from 'styled-components';
 import color from '../const/color';
 import { ArrowLeft as IconArrowLeft } from 'react-feather';
 
-class Info extends React.Component {
-  public static getInitialProps({ isServer }) {
-    return { isServer };
-  }
-
-  public render() {
-    return (
-      <InfoWrapper>
-        <Head>
-          <title>Information - airbeat</title>
-        </Head>
-        <div>
-          <Link href="/">
-            <InfoButton>
-              <IconArrowLeft />
-            </InfoButton>
-          </Link>
-        </div>
-        <Main>
-          <Logo>
-            <img src="/static/img/icons/logo.svg" alt="" />
-          </Logo>
-          <Title>airbeat</Title>
-          <Description>Offline supported metronome application</Description>
-        </Main>
-        <Copyright>© 2019 plyr.</Copyright>
-      </InfoWrapper>
-    );
-  }
-}
-
-export default Info;
+export default () => {
+  return (
+    <InfoWrapper>
+      <Head>
+        <title>Information - airbeat</title>
+      </Head>
+      <div>
+        <Link href="/">
+          <InfoButton>
+            <IconArrowLeft />
+          </InfoButton>
+        </Link>
+      </div>
+      <Main>
+        <Logo>
+          <img src="/static/img/icons/logo.svg" alt="" />
+        </Logo>
+        <Title>airbeat</Title>
+        <Description>Offline supported metronome application</Description>
+      </Main>
+      <Copyright>© 2019 plyr.</Copyright>
+    </InfoWrapper>
+  );
+};
 
 const InfoWrapper = styled.div`
   position: absolute;
