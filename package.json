@@ -5,7 +5,8 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production PORT=3400 node server.js",
-    "pm2": "pm2 start npm --name \"airbeat\" -- start"
+    "pm2": "pm2 start npm --name \"airbeat\" -- start",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
