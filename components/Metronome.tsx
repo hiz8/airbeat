@@ -52,7 +52,7 @@ class UpdatePlaying extends PureComponent<IProps> {
     if (this.last16thNoteDrawn != currentNote) {
       this.last16thNoteDrawn = currentNote;
 
-      if (currentNote % 4 === 0) {
+      if (currentNote % 12 === 0) {
         const activeColor =
           currentNote === 0 ? color.SECONDARY : color.TERTIARY;
         button.animate(
@@ -120,11 +120,15 @@ class UpdatePlaying extends PureComponent<IProps> {
     const noteResolution = this.props.beat;
 
     // beat に応じて
-    if (noteResolution === '8beat' && beatNumber % 2) {
+    if (noteResolution === '16beat' && beatNumber % 3) {
       return;
     }
 
-    if (noteResolution === '4beat' && beatNumber % 4) {
+    if (noteResolution === '8beat' && beatNumber % 6) {
+      return;
+    }
+
+    if (noteResolution === '4beat' && beatNumber % 12) {
       return;
     }
 
@@ -132,7 +136,7 @@ class UpdatePlaying extends PureComponent<IProps> {
     oscillator.type = 'square';
     oscillator.connect(this.audioCtx.destination);
 
-    if (beatNumber % 16 === 0) {
+    if (beatNumber % 48 === 0) {
       // beat 0 == high pitch
       oscillator.frequency.value = 880.0;
     } else if (beatNumber % 4 === 0) {
@@ -151,12 +155,12 @@ class UpdatePlaying extends PureComponent<IProps> {
    * 16分音符で現在のノートと時間を進める
    */
   private _nextNote(): void {
-    let secondsPerBeat = 60.0 / this.props.tempo;
+    let secondsPerBeat = 20 / this.props.tempo;
 
     this.nextNoteTime += 0.25 * secondsPerBeat;
     this.current16thNote++;
 
-    if (this.current16thNote == 16) {
+    if (this.current16thNote === 48) {
       this.current16thNote = 0;
     }
   }
