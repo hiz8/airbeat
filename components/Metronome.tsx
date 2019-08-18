@@ -38,7 +38,7 @@ class UpdatePlaying extends PureComponent<IProps> {
   private _draw() {
     let currentNote = this.last16thNoteDrawn;
     const currentTime = this.audioCtx.currentTime;
-    const button = this.playButton.current;
+    const button = this.playButton.current || null;
 
     while (
       this.notesInQueue.length &&
