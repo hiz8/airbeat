@@ -133,19 +133,33 @@ class UpdatePlaying extends PureComponent<IProps> {
       return;
     }
 
+    if (noteResolution === 'Triplet' && beatNumber % 4) {
+      return;
+    }
+
     const oscillator = this.audioCtx.createOscillator();
     oscillator.type = 'square';
     oscillator.connect(this.audioCtx.destination);
 
-    if (beatNumber % 48 === 0) {
-      // beat 0 == high pitch
-      oscillator.frequency.value = 880.0;
-    } else if (beatNumber % 4 === 0) {
-      // quarter notes = medium pitch / 四分音符=中音域
-      oscillator.frequency.value = 440.0;
+    if (noteResolution === 'Triplet') {
+      if (beatNumber % 48 === 0) {
+        oscillator.frequency.value = 880.0;
+      } else if (beatNumber % 6 === 0) {
+        oscillator.frequency.value = 440.0;
+      } else {
+        oscillator.frequency.value = 320.0;
+      }
     } else {
-      // other 16th notes = low pitch / その他の16th notes =ロー・ピッチ
-      oscillator.frequency.value = 320.0;
+      if (beatNumber % 48 === 0) {
+        // beat 0 == high pitch
+        oscillator.frequency.value = 880.0;
+      } else if (beatNumber % 4 === 0) {
+        // quarter notes = medium pitch / 四分音符=中音域
+        oscillator.frequency.value = 440.0;
+      } else {
+        // other 16th notes = low pitch / その他の16th notes =ロー・ピッチ
+        oscillator.frequency.value = 320.0;
+      }
     }
 
     oscillator.start(time);

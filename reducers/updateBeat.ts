@@ -4,6 +4,7 @@ export enum Beats {
   OPTION1 = '4beat',
   DEFAULT = '8beat',
   OPTION2 = '16beat',
+  OPTION3 = 'Triplet',
 }
 
 export type State = {
