@@ -203,6 +203,12 @@ class UpdatePlaying extends PureComponent<IProps> {
     });
   }
 
+  public componentWillUnmount() {
+    this.timerWorker.postMessage('stop');
+    this.timerWorker.terminate();
+    this.props.updateRunStatus();
+  }
+
   public render() {
     const { runStatus } = this.props;
     const runStatusText = runStatus ? 'Stop' : 'Play';
