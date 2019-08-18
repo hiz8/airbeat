@@ -1,3 +1,4 @@
+const withTypescript = require('@zeit/next-typescript');
 const withOffline = require('next-offline');
 
 const nextConfig = {
@@ -29,14 +30,14 @@ const nextConfig = {
     runtimeCaching: [
       {
         urlPattern: '/',
-        handler: 'NetworkFirst',
+        handler: 'networkFirst',
         options: {
           cacheName: 'html-cache',
         },
       },
       {
         urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif)/,
-        handler: 'CacheFirst',
+        handler: 'cacheFirst',
         options: {
           cacheName: 'image-cache',
           cacheableResponse: {
@@ -46,7 +47,7 @@ const nextConfig = {
       },
       {
         urlPattern: /.*\.(?:ttf|woff|woff2)/,
-        handler: 'CacheFirst',
+        handler: 'cacheFirst',
         options: {
           cacheName: 'font-cache',
           cacheableResponse: {
@@ -58,4 +59,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withOffline(nextConfig);
+module.exports = withTypescript(withOffline(nextConfig));
