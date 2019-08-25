@@ -107,6 +107,7 @@ const TempoController = (props: IProps) => {
           value={props.tempo}
           onChange={_handleChangeEvent}
           aria-label="Set the tempo"
+          autoComplete="off"
         />
       </Slider>
 
