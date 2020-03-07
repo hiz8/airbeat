@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { actions } from '../modules/metronome';
 
@@ -12,11 +11,11 @@ const MAXIMUM_TEMPO = 208;
 const MINIMUM_TEMPO = 40;
 
 interface IProps {
-  updateTempo: (value: number) => void;
   tempo: number;
 }
 
-const TempoController = (props: IProps) => {
+function TempoController(props: IProps): JSX.Element {
+  const dispatch = useDispatch();
   const plusButton = useRef<HTMLButtonElement>(null);
   const minusButton = useRef<HTMLButtonElement>(null);
 
@@ -79,7 +78,7 @@ const TempoController = (props: IProps) => {
         }, props.tempo),
       )
       .subscribe(value => {
-        props.updateTempo(value);
+        dispatch(actions.updateTempo(value));
       });
 
     return () => subscription.unsubscribe();
@@ -120,15 +119,9 @@ const TempoController = (props: IProps) => {
       />
     </Controller>
   );
-};
+}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateTempo: bindActionCreators(actions.updateTempo, dispatch),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(React.memo(TempoController));
+export default React.memo(TempoController);
 
 const Controller = styled.div`
   display: flex;

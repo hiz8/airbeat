@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Metronome from './Metronome';
 import TempoController from './TempoController';
@@ -6,25 +6,27 @@ import BeatController from './BeatController';
 import DisplayTempo from './DisplayTempo';
 import List from './List';
 import AppBar from './AppBar';
+import { RootState } from '../store';
 
-export default connect(state => state)(({ metronome, ui }: any) => {
+export default function Page() {
+  const { tempo, beat, runStatus } = useSelector(
+    (state: RootState) => state.metronome,
+  );
+  const { listDisplayStatus } = useSelector((state: RootState) => state.ui);
+
   return (
     <>
-      <AppBar listDisplayStatus={ui.listDisplayStatus} />
+      <AppBar listDisplayStatus={listDisplayStatus} />
       <Wrapper>
-        <DisplayTempo tempo={metronome.tempo} />
-        <TempoController tempo={metronome.tempo} />
-        <BeatController beat={metronome.beat} />
-        <Metronome
-          runStatus={metronome.runStatus}
-          tempo={metronome.tempo}
-          beat={metronome.beat}
-        />
+        <DisplayTempo tempo={tempo} />
+        <TempoController tempo={tempo} />
+        <BeatController beat={beat} />
+        <Metronome runStatus={runStatus} tempo={tempo} beat={beat} />
       </Wrapper>
-      {ui.listDisplayStatus ? <List /> : null}
+      {listDisplayStatus ? <List /> : null}
     </>
   );
-});
+}
 
 const Wrapper = styled.main`
   font-size: 2.4em;

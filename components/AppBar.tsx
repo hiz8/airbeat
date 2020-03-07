@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { actions } from '../modules/ui';
@@ -12,14 +11,15 @@ import {
 } from 'react-feather';
 
 interface IProps {
-  toggleListMenu: () => void;
   listDisplayStatus: boolean;
 }
 
-const AppBar = (props: IProps) => {
+function AppBar(props: IProps): JSX.Element {
+  const dispatch = useDispatch();
+
   function handleListButtonClick(e) {
     e.preventDefault();
-    props.toggleListMenu();
+    dispatch(actions.toggleListMenu());
   }
 
   const IconList = props.listDisplayStatus ? (
@@ -48,15 +48,9 @@ const AppBar = (props: IProps) => {
       </ListButton>
     </NavBar>
   );
-};
+}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleListMenu: bindActionCreators(actions.toggleListMenu, dispatch),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(React.memo(AppBar));
+export default React.memo(AppBar);
 
 const NavBar = styled.nav`
   display: flex;

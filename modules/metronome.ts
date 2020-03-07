@@ -26,7 +26,7 @@ const initialState: State = {
   tempo: 120,
 };
 
-export default function reducer(state = initialState, action: any) {
+export default function reducer(state = initialState, action: any): State {
   switch (action.type) {
     case actionTypes.UPDATE_BEAT:
       return {

@@ -1,18 +1,18 @@
 /* eslint-disable */
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { actions, Beats } from '../modules/metronome';
 
 interface IProps {
-  updateBeat: (value: string) => void;
   beat: string;
 }
 
-const BeatController = (props: IProps) => {
+function BeatController(props: IProps): JSX.Element {
+  const dispatch = useDispatch();
+
   function handleBeatSelectChange(e) {
-    props.updateBeat(e.target.value);
+    dispatch(actions.updateBeat(e.target.value));
   }
 
   const options = [];
@@ -34,22 +34,11 @@ const BeatController = (props: IProps) => {
       {options}
     </Select>
   );
-};
+}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateBeat: bindActionCreators(actions.updateBeat, dispatch),
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(
-  React.memo(BeatController, (prevProps, nextProps) => {
-    return prevProps.beat === nextProps.beat;
-  }),
-);
+export default React.memo(BeatController, (prevProps, nextProps) => {
+  return prevProps.beat === nextProps.beat;
+});
 
 const Select = styled.select`
   padding: 5px;

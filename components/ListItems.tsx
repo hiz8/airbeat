@@ -11,7 +11,7 @@ interface IProps {
   deleteItem: () => void;
 }
 
-export default (props: IProps): any => {
+export default (props: IProps): JSX.Element => {
   return (
     <ItemWrapper>
       <ListItemInfo

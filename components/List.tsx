@@ -1,34 +1,22 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch, batch } from 'react-redux';
 import { Save as IconSave } from 'react-feather';
 
 import { actions } from '../modules/metronome';
 import { actions as uiActions } from '../modules/ui';
 import ListItems from './ListItems';
 import ListStore from '../model/list';
+import { RootState } from '../store';
 const listStore = new ListStore();
 
-const mapStateToProps = state => ({
-  tempo: state.metronome.tempo,
-  beat: state.metronome.beat,
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    updateBeat: (n: string) => dispatch(actions.updateBeat(n)),
-    toggleListMenu: () => dispatch(uiActions.toggleListMenu()),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(({ updateBeat, toggleListMenu, tempo, beat }: any) => {
+export default function List(): JSX.Element {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
   const [items, setItems] = useState(null);
+  const dispatch = useDispatch();
+  const { tempo, beat } = useSelector((state: RootState) => state.metronome);
 
   function handleChangeEvent(e) {
     if (e.target.value.length) {
@@ -93,8 +81,10 @@ export default connect(
 
     const { tempo, beat } = e.currentTarget.dataset;
 
-    updateBeat(beat);
-    toggleListMenu();
+    batch(() => {
+      dispatch(actions.updateBeat(beat));
+      dispatch(uiActions.toggleListMenu());
+    });
 
     const event = new CustomEvent('input');
     const tempoInput: any = document.getElementById('range');
@@ -149,7 +139,7 @@ export default connect(
       {list}
     </ListWrapper>
   );
-});
+}
 
 const ListWrapper = styled.ul`
   position: absolute;
