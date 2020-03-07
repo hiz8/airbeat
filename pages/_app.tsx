@@ -1,7 +1,7 @@
 import React from 'react';
 import { Store } from 'redux';
 import { Provider } from 'react-redux';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
 import withRedux from 'next-redux-wrapper';
@@ -29,7 +29,7 @@ class MyApp extends App<IProps> {
     const { Component, pageProps, store } = this.props;
 
     return (
-      <Container>
+      <>
         <GlobalStyle />
         <Head>
           <title>airbeat</title>
@@ -37,7 +37,7 @@ class MyApp extends App<IProps> {
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>
-      </Container>
+      </>
     );
   }
 }
