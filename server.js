@@ -1,8 +1,7 @@
-const path = require('path');
-const Koa = require('koa');
+const { createServer } = require('http');
+const { join } = require('path');
+const { parse } = require('url');
 const next = require('next');
-const Router = require('koa-router');
-const send = require('koa-send');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -10,25 +9,19 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  const server = new Koa();
-  const router = new Router();
+  createServer((req, res) => {
+    const parsedUrl = parse(req.url, true);
+    const { pathname } = parsedUrl;
 
-  router.get('/service-worker.js', async ctx => {
-    const filePath = path.join(__dirname, '/sw.js');
-
-    await send(ctx, '/service-worker.js', {
-      root: __dirname + '/.next',
-      maxage: 86400,
-    });
-  });
-
-  router.get('*', async ctx => {
-    await handle(ctx.req, ctx.res);
-    ctx.respond = false;
-  });
-
-  server.use(router.routes());
-  server.listen(port, () => {
+    // handle GET request to /service-worker.js
+    if (pathname === '/service-worker.js') {
+      const filePath = join(__dirname, '.next', pathname);
+      app.serveStatic(req, res, filePath);
+    } else {
+      handle(req, res, parsedUrl);
+    }
+  }).listen(port, err => {
+    if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
