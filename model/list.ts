@@ -29,7 +29,7 @@ export default class List {
   }
 
   public setItem(setData: TSet) {
-    return this.myLF.setItem(shortid.generateId(), setData);
+    return this.myLF.setItem(shortid.generate(), setData);
   }
 
   public removeItem(key: string) {
