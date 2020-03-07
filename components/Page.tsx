@@ -7,26 +7,24 @@ import DisplayTempo from './DisplayTempo';
 import List from './List';
 import AppBar from './AppBar';
 
-export default connect(state => state)(
-  ({ updateRunStatus, updateTempo, updateBeat, toggleListMenu }: any) => {
-    return (
-      <>
-        <AppBar listDisplayStatus={toggleListMenu.listDisplayStatus} />
-        <Wrapper>
-          <DisplayTempo tempo={updateTempo.tempo} />
-          <TempoController tempo={updateTempo.tempo} />
-          <BeatController beat={updateBeat.beat} />
-          <Metronome
-            runStatus={updateRunStatus.runStatus}
-            tempo={updateTempo.tempo}
-            beat={updateBeat.beat}
-          />
-        </Wrapper>
-        {toggleListMenu.listDisplayStatus ? <List /> : null}
-      </>
-    );
-  },
-);
+export default connect(state => state)(({ metronome, ui }: any) => {
+  return (
+    <>
+      <AppBar listDisplayStatus={ui.listDisplayStatus} />
+      <Wrapper>
+        <DisplayTempo tempo={metronome.tempo} />
+        <TempoController tempo={metronome.tempo} />
+        <BeatController beat={metronome.beat} />
+        <Metronome
+          runStatus={metronome.runStatus}
+          tempo={metronome.tempo}
+          beat={metronome.beat}
+        />
+      </Wrapper>
+      {ui.listDisplayStatus ? <List /> : null}
+    </>
+  );
+});
 
 const Wrapper = styled.main`
   font-size: 2.4em;

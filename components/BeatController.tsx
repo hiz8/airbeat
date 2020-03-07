@@ -3,8 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { updateBeat } from '../actions';
-import { Beats } from '../reducers/updateBeat';
+import { actions, Beats } from '../modules/metronome';
 
 interface IProps {
   updateBeat: (value: string) => void;
@@ -39,7 +38,7 @@ const BeatController = (props: IProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateBeat: bindActionCreators(updateBeat, dispatch),
+    updateBeat: bindActionCreators(actions.updateBeat, dispatch),
   };
 };
 

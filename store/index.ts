@@ -1,7 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
-import reducer from '../reducers';
+import metronomeReducer from '../modules/metronome';
+import uiReducer from '../modules/ui';
+
+const rootReducer = combineReducers({
+  metronome: metronomeReducer,
+  ui: uiReducer,
+});
+
+export type RootState = ReturnType<typeof rootReducer>;
 
 /**
  * @param {object} initialState
@@ -11,9 +19,9 @@ import reducer from '../reducers';
  * @param {boolean} options.debug ユーザ定義デバッグモードパラメータ
  * @param {string} options.storeKey このキーは安全なHMRのためにグローバル名前空間にストアを保存するために使用されます
  */
-export const initStore = (initialState, _options) => {
+export const initStore = (initialState: RootState, _options) => {
   return createStore(
-    reducer,
+    rootReducer,
     initialState,
     composeWithDevTools(applyMiddleware(thunkMiddleware)),
   );

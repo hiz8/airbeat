@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { updateTempo } from '../actions';
+import { actions } from '../modules/metronome';
 
 import { merge, fromEvent, of, interval } from 'rxjs';
 import { map, mapTo, scan, switchMap, delay, takeUntil } from 'rxjs/operators';
@@ -124,14 +124,11 @@ const TempoController = (props: IProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateTempo: bindActionCreators(updateTempo, dispatch),
+    updateTempo: bindActionCreators(actions.updateTempo, dispatch),
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(React.memo(TempoController));
+export default connect(null, mapDispatchToProps)(React.memo(TempoController));
 
 const Controller = styled.div`
   display: flex;

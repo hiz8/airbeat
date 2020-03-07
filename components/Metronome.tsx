@@ -3,9 +3,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { updateRunStatus } from '../actions';
 import color from '../const/color';
-import { Beats } from '../reducers/updateBeat';
+import { actions, Beats } from '../modules/metronome';
 
 interface IProps {
   updateRunStatus: () => void;
@@ -227,14 +226,11 @@ class UpdatePlaying extends PureComponent<IProps> {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateRunStatus: bindActionCreators(updateRunStatus, dispatch),
+    updateRunStatus: bindActionCreators(actions.updateRunStatus, dispatch),
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(UpdatePlaying);
+export default connect(null, mapDispatchToProps)(UpdatePlaying);
 
 const Button = styled.button`
   box-shadow: none;

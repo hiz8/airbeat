@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { toggleListMenu } from '../actions';
+import { actions } from '../modules/ui';
 import {
   List as IconListOpen,
   X as IconListClose,
@@ -52,14 +52,11 @@ const AppBar = (props: IProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleListMenu: bindActionCreators(toggleListMenu, dispatch),
+    toggleListMenu: bindActionCreators(actions.toggleListMenu, dispatch),
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(React.memo(AppBar));
+export default connect(null, mapDispatchToProps)(React.memo(AppBar));
 
 const NavBar = styled.nav`
   display: flex;

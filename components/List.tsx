@@ -4,20 +4,21 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Save as IconSave } from 'react-feather';
 
-import * as actions from '../actions';
+import { actions } from '../modules/metronome';
+import { actions as uiActions } from '../modules/ui';
 import ListItems from './ListItems';
 import ListStore from '../model/list';
 const listStore = new ListStore();
 
 const mapStateToProps = state => ({
-  tempo: state.updateTempo.tempo,
-  beat: state.updateBeat.beat,
+  tempo: state.metronome.tempo,
+  beat: state.metronome.beat,
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     updateBeat: (n: string) => dispatch(actions.updateBeat(n)),
-    toggleListMenu: () => dispatch(actions.toggleListMenu()),
+    toggleListMenu: () => dispatch(uiActions.toggleListMenu()),
   };
 };
 
