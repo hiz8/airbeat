@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import metronomeReducer from '../modules/metronome';
-import uiReducer from '../modules/ui';
+import metronomeReducer from './modules/metronome';
+import uiReducer from './modules/ui';
 
 const rootReducer = combineReducers({
   metronome: metronomeReducer,
