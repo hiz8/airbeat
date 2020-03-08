@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Router from 'next/router';
 import withRedux from 'next-redux-wrapper';
 import { createGlobalStyle } from 'styled-components';
-import { initStore } from '../store';
+import { configureAppStore } from '../store';
 import * as gtag from '../lib/gtag';
 import color from '../const/color';
 
@@ -45,7 +45,7 @@ class MyApp extends App<IProps> {
 /**
  * @param initStore - 初期化された Store
  */
-export default withRedux(initStore)(MyApp);
+export default withRedux(configureAppStore)(MyApp);
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
