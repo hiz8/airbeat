@@ -1,10 +1,4 @@
-// Actions
-export enum actionTypes {
-  UPDATE_RUN_STATUS = 'UPDATE_RUN_STATUS',
-  UPDATE_TEMPO = 'UPDATE_TEMPO',
-  UPDATE_BEAT = 'UPDATE_BEAT',
-  TOGGLE_LIST_MENU = 'TOGGLE_LIST_MENU',
-}
+import { createSlice } from '@reduxjs/toolkit';
 
 // Reducer
 export enum Beats {
@@ -26,54 +20,27 @@ const initialState: State = {
   tempo: 120,
 };
 
-export default function reducer(state = initialState, action: any): State {
-  switch (action.type) {
-    case actionTypes.UPDATE_BEAT:
-      return {
-        ...state,
-        beat: action.payload,
-      };
+const metronomeSlice = createSlice({
+  name: 'metronome',
+  initialState,
+  reducers: {
+    // ビートを更新
+    updateBeat: (state, action) => {
+      state.beat = action.payload;
+    },
+    // 再生・停止のステータスを切り替え
+    updateRunStatus: state => {
+      state.runStatus = !state.runStatus;
+    },
+    // テンポを更新
+    updateTempo: (state, action) => {
+      state.tempo = action.payload;
+    },
+  },
+});
 
-    case actionTypes.UPDATE_RUN_STATUS:
-      return {
-        ...state,
-        runStatus: !state.runStatus,
-      };
-
-    case actionTypes.UPDATE_TEMPO:
-      return {
-        ...state,
-        tempo: action.payload,
-      };
-
-    default:
-      return state;
-  }
-}
-
-// Action Creators
-/**
- * 再生・停止のステータスを切り替え
- */
-const updateRunStatus = () => dispatch => {
-  return dispatch({ type: actionTypes.UPDATE_RUN_STATUS });
-};
-
-/**
- * テンポを更新
-
- * @param value 変更後のテンポ
- */
-const updateTempo = (value: number) => dispatch => {
-  return dispatch({ type: actionTypes.UPDATE_TEMPO, payload: value });
-};
-
-const updateBeat = (value: string) => dispatch => {
-  return dispatch({ type: actionTypes.UPDATE_BEAT, payload: value });
-};
+export default metronomeSlice.reducer;
 
 export const actions = {
-  updateRunStatus,
-  updateTempo,
-  updateBeat,
+  ...metronomeSlice.actions,
 };

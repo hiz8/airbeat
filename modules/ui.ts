@@ -1,10 +1,6 @@
-// Actions
-export enum actionTypes {
-  TOGGLE_LIST_MENU = 'TOGGLE_LIST_MENU',
-}
+import { createSlice } from '@reduxjs/toolkit';
 
-// Reducer
-export type State = {
+type State = {
   listDisplayStatus: boolean;
 };
 
@@ -12,26 +8,19 @@ const initialState: State = {
   listDisplayStatus: false,
 };
 
-export default function reducer(state = initialState, action: any) {
-  switch (action.type) {
-    case actionTypes.TOGGLE_LIST_MENU:
-      return {
-        ...state,
-        listDisplayStatus: !state.listDisplayStatus,
-      };
-    default:
-      return state;
-  }
-}
+const uiSlice = createSlice({
+  name: 'ui',
+  initialState,
+  reducers: {
+    // 楽曲リストのメニューを切り替え
+    toggleListMenu: state => {
+      state.listDisplayStatus = !state.listDisplayStatus;
+    },
+  },
+});
 
-// Action Creators
-/**
- * 楽曲リストのメニューを切り替え
- */
-const toggleListMenu = () => dispatch => {
-  return dispatch({ type: actionTypes.TOGGLE_LIST_MENU });
-};
+export default uiSlice.reducer;
 
 export const actions = {
-  toggleListMenu,
+  ...uiSlice.actions,
 };
