@@ -5,8 +5,7 @@
     "dev": "next",
     "build": "next build",
     "export": "next export",
-    "start": "NODE_ENV=production PORT=3400 node server.js",
-    "pm2": "pm2 start npm --name \"airbeat\" -- start",
+    "start": "next start",
     "type-check": "tsc"
   },
   "dependencies": {
