@@ -11,7 +11,7 @@ interface IProps {
   deleteItem: () => void;
 }
 
-export default (props: IProps): JSX.Element => {
+const ListItems = (props: IProps): JSX.Element => {
   return (
     <ItemWrapper>
       <ListItemInfo
@@ -37,6 +37,8 @@ export default (props: IProps): JSX.Element => {
     </ItemWrapper>
   );
 };
+
+export default ListItems;
 
 const ItemWrapper = styled.li`
   color: #fff;
