@@ -1,33 +1,17 @@
 import React from 'react';
-import { Store } from 'redux';
 import { Provider } from 'react-redux';
-import App from 'next/app';
+import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
-import withRedux from 'next-redux-wrapper';
 import { createGlobalStyle } from 'styled-components';
-import { configureAppStore } from '../store';
+import store from '../store';
 import * as gtag from '../lib/gtag';
 import color from '../const/color';
 
 Router.events.on('routeChangeComplete', url => gtag.pageview(url));
 
-interface IProps {
-  store: Store;
-}
 
-class MyApp extends App<IProps> {
-  static async getInitialProps({ Component, ctx }) {
-    const pageProps = Component.getInitialProps
-      ? await Component.getInitialProps(ctx)
-      : {};
-
-    return { pageProps };
-  }
-
-  public render() {
-    const { Component, pageProps, store } = this.props;
-
+function MyApp({ Component, pageProps }: AppProps) {
     return (
       <>
         <GlobalStyle />
@@ -39,13 +23,9 @@ class MyApp extends App<IProps> {
         </Provider>
       </>
     );
-  }
 }
 
-/**
- * @param initStore - 初期化された Store
- */
-export default withRedux(configureAppStore)(MyApp);
+export default MyApp;
 
 const GlobalStyle = createGlobalStyle`
   @font-face {

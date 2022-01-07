@@ -9,9 +9,8 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export function configureAppStore(initialState: RootState) {
-  return configureStore({
-    reducer: rootReducer,
-    preloadedState: initialState,
-  });
-}
+const store = configureStore({
+  reducer: rootReducer,
+});
+
+export default store;
