@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import color from '../const/color';
 import { ArrowLeft as IconArrowLeft } from 'react-feather';
 
-export default () => {
+const Info = () => {
   return (
     <InfoWrapper>
       <Head>
@@ -29,6 +29,8 @@ export default () => {
     </InfoWrapper>
   );
 };
+
+export default Info;
 
 const InfoWrapper = styled.div`
   position: absolute;
