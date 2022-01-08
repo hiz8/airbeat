@@ -1,4 +1,6 @@
 const withOffline = require('next-offline');
+const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin');
+const withVanillaExtract = createVanillaExtractPlugin();
 
 const nextConfig = {
   generateInDevMode: true,
@@ -35,4 +37,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withOffline(nextConfig);
+module.exports = withVanillaExtract(withOffline(nextConfig));

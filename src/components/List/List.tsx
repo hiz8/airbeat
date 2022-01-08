@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { Save as IconSave } from 'react-feather';
 
@@ -8,6 +7,9 @@ import { actions as uiActions } from '../../modules/ui';
 import ListItems from './ListItems';
 import ListStore from '../../model/list';
 import { RootState } from '../../store';
+
+import * as styles from "./List.css";
+
 const listStore = new ListStore();
 
 export default function List(): JSX.Element {
@@ -112,105 +114,32 @@ export default function List(): JSX.Element {
   }
 
   return (
-    <ListWrapper>
-      <ListItem>
+    <ul className={styles.listWrapper}>
+      <li className={styles.listItem}>
         <form id="save" onSubmit={saveItem.bind(this)} />
-        <ListItemInfo>
-          <ListItemInfoNameInput
+        <span className={styles.listItemInfo}>
+          <input
             name="name"
             form="save"
             placeholder="Save as..."
             onChange={handleChangeEvent.bind(this)}
+            className={styles.listItemInfoNameInput}
           />
-          <ListItemInfoTempo>BPM:{tempo}</ListItemInfoTempo>
-          <ListItemInfoBeat>{beat}</ListItemInfoBeat>
-        </ListItemInfo>
-        <ListItemControlle>
-          <ListItemControlleSave
+          <span className={styles.listItemInfoTempo}>BPM:{tempo}</span>
+          <span className={styles.listItemInfoBeat}>{beat}</span>
+        </span>
+        <span className={styles.listItemControlle}>
+          <button
             form="save"
             type="submit"
             disabled={!saveButton}
+            className={styles.listItemControlleSave}
           >
             <IconSave />
-          </ListItemControlleSave>
-        </ListItemControlle>
-      </ListItem>
+          </button>
+        </span>
+      </li>
       {list}
-    </ListWrapper>
+    </ul>
   );
 }
-
-const ListWrapper = styled.ul`
-  position: absolute;
-  top: 44px;
-  left: 0;
-  width: 100%;
-  background-color: #16364b;
-  min-height: calc(100vh - 44px);
-  margin: 0;
-  padding: 0 0 1em;
-  list-style: none;
-  box-sizing: border-box;
-`;
-
-const ListItem = styled.li`
-  color: #fff;
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ListItemInfo = styled.span`
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 0 0.25em;
-  box-sizing: border-box;
-  flex: 1;
-`;
-
-const ListItemInfoNameInput = styled.input`
-  width: 100%;
-  margin-bottom: 0.1em;
-  background-color: inherit;
-  font-family: inherit;
-  font-size: 1rem;
-  color: inherit;
-  border: none;
-  padding: 0.5em 0.5em 0.25em;
-  &:focus {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-`;
-
-const ListItemInfoTempo = styled.span`
-  font-size: 0.8rem;
-  width: 75px;
-  margin-left: 0.5rem;
-`;
-
-const ListItemInfoBeat = styled.span`
-  font-size: 0.8rem;
-`;
-
-const ListItemControlle = styled.span`
-  display: flex;
-  align-items: center;
-`;
-
-const ListItemControlleSave = styled.button`
-  background: none;
-  border: none;
-  color: #fff;
-  padding: 0;
-  width: 44px;
-  height: 100%;
-  cursor: pointer;
-  &:not(:disabled):hover {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-
-  &:disabled {
-    color: #aaa;
-    pointer-events: none;
-  }
-`;

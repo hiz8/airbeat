@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import { actions, Beats } from '../../modules/metronome';
+import * as styles from "./BeatController.css";
 
 interface IProps {
   beat: string;
@@ -25,30 +25,17 @@ function BeatController(props: IProps): JSX.Element {
   }
 
   return (
-    <Select
+    <select
       onChange={handleBeatSelectChange.bind(this)}
       value={props.beat}
       aria-label="Set the beat"
+      className={styles.select}
     >
       {options}
-    </Select>
+    </select>
   );
 }
 
 export default React.memo(BeatController, (prevProps, nextProps) => {
   return prevProps.beat === nextProps.beat;
 });
-
-const Select = styled.select`
-  padding: 5px;
-  border: none;
-  font-size: 1rem;
-  margin: 0 auto 0.5em;
-  display: block;
-  text-align: center;
-  appearance: none;
-  cursor: pointer;
-  background: none;
-  color: #fff;
-  font-family: inherit;
-`;

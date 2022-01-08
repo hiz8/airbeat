@@ -1,6 +1,7 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import { Trash as IconTrash } from 'react-feather';
+
+import * as styles from "./ListItems.css";
 
 interface IProps {
   itemKey: string;
@@ -13,87 +14,31 @@ interface IProps {
 
 const ListItems = (props: IProps): JSX.Element => {
   return (
-    <ItemWrapper>
-      <ListItemInfo
+    <li className={styles.itemWrapper}>
+      <span
         onClick={props.setItem}
         data-tempo={props.tempo}
         data-beat={props.beat}
+        className={styles.listItemInfo}
       >
-        <ListItemInfoName>{props.name}</ListItemInfoName>
-        <ListItemInfoTempo>
+        <span className={styles.listItemInfoName}>{props.name}</span>
+        <span className={styles.listItemInfoTempo}>
           BPM:
           {props.tempo}
-        </ListItemInfoTempo>
-        <ListItemInfoBeat>{props.beat}</ListItemInfoBeat>
-      </ListItemInfo>
-      <ListItemControlle>
-        <ListItemControlleDelete
+        </span>
+        <span className={styles.listItemInfoBeat}>{props.beat}</span>
+      </span>
+      <span className={styles.listItemControlle}>
+        <button
           data-key={props.itemKey}
           onClick={props.deleteItem}
+          className={styles.listItemControlleDelete}
         >
-          <IconTrash />
-        </ListItemControlleDelete>
-      </ListItemControlle>
-    </ItemWrapper>
+          <IconTrash className={styles.listItemControlleDeleteInnerSvg} />
+        </button>
+      </span>
+    </li>
   );
 };
 
 export default ListItems;
-
-const ItemWrapper = styled.li`
-  color: #fff;
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ListItemInfo = styled.span`
-  display: flex;
-  flex-wrap: wrap;
-  cursor: pointer;
-  padding: 0.25em 0.5em;
-  box-sizing: border-box;
-  flex: 1;
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-`;
-
-const ListItemInfoName = styled.span`
-  width: 100%;
-  margin-bottom: 0.1em;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const ListItemInfoTempo = styled.span`
-  font-size: 0.8rem;
-  width: 75px;
-`;
-
-const ListItemInfoBeat = styled.span`
-  font-size: 0.8rem;
-`;
-
-const ListItemControlle = styled.span`
-  display: flex;
-  align-items: center;
-`;
-
-const ListItemControlleDelete = styled.button`
-  background: none;
-  border: none;
-  color: #fff;
-  padding: 0;
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-
-  svg {
-    pointer-events: none;
-  }
-`;

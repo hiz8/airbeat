@@ -2,91 +2,32 @@
 import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import styled from 'styled-components';
-import color from '../const/color';
 import { ArrowLeft as IconArrowLeft } from 'react-feather';
+import * as styles from "../styles/pages/info.css";
 
 const Info = () => {
   return (
-    <InfoWrapper>
+    <div className={styles.infoWrapper}>
       <Head>
         <title>Information - airbeat</title>
       </Head>
       <div>
         <Link href="/" passHref>
-          <InfoButton>
+          <a className={styles.infoButton}>
             <IconArrowLeft />
-          </InfoButton>
+          </a>
         </Link>
       </div>
-      <Main>
-        <Logo>
+      <main className={styles.main}>
+        <div className={styles.logo}>
           <img src="/static/img/icons/logo.svg" alt="" />
-        </Logo>
-        <Title>airbeat</Title>
-        <Description>Offline supported metronome application</Description>
-      </Main>
-      <Copyright>© 2019 plyr.</Copyright>
-    </InfoWrapper>
+        </div>
+        <h1 className={styles.title}>airbeat</h1>
+        <h2 className={styles.description}>Offline supported metronome application</h2>
+      </main>
+      <div className={styles.copyright}>© 2019 plyr.</div>
+    </div>
   );
 };
 
 export default Info;
-
-const InfoWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #eee;
-  min-height: 100vh;
-  margin: 0;
-  list-style: none;
-  box-sizing: border-box;
-`;
-
-const Main = styled.main`
-  height: calc(100vh - 44px - 30px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Logo = styled.div`
-  width: 80px;
-  height: 80px;
-  margin: -15% auto 0;
-`;
-
-const Title = styled.h1`
-  color: ${color.PRIMARY};
-  text-align: center;
-  font-size: 1.7rem;
-  margin: 0;
-  font-weight: 400;
-`;
-
-const Description = styled.h2`
-  color: ${color.PRIMARY};
-  text-align: center;
-  font-size: 0.9rem;
-  margin: 0;
-  font-weight: 400;
-`;
-
-const Copyright = styled.div`
-  color: ${color.PRIMARY};
-  font-size: 0.8rem;
-  text-align: center;
-`;
-
-const InfoButton = styled.a`
-  width: 44px;
-  height: 44px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: #333;
-`;
