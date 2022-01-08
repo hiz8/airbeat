@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -12,7 +13,7 @@ const Info = () => {
         <title>Information - airbeat</title>
       </Head>
       <div>
-        <Link href="/">
+        <Link href="/" passHref>
           <InfoButton>
             <IconArrowLeft />
           </InfoButton>

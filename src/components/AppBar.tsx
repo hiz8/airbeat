@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -33,7 +32,7 @@ function AppBar(props: IProps): JSX.Element {
 
   return (
     <NavBar>
-      <Link href="/info">
+      <Link href="/info" passHref>
         <InfoButton>
           <IconInfo color="white" />
         </InfoButton>
