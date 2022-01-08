@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Metronome from './Metronome';
-import TempoController from './TempoController';
-import BeatController from './BeatController';
-import DisplayTempo from './DisplayTempo';
-import List from './List';
+import Metronome from './Metronome/Metronome';
+import TempoController from './Metronome/TempoController';
+import BeatController from './Metronome/BeatController';
+import DisplayTempo from './Metronome/DisplayTempo';
+import List from './List/List';
 import AppBar from './AppBar';
 import { RootState } from '../store';
 

@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { useSelector, useDispatch, batch } from 'react-redux';
 import { Save as IconSave } from 'react-feather';
 
-import { actions } from '../modules/metronome';
-import { actions as uiActions } from '../modules/ui';
+import { actions } from '../../modules/metronome';
+import { actions as uiActions } from '../../modules/ui';
 import ListItems from './ListItems';
-import ListStore from '../model/list';
-import { RootState } from '../store';
+import ListStore from '../../model/list';
+import { RootState } from '../../store';
 const listStore = new ListStore();
 
 export default function List(): JSX.Element {

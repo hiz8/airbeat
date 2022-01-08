@@ -3,8 +3,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import color from '../const/color';
-import { actions, Beats } from '../modules/metronome';
+import color from '../../const/color';
+import { actions, Beats } from '../../modules/metronome';
 
 interface IProps {
   updateRunStatus: () => void;

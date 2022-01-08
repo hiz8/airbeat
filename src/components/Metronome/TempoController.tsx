@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { actions } from '../modules/metronome';
+import { actions } from '../../modules/metronome';
 
 import { merge, fromEvent, of, interval } from 'rxjs';
 import { map, mapTo, scan, switchMap, delay, takeUntil } from 'rxjs/operators';
