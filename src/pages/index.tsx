@@ -1,14 +1,14 @@
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
-import Metronome from './Metronome';
-import TempoController from './TempoController';
-import BeatController from './BeatController';
-import DisplayTempo from './DisplayTempo';
-import List from './List';
-import AppBar from './AppBar';
+import Metronome from '../components/Metronome/Metronome';
+import TempoController from '../components/Metronome/TempoController';
+import BeatController from '../components/Metronome/BeatController';
+import DisplayTempo from '../components/Metronome/DisplayTempo';
+import List from '../components/List/List';
+import AppBar from '../components/AppBar';
 import { RootState } from '../store';
+import * as styles from "../styles/pages/home.css";
 
-export default function Page() {
+const Home = () => {
   const { tempo, beat, runStatus } = useSelector(
     (state: RootState) => state.metronome,
   );
@@ -17,21 +17,15 @@ export default function Page() {
   return (
     <>
       <AppBar listDisplayStatus={listDisplayStatus} />
-      <Wrapper>
+      <main className={styles.wrapper}>
         <DisplayTempo tempo={tempo} />
         <TempoController tempo={tempo} />
         <BeatController beat={beat} />
         <Metronome runStatus={runStatus} tempo={tempo} beat={beat} />
-      </Wrapper>
+      </main>
       {listDisplayStatus ? <List /> : null}
     </>
   );
-}
+};
 
-const Wrapper = styled.main`
-  font-size: 2.4em;
-  height: calc(100vh - 44px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+export default Home;

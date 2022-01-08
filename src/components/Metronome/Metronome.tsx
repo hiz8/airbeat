@@ -1,10 +1,9 @@
-/* eslint-disable */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import styled from 'styled-components';
-import color from '../const/color';
-import { actions, Beats } from '../modules/metronome';
+import color from '../../const/color';
+import { actions, Beats } from '../../modules/metronome';
+import * as styles from "./Metronome.css";
 
 interface IProps {
   updateRunStatus: () => void;
@@ -213,13 +212,13 @@ class UpdatePlaying extends PureComponent<IProps> {
     const runStatusText = runStatus ? 'Stop' : 'Play';
 
     return (
-      <Button
+      <button
         onClick={this._handleButtonClick}
-        runStatus={runStatus}
         ref={this.playButton}
+        className={styles.button[runStatus ? "active": "passive"]}
       >
         {runStatusText}
-      </Button>
+      </button>
     );
   }
 }
@@ -231,28 +230,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(null, mapDispatchToProps)(UpdatePlaying);
-
-const Button = styled.button`
-  box-shadow: none;
-  background: none;
-  background-color: ${props => (props.runStatus ? color.BASE : color.PRIMARY)};
-  border: 2px solid #fff;
-  border-radius: 30px;
-  text-decoration: none;
-  width: 110px;
-  height: 45px;
-  text-align: center;
-  cursor: pointer;
-  margin: 1.5em auto 1em;
-  padding: 0;
-  display: block;
-  padding: 0;
-  color: #fff;
-  font-family: inherit;
-  font-size: 1rem;
-  box-shadow: ${props =>
-    props.active ? '0 0 0 4px rgba(255, 255, 255, .4)' : 'none'};
-  &:focus {
-    outline: none;
-  }
-`;
