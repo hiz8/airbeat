@@ -1,9 +1,7 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
-import store from '../store';
 import * as gtag from '../lib/gtag';
 
 import "../styles/pages/global.css";
@@ -32,9 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <meta name="apple-mobile-web-app-title" content="airbeat" />
         </Head>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
+        <Component {...pageProps} />
       </>
     );
 }

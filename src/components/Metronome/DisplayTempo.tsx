@@ -1,19 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {TempoContext} from "../../hooks/useMetoronome";
+
 import * as styles from "./DisplayTempo.css";
 
-interface IProps {
-  tempo: number;
+function DisplayTempo() {
+  const tempo = useContext(TempoContext);
+
+  return (
+    <div className={styles.outputTempo}>
+      <output className={styles.outputTempoValue}>{tempo}</output>
+    </div>
+  );
 }
 
-export default React.memo(
-  (props: IProps) => {
-    return (
-      <div className={styles.outputTempo}>
-        <output className={styles.outputTempoValue}>{props.tempo}</output>
-      </div>
-    );
-  },
-  (prevProps, nextProps) => {
-    return prevProps.tempo === nextProps.tempo;
-  },
-);
+export default DisplayTempo;
