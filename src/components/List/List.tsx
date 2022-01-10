@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Save as IconSave } from 'react-feather';
 
 import ListItems from './ListItems';

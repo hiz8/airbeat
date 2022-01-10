@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { ArrowLeft as IconArrowLeft } from 'react-feather';

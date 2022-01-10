@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import type {ChangeEvent} from "react";
 import {BeatContext, BeatDispatchContext, Beats} from "../../hooks/useMetoronome";
 
@@ -34,4 +34,4 @@ function BeatController(): JSX.Element {
   );
 }
 
-export default React.memo(BeatController);
+export default BeatController;

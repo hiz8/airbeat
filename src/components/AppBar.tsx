@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import Link from 'next/link';
 import {
   List as IconListOpen,
@@ -47,4 +47,4 @@ function AppBar(): JSX.Element {
   );
 }
 
-export default React.memo(AppBar);
+export default AppBar;
