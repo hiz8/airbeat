@@ -1,6 +1,6 @@
 import * as localforage from 'localforage';
 import 'localforage-getitems';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid';
 
 export type TSet = {
   name: string;
@@ -29,7 +29,7 @@ export class List {
   }
 
   public setItem(setData: TSet) {
-    return this.myLF.setItem(shortid.generate(), setData);
+    return this.myLF.setItem(nanoid(), setData);
   }
 
   public removeItem(key: string) {
