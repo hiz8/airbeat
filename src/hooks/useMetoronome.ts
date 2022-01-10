@@ -1,5 +1,5 @@
 import { useState, createContext, createElement, useEffect } from 'react';
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 import color from '../const/color';
 
 export enum Beats {
@@ -12,9 +12,9 @@ export enum Beats {
 type note = {
   note: number;
   time: number;
-}
+};
 
-type Status = "on"|"off";
+type Status = 'on' | 'off';
 
 class Metoronome {
   private readonly notesInQueue: note[] = [];
@@ -39,7 +39,7 @@ class Metoronome {
     this._beat = Beats.DEFAULT;
     this._tempo = 120;
   }
-  
+
   get playButton() {
     return this._playButton;
   }
@@ -66,7 +66,7 @@ class Metoronome {
 
   public start() {
     this.timerWorker.postMessage('start');
-    this.status = "on";
+    this.status = 'on';
 
     setTimeout(() => {
       this.current16thNote = 0;
@@ -76,7 +76,7 @@ class Metoronome {
 
   public stop() {
     this.timerWorker.postMessage('stop');
-    this.status = "off";
+    this.status = 'off';
   }
 
   private _draw() {
@@ -213,7 +213,7 @@ class Metoronome {
 
     this.timerWorker = new Worker('/static/js/metronome.worker.js');
 
-    this.timerWorker.onmessage = e => {
+    this.timerWorker.onmessage = (e) => {
       if (e.data == 'tick') {
         this.scheduler();
       } else {
@@ -229,30 +229,33 @@ class Metoronome {
   public componentWillUnmount() {
     this.timerWorker.postMessage('stop');
     this.timerWorker.terminate();
-    this.status = "off";
+    this.status = 'off';
   }
 }
 
 const metoronomeState = new Metoronome();
 
-function useController(): [Status, {
-  start: () => void,
-  stop: () => void,
-  init: (button: HTMLButtonElement|null) => void,
-}] {
+function useController(): [
+  Status,
+  {
+    start: () => void;
+    stop: () => void;
+    init: (button: HTMLButtonElement | null) => void;
+  },
+] {
   const [, updateStatus] = useState(metoronomeState.status);
 
   function start() {
     metoronomeState.start();
-    updateStatus("on");
+    updateStatus('on');
   }
 
   function stop() {
     metoronomeState.stop();
-    updateStatus("off");
+    updateStatus('off');
   }
 
-  function init(button: HTMLButtonElement|null) {
+  function init(button: HTMLButtonElement | null) {
     metoronomeState.playButton = button;
     metoronomeState.componentDidMount();
   }
@@ -260,7 +263,7 @@ function useController(): [Status, {
   useEffect(() => {
     return () => {
       stop();
-    }
+    };
   }, []);
 
   return [
@@ -269,8 +272,8 @@ function useController(): [Status, {
       start,
       stop,
       init,
-    }
-  ]
+    },
+  ];
 }
 
 function useTempo(): [number, (value: number) => void] {
@@ -281,9 +284,7 @@ function useTempo(): [number, (value: number) => void] {
     updateTempo(value);
   }
 
-  return [
-    tempo, update
-  ];
+  return [tempo, update];
 }
 
 function useBeat(): [Beats, (value: Beats) => void] {
@@ -294,9 +295,7 @@ function useBeat(): [Beats, (value: Beats) => void] {
     updateBeat(value);
   }
 
-  return [
-    metoronomeState.beat, update
-  ];
+  return [metoronomeState.beat, update];
 }
 
 export const StatusContext = createContext<Status>(metoronomeState.status);
@@ -306,28 +305,51 @@ export const StatusDispatchContext = createContext<{
   init: (button: HTMLButtonElement | null) => void;
 }>(null);
 export const TempoContext = createContext(metoronomeState.tempo);
-export const TempoDispatchContext = createContext<(value: number) => void>(null);
+export const TempoDispatchContext =
+  createContext<(value: number) => void>(null);
 export const BeatContext = createContext(metoronomeState.beat);
 export const BeatDispatchContext = createContext<(value: Beats) => void>(null);
 
-export const MetoronomeProvider = ({ children }: {
-  children: ReactNode,
-}) => {
+export const MetoronomeProvider = ({ children }: { children: ReactNode }) => {
   const [status, dispatches] = useController();
   const [tempo, updateTempo] = useTempo();
   const [beat, updateBeat] = useBeat();
 
-  return createElement( StatusContext.Provider, {
-    value: status,
-  }, createElement( StatusDispatchContext.Provider, {
-    value: dispatches,
-  }, createElement( TempoContext.Provider, {
-    value: tempo,
-  }, createElement( TempoDispatchContext.Provider, {
-    value: updateTempo,
-  }, createElement( BeatContext.Provider, {
-    value: beat,
-  }, createElement( BeatDispatchContext.Provider, {
-    value: updateBeat,
-  }, children))))));
+  return createElement(
+    StatusContext.Provider,
+    {
+      value: status,
+    },
+    createElement(
+      StatusDispatchContext.Provider,
+      {
+        value: dispatches,
+      },
+      createElement(
+        TempoContext.Provider,
+        {
+          value: tempo,
+        },
+        createElement(
+          TempoDispatchContext.Provider,
+          {
+            value: updateTempo,
+          },
+          createElement(
+            BeatContext.Provider,
+            {
+              value: beat,
+            },
+            createElement(
+              BeatDispatchContext.Provider,
+              {
+                value: updateBeat,
+              },
+              children,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 };

@@ -1,7 +1,7 @@
 export const GA_TRACKING_ID = 'UA-68414504-6';
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
-export const pageview = url => {
+export const pageview = (url) => {
   (window as any).gtag('config', GA_TRACKING_ID, {
     page_path: url,
   });

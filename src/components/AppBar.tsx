@@ -1,13 +1,13 @@
-import {useContext} from 'react';
+import { useContext } from 'react';
 import Link from 'next/link';
 import {
   List as IconListOpen,
   X as IconListClose,
   Info as IconInfo,
 } from 'react-feather';
-import {ListContext, ListDispatchContext} from "../hooks/useList";
+import { ListContext, ListDispatchContext } from '../hooks/useList';
 
-import * as styles from "./AppBar.css";
+import * as styles from './AppBar.css';
 
 function AppBar(): JSX.Element {
   const visible = useContext(ListContext);
@@ -18,14 +18,8 @@ function AppBar(): JSX.Element {
     toggleVisible();
   }
 
-  const IconList = visible ? (
-    <IconListClose />
-  ) : (
-    <IconListOpen />
-  );
-  const labelText = visible
-    ? 'Close set list'
-    : 'Open set list';
+  const IconList = visible ? <IconListClose /> : <IconListOpen />;
+  const labelText = visible ? 'Close set list' : 'Open set list';
 
   return (
     <div className={styles.navBar}>
