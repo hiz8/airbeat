@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import Metronome from '../components/Metronome/Metronome';
+import PlayButton from '../components/Metronome/PlayButton';
 import TempoController from '../components/Metronome/TempoController';
 import BeatController from '../components/Metronome/BeatController';
 import DisplayTempo from '../components/Metronome/DisplayTempo';
@@ -18,7 +18,7 @@ const Home = () => {
           <DisplayTempo />
           <TempoController />
           <BeatController />
-          <Metronome />
+          <PlayButton />
         </main>
         <ListWrapper />
       </MetoronomeProvider>
