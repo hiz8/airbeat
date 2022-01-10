@@ -28,7 +28,7 @@ export function PlayButton() {
     <button
       onClick={handleButtonClick}
       ref={playButton}
-      className={styles.button[status === 'on' ? 'active' : 'passive']}
+      className={styles.button[status === 'on' ? 'playing' : 'pause']}
     >
       {runStatusText}
     </button>
