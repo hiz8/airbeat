@@ -63,3 +63,6 @@ out/
 
 # TypeScript
 *.tsbuildinfo
+
+# VSCode
+.vscode
