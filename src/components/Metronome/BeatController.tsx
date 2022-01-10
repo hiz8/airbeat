@@ -1,17 +1,15 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { actions, Beats } from '../../modules/metronome';
+import {useContext} from 'react';
+import type {ChangeEvent} from "react";
+import {BeatContext, BeatDispatchContext, Beats} from "../../hooks/useMetoronome";
+
 import * as styles from "./BeatController.css";
 
-interface IProps {
-  beat: string;
-}
+function BeatController(): JSX.Element {
+  const beat = useContext(BeatContext);
+  const updateBeat = useContext(BeatDispatchContext);
 
-function BeatController(props: IProps): JSX.Element {
-  const dispatch = useDispatch();
-
-  function handleBeatSelectChange(e) {
-    dispatch(actions.updateBeat(e.target.value));
+  function handleBeatSelectChange(e: ChangeEvent<HTMLSelectElement>) {
+    updateBeat(e.target.value as Beats);
   }
 
   const options = [];
@@ -27,7 +25,7 @@ function BeatController(props: IProps): JSX.Element {
   return (
     <select
       onChange={handleBeatSelectChange.bind(this)}
-      value={props.beat}
+      value={beat}
       aria-label="Set the beat"
       className={styles.select}
     >
@@ -36,6 +34,4 @@ function BeatController(props: IProps): JSX.Element {
   );
 }
 
-export default React.memo(BeatController, (prevProps, nextProps) => {
-  return prevProps.beat === nextProps.beat;
-});
+export default BeatController;

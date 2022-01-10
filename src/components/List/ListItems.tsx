@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Trash as IconTrash } from 'react-feather';
 
 import * as styles from "./ListItems.css";

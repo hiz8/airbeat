@@ -1,32 +1,29 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import {useContext} from 'react';
 import Link from 'next/link';
-import { actions } from '../modules/ui';
 import {
   List as IconListOpen,
   X as IconListClose,
   Info as IconInfo,
 } from 'react-feather';
+import {ListContext, ListDispatchContext} from "../hooks/useList";
+
 import * as styles from "./AppBar.css";
 
-interface IProps {
-  listDisplayStatus: boolean;
-}
-
-function AppBar(props: IProps): JSX.Element {
-  const dispatch = useDispatch();
+function AppBar(): JSX.Element {
+  const visible = useContext(ListContext);
+  const toggleVisible = useContext(ListDispatchContext);
 
   function handleListButtonClick(e) {
     e.preventDefault();
-    dispatch(actions.toggleListMenu());
+    toggleVisible();
   }
 
-  const IconList = props.listDisplayStatus ? (
+  const IconList = visible ? (
     <IconListClose />
   ) : (
     <IconListOpen />
   );
-  const labelText = props.listDisplayStatus
+  const labelText = visible
     ? 'Close set list'
     : 'Open set list';
 
@@ -50,4 +47,4 @@ function AppBar(props: IProps): JSX.Element {
   );
 }
 
-export default React.memo(AppBar);
+export default AppBar;

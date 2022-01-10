@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { useState, useContext } from 'react';
 import { Save as IconSave } from 'react-feather';
 
-import { actions } from '../../modules/metronome';
-import { actions as uiActions } from '../../modules/ui';
 import ListItems from './ListItems';
 import ListStore from '../../model/list';
-import { RootState } from '../../store';
+import {BeatContext, BeatDispatchContext, TempoContext} from "../../hooks/useMetoronome";
+import {ListDispatchContext} from "../../hooks/useList";
 
 import * as styles from "./List.css";
 
@@ -16,8 +14,10 @@ export default function List(): JSX.Element {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
   const [items, setItems] = useState(null);
-  const dispatch = useDispatch();
-  const { tempo, beat } = useSelector((state: RootState) => state.metronome);
+  const tempo = useContext(TempoContext);
+  const beat = useContext(BeatContext);
+  const updateBeat = useContext(BeatDispatchContext);
+  const toggleVisible = useContext(ListDispatchContext);
 
   function handleChangeEvent(e) {
     if (e.target.value.length) {
@@ -82,10 +82,8 @@ export default function List(): JSX.Element {
 
     const { tempo, beat } = e.currentTarget.dataset;
 
-    batch(() => {
-      dispatch(actions.updateBeat(beat));
-      dispatch(uiActions.toggleListMenu());
-    });
+    updateBeat(beat);
+    toggleVisible();
 
     const event = new CustomEvent('input');
     const tempoInput: any = document.getElementById('range');

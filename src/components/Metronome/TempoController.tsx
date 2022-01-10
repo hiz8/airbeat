@@ -1,23 +1,22 @@
-import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { actions } from '../../modules/metronome';
+import { useEffect, useRef, useContext } from 'react';
+import type {ChangeEvent} from "react";
 
 import { merge, fromEvent, of, interval } from 'rxjs';
 import { map, mapTo, scan, switchMap, delay, takeUntil } from 'rxjs/operators';
+
+import {TempoContext, TempoDispatchContext} from "../../hooks/useMetoronome";
 
 import * as styles from "./TempoController.css";
 
 const MAXIMUM_TEMPO = 208;
 const MINIMUM_TEMPO = 40;
 
-interface IProps {
-  tempo: number;
-}
-
-function TempoController(props: IProps): JSX.Element {
-  const dispatch = useDispatch();
+function TempoController(): JSX.Element {
   const plusButton = useRef<HTMLButtonElement>(null);
   const minusButton = useRef<HTMLButtonElement>(null);
+
+  const tempo = useContext(TempoContext);
+  const updateTempo = useContext(TempoDispatchContext);
 
   useEffect(() => {
     /**
@@ -75,16 +74,18 @@ function TempoController(props: IProps): JSX.Element {
               return math;
             }
           }
-        }, props.tempo),
+        }, tempo),
       )
       .subscribe(value => {
-        dispatch(actions.updateTempo(value));
+        updateTempo(value);
       });
 
     return () => subscription.unsubscribe();
   }, []);
 
-  function _handleChangeEvent(): void {}
+  function _handleChangeEvent(e: ChangeEvent<HTMLInputElement>): void {
+    updateTempo(parseInt(e.target.value, 10));
+  }
 
   return (
     <div className={styles.controller}>
@@ -104,7 +105,7 @@ function TempoController(props: IProps): JSX.Element {
           min={MINIMUM_TEMPO}
           max={MAXIMUM_TEMPO}
           step="1"
-          value={props.tempo}
+          value={tempo}
           onChange={_handleChangeEvent}
           aria-label="Set the tempo"
           autoComplete="off"
@@ -124,4 +125,4 @@ function TempoController(props: IProps): JSX.Element {
   );
 }
 
-export default React.memo(TempoController);
+export default TempoController;
