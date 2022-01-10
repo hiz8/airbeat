@@ -23,18 +23,18 @@ const buttonBase = style({
 });
 
 export const button = styleVariants({
-  active: [
+  pause: [
     buttonBase,
     {
       backgroundColor: color.PRIMARY,
-      boxShadow: '0 0 0 4px rgba(255, 255, 255, .4)',
+      boxShadow: 'none',
     },
   ],
-  passive: [
+  playing: [
     buttonBase,
     {
       backgroundColor: color.BASE,
-      boxShadow: 'none',
+      boxShadow: '0 0 0 4px rgba(255, 255, 255, .4)',
     },
   ],
 });

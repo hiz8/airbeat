@@ -8,7 +8,7 @@ export type TSet = {
   beat: string;
 };
 
-export default class List {
+export class List {
   private myLF: any;
 
   constructor() {

@@ -11,7 +11,7 @@ interface IProps {
   deleteItem: () => void;
 }
 
-const ListItems = (props: IProps): JSX.Element => {
+export const ListItems = (props: IProps): JSX.Element => {
   return (
     <li className={styles.itemWrapper}>
       <span
@@ -39,5 +39,3 @@ const ListItems = (props: IProps): JSX.Element => {
     </li>
   );
 };
-
-export default ListItems;
