@@ -1,6 +1,6 @@
 import { Trash as IconTrash } from 'react-feather';
 
-import * as styles from "./ListItems.css";
+import * as styles from './ListItems.css';
 
 interface IProps {
   itemKey: string;

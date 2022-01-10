@@ -1,7 +1,7 @@
-import {useContext} from 'react';
-import {TempoContext} from "../../hooks/useMetoronome";
+import { useContext } from 'react';
+import { TempoContext } from '../../hooks/useMetoronome';
 
-import * as styles from "./DisplayTempo.css";
+import * as styles from './DisplayTempo.css';
 
 function DisplayTempo() {
   const tempo = useContext(TempoContext);

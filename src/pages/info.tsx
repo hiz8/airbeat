@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import { ArrowLeft as IconArrowLeft } from 'react-feather';
-import * as styles from "../styles/pages/info.css";
+import * as styles from '../styles/pages/info.css';
 
 const Info = () => {
   return (
@@ -22,7 +22,9 @@ const Info = () => {
           <img src="/static/img/icons/logo.svg" alt="" />
         </div>
         <h1 className={styles.title}>airbeat</h1>
-        <h2 className={styles.description}>Offline supported metronome application</h2>
+        <h2 className={styles.description}>
+          Offline supported metronome application
+        </h2>
       </main>
       <div className={styles.copyright}>© 2019 plyr.</div>
     </div>

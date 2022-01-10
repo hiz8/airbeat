@@ -1,12 +1,12 @@
 import { useEffect, useRef, useContext } from 'react';
-import type {ChangeEvent} from "react";
+import type { ChangeEvent } from 'react';
 
 import { merge, fromEvent, of, interval } from 'rxjs';
 import { map, mapTo, scan, switchMap, delay, takeUntil } from 'rxjs/operators';
 
-import {TempoContext, TempoDispatchContext} from "../../hooks/useMetoronome";
+import { TempoContext, TempoDispatchContext } from '../../hooks/useMetoronome';
 
-import * as styles from "./TempoController.css";
+import * as styles from './TempoController.css';
 
 const MAXIMUM_TEMPO = 208;
 const MINIMUM_TEMPO = 40;
@@ -76,7 +76,7 @@ function TempoController(): JSX.Element {
           }
         }, tempo),
       )
-      .subscribe(value => {
+      .subscribe((value) => {
         updateTempo(value);
       });
 

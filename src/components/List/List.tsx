@@ -3,10 +3,14 @@ import { Save as IconSave } from 'react-feather';
 
 import ListItems from './ListItems';
 import ListStore from '../../model/list';
-import {BeatContext, BeatDispatchContext, TempoContext} from "../../hooks/useMetoronome";
-import {ListDispatchContext} from "../../hooks/useList";
+import {
+  BeatContext,
+  BeatDispatchContext,
+  TempoContext,
+} from '../../hooks/useMetoronome';
+import { ListDispatchContext } from '../../hooks/useList';
 
-import * as styles from "./List.css";
+import * as styles from './List.css';
 
 const listStore = new ListStore();
 
@@ -32,10 +36,10 @@ export default function List(): JSX.Element {
   function updateItems() {
     listStore
       .getItems()
-      .then(res => {
+      .then((res) => {
         setItems(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }
@@ -57,7 +61,7 @@ export default function List(): JSX.Element {
         input.blur();
         setSaveButton(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }
@@ -71,7 +75,7 @@ export default function List(): JSX.Element {
         .then(() => {
           updateItems();
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
         });
     }
