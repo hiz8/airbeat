@@ -8,7 +8,7 @@ import {
 
 import * as styles from './BeatController.css';
 
-function BeatController(): JSX.Element {
+export function BeatController(): JSX.Element {
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
 
@@ -37,5 +37,3 @@ function BeatController(): JSX.Element {
     </select>
   );
 }
-
-export default BeatController;

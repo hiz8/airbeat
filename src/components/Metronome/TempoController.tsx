@@ -11,7 +11,7 @@ import * as styles from './TempoController.css';
 const MAXIMUM_TEMPO = 208;
 const MINIMUM_TEMPO = 40;
 
-function TempoController(): JSX.Element {
+export function TempoController(): JSX.Element {
   const plusButton = useRef<HTMLButtonElement>(null);
   const minusButton = useRef<HTMLButtonElement>(null);
 
@@ -124,5 +124,3 @@ function TempoController(): JSX.Element {
     </div>
   );
 }
-
-export default TempoController;

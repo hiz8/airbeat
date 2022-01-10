@@ -5,7 +5,7 @@ import {
 } from '../../hooks/useMetoronome';
 import * as styles from './PlayButton.css';
 
-function PlayButton() {
+export function PlayButton() {
   const status = useContext(StatusContext);
   const { start, stop, init } = useContext(StatusDispatchContext);
   const playButton = useRef<HTMLButtonElement>();
@@ -34,5 +34,3 @@ function PlayButton() {
     </button>
   );
 }
-
-export default PlayButton;

@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import { Save as IconSave } from 'react-feather';
 
-import ListItems from './ListItems';
-import ListStore from '../../model/list';
+import { ListItems } from './ListItems';
+import { List as ListStore } from '../../model/list';
 import {
   BeatContext,
   BeatDispatchContext,
@@ -14,7 +14,7 @@ import * as styles from './List.css';
 
 const listStore = new ListStore();
 
-export default function List(): JSX.Element {
+export function List(): JSX.Element {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
   const [items, setItems] = useState(null);

@@ -9,7 +9,7 @@ import { ListContext, ListDispatchContext } from '../hooks/useList';
 
 import * as styles from './AppBar.css';
 
-function AppBar(): JSX.Element {
+export function AppBar(): JSX.Element {
   const visible = useContext(ListContext);
   const toggleVisible = useContext(ListDispatchContext);
 
@@ -40,5 +40,3 @@ function AppBar(): JSX.Element {
     </div>
   );
 }
-
-export default AppBar;

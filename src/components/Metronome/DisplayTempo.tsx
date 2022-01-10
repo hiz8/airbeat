@@ -3,7 +3,7 @@ import { TempoContext } from '../../hooks/useMetoronome';
 
 import * as styles from './DisplayTempo.css';
 
-function DisplayTempo() {
+export function DisplayTempo() {
   const tempo = useContext(TempoContext);
 
   return (
@@ -12,5 +12,3 @@ function DisplayTempo() {
     </div>
   );
 }
-
-export default DisplayTempo;
