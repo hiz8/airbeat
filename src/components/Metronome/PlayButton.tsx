@@ -1,4 +1,6 @@
-import { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef, useContext, ReactNode, RefObject } from 'react';
+import { useToggleButton } from '@react-aria/button';
+import { useToggleState } from '@react-stately/toggle';
 import {
   StatusContext,
   StatusDispatchContext,
@@ -18,27 +20,48 @@ export function PlayButton() {
     actions.init(playButton.current!);
   }, []);
 
+  const isSelected = status === 'on';
+
   function handleButtonClick() {
     if (!actions) {
       return;
     }
-
-    if (status === 'on') {
+    if (isSelected) {
       actions.stop();
     } else {
       actions.start();
     }
   }
 
-  const runStatusText = status === 'on' ? 'Stop' : 'Play';
+  return (
+    <ToggleButton
+      onPress={handleButtonClick}
+      buttonRef={playButton}
+      isSelected={isSelected}
+    >
+      {isSelected ? 'Stop' : 'Play'}
+    </ToggleButton>
+  );
+}
+
+type ToggleButtonProps = {
+  children: ReactNode;
+  buttonRef: RefObject<HTMLButtonElement>;
+  onPress: (e: any) => void;
+  isSelected: boolean;
+};
+
+function ToggleButton(props: ToggleButtonProps) {
+  const state = useToggleState(props);
+  const { buttonProps } = useToggleButton(props, state, props.buttonRef);
 
   return (
     <button
-      onClick={handleButtonClick}
-      ref={playButton}
-      className={styles.button[status === 'on' ? 'playing' : 'pause']}
+      {...buttonProps}
+      className={styles.button[props.isSelected ? 'playing' : 'pause']}
+      ref={props.buttonRef}
     >
-      {runStatusText}
+      {props.children}
     </button>
   );
 }

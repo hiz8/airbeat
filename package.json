@@ -10,6 +10,9 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
+    "@react-aria/button": "^3.3.4",
+    "@react-aria/ssr": "^3.1.0",
+    "@react-stately/toggle": "^3.2.3",
     "localforage": "^1.10.0",
     "localforage-getitems": "^1.4.2",
     "nanoid": "^3.1.32",
