@@ -11,7 +11,13 @@
   },
   "dependencies": {
     "@react-aria/button": "^3.3.4",
+    "@react-aria/focus": "^3.5.0",
+    "@react-aria/i18n": "^3.3.4",
+    "@react-aria/slider": "^3.0.3",
     "@react-aria/ssr": "^3.1.0",
+    "@react-aria/utils": "^3.11.0",
+    "@react-aria/visually-hidden": "^3.2.3",
+    "@react-stately/slider": "^3.0.3",
     "@react-stately/toggle": "^3.2.3",
     "localforage": "^1.10.0",
     "localforage-getitems": "^1.4.2",

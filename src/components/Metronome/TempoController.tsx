@@ -1,11 +1,11 @@
 import { useEffect, useRef, useContext } from 'react';
-import type { ChangeEvent } from 'react';
 
 import { merge, fromEvent, of, interval } from 'rxjs';
 import { map, mapTo, scan, switchMap, delay, takeUntil } from 'rxjs/operators';
 
 import { TempoContext, TempoDispatchContext } from '../../hooks/useMetoronome';
 
+import { TempoSlider } from './TempoSlider';
 import * as styles from './TempoController.css';
 
 const MAXIMUM_TEMPO = 208;
@@ -93,9 +93,9 @@ export function TempoController(): JSX.Element {
     return () => subscription.unsubscribe();
   }, []);
 
-  function _handleChangeEvent(e: ChangeEvent<HTMLInputElement>): void {
+  function _handleChangeEvent2(value: number[]): void {
     if (updateTempo) {
-      updateTempo(parseInt(e.target.value, 10));
+      updateTempo(value[0]);
     }
   }
 
@@ -110,20 +110,15 @@ export function TempoController(): JSX.Element {
         className={styles.minusButton}
       />
 
-      <div className={styles.slider}>
-        <input
-          id="range"
-          type="range"
-          min={MINIMUM_TEMPO}
-          max={MAXIMUM_TEMPO}
-          step="1"
-          value={tempo}
-          onChange={_handleChangeEvent}
-          aria-label="Set the tempo"
-          autoComplete="off"
-          className={styles.sliderInput}
-        />
-      </div>
+      <TempoSlider
+        aria-label="Opacity"
+        maxValue={MAXIMUM_TEMPO}
+        minValue={MINIMUM_TEMPO}
+        defaultValue={[120]}
+        step={1}
+        value={[tempo]}
+        onChange={_handleChangeEvent2}
+      />
 
       <button
         type="button"
