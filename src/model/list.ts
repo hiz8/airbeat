@@ -2,14 +2,14 @@ import * as localforage from 'localforage';
 import 'localforage-getitems';
 import { nanoid } from 'nanoid';
 
-export type TSet = {
+export type Set = {
   name: string;
   tempo: number;
   beat: string;
 };
 
 export class List {
-  private myLF: any;
+  private myLF: LocalForage;
 
   constructor() {
     this.myLF = localforage.createInstance({
@@ -25,10 +25,10 @@ export class List {
   }
 
   public getItems() {
-    return this.myLF.getItems();
+    return this.myLF.getItems() as Promise<Record<string, Set>>;
   }
 
-  public setItem(setData: TSet) {
+  public setItem(setData: Set) {
     return this.myLF.setItem(nanoid(), setData);
   }
 

@@ -1,17 +1,18 @@
+import type { MouseEvent } from 'react';
 import { Trash as IconTrash } from 'react-feather';
 
 import * as styles from './ListItems.css';
 
-interface IProps {
+export interface ListItemProps {
   itemKey: string;
   beat: string;
-  tempo: string;
+  tempo: number;
   name: string;
-  setItem: (e: any) => void;
-  deleteItem: () => void;
+  setItem: (e: MouseEvent<HTMLSpanElement>) => void;
+  deleteItem: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const ListItems = (props: IProps): JSX.Element => {
+export const ListItems = (props: ListItemProps): JSX.Element => {
   return (
     <li className={styles.itemWrapper}>
       <span

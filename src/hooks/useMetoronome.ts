@@ -2,12 +2,14 @@ import { useState, createContext, createElement, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import color from '../const/color';
 
-export enum Beats {
-  OPTION1 = '4beat',
-  DEFAULT = '8beat',
-  OPTION2 = '16beat',
-  OPTION3 = 'Triplet',
-}
+export const Beats = {
+  OPTION1: '4beat',
+  DEFAULT: '8beat',
+  OPTION2: '16beat',
+  OPTION3: 'Triplet',
+} as const;
+
+export type Beats = typeof Beats[keyof typeof Beats];
 
 type note = {
   note: number;
@@ -24,16 +26,16 @@ class Metoronome {
 
   private nextNoteTime: number = 0.0;
   private scheduleAheadTime: number = 0.1;
-  private current16thNote: number;
+  private current16thNote: number = 0;
 
-  private audioCtx: AudioContext;
-  private timerWorker: Worker;
+  private audioCtx: AudioContext | null = null;
+  private timerWorker: Worker | null = null;
 
-  private _playButton: HTMLButtonElement;
+  private _playButton: HTMLButtonElement | null = null;
   private _beat: Beats;
   private _tempo: number;
 
-  public status: Status;
+  public status: Status = 'off';
 
   constructor() {
     this._beat = Beats.DEFAULT;
@@ -65,23 +67,23 @@ class Metoronome {
   }
 
   public start() {
-    this.timerWorker.postMessage('start');
+    this.timerWorker!.postMessage('start');
     this.status = 'on';
 
     setTimeout(() => {
       this.current16thNote = 0;
-      this.nextNoteTime = this.audioCtx.currentTime;
+      this.nextNoteTime = this.audioCtx!.currentTime;
     }, 10);
   }
 
   public stop() {
-    this.timerWorker.postMessage('stop');
+    this.timerWorker!.postMessage('stop');
     this.status = 'off';
   }
 
   private _draw() {
     let currentNote = this.last16thNoteDrawn;
-    const currentTime = this.audioCtx.currentTime;
+    const currentTime = this.audioCtx!.currentTime;
     const button = this.playButton || null;
 
     while (
@@ -97,7 +99,7 @@ class Metoronome {
     if (this.last16thNoteDrawn != currentNote) {
       this.last16thNoteDrawn = currentNote;
 
-      if (currentNote % 12 === 0) {
+      if (currentNote % 12 === 0 && button) {
         const activeColor =
           currentNote === 0 ? color.SECONDARY : color.TERTIARY;
         button.animate(
@@ -126,7 +128,7 @@ class Metoronome {
   private scheduler(): void {
     while (
       this.nextNoteTime <
-      this.audioCtx.currentTime + this.scheduleAheadTime
+      this.audioCtx!.currentTime + this.scheduleAheadTime
     ) {
       this.scheduleNote(this.current16thNote, this.nextNoteTime);
       this.nextNote();
@@ -164,9 +166,9 @@ class Metoronome {
       return;
     }
 
-    const oscillator = this.audioCtx.createOscillator();
+    const oscillator = this.audioCtx!.createOscillator();
     oscillator.type = 'square';
-    oscillator.connect(this.audioCtx.destination);
+    oscillator.connect(this.audioCtx!.destination);
 
     if (noteResolution === 'Triplet') {
       if (beatNumber % 48 === 0) {
@@ -227,8 +229,8 @@ class Metoronome {
   }
 
   public componentWillUnmount() {
-    this.timerWorker.postMessage('stop');
-    this.timerWorker.terminate();
+    this.timerWorker!.postMessage('stop');
+    this.timerWorker!.terminate();
     this.status = 'off';
   }
 }
@@ -303,12 +305,15 @@ export const StatusDispatchContext = createContext<{
   start: () => void;
   stop: () => void;
   init: (button: HTMLButtonElement | null) => void;
-}>(null);
+} | null>(null);
 export const TempoContext = createContext(metoronomeState.tempo);
-export const TempoDispatchContext =
-  createContext<(value: number) => void>(null);
+export const TempoDispatchContext = createContext<
+  ((value: number) => void) | null
+>(null);
 export const BeatContext = createContext(metoronomeState.beat);
-export const BeatDispatchContext = createContext<(value: Beats) => void>(null);
+export const BeatDispatchContext = createContext<
+  ((value: Beats) => void) | null
+>(null);
 
 export const MetoronomeProvider = ({ children }: { children: ReactNode }) => {
   const [status, dispatches] = useController();

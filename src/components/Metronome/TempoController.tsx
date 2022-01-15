@@ -19,23 +19,26 @@ export function TempoController(): JSX.Element {
   const updateTempo = useContext(TempoDispatchContext);
 
   useEffect(() => {
+    if (!plusButton.current || !minusButton.current) {
+      return;
+    }
+
     /**
      * プラス・マイナスボタンのクリックイベントからストリームを生成
      */
-
     const plusButtonDown$ = fromEvent(plusButton.current, 'pointerdown');
     const minusButtonDown$ = fromEvent(minusButton.current, 'pointerdown');
-    const plusButtonUp$ = fromEvent(plusButton.current, 'pointerup').pipe(
+    const plusButtonUp$ = fromEvent(plusButton.current!, 'pointerup').pipe(
       mapTo(1),
     );
-    const minusButtonUp$ = fromEvent(minusButton.current, 'pointerup').pipe(
+    const minusButtonUp$ = fromEvent(minusButton.current!, 'pointerup').pipe(
       mapTo(-1),
     );
 
     const documentUp$ = fromEvent(document, 'pointerup');
     const buttonsUp$ = merge(plusButtonUp$, minusButtonUp$);
     const buttonsDown$ = merge(plusButtonDown$, minusButtonDown$).pipe(
-      switchMap((e: MouseEvent) => {
+      switchMap((e) => {
         const value = (e.target as HTMLElement).id === 'plus' ? 1 : -1;
         return of(e).pipe(
           delay(300),
@@ -51,6 +54,11 @@ export function TempoController(): JSX.Element {
      * Range input の操作からストリームを生成
      */
     const rangeInput = document.getElementById('range');
+
+    if (!(rangeInput instanceof HTMLInputElement)) {
+      return;
+    }
+
     const rangeInputStream$ = fromEvent(rangeInput, 'input').pipe(
       map((val: any) => {
         return val.target.value;
@@ -77,14 +85,18 @@ export function TempoController(): JSX.Element {
         }, tempo),
       )
       .subscribe((value) => {
-        updateTempo(value);
+        if (updateTempo) {
+          updateTempo(value);
+        }
       });
 
     return () => subscription.unsubscribe();
   }, []);
 
   function _handleChangeEvent(e: ChangeEvent<HTMLInputElement>): void {
-    updateTempo(parseInt(e.target.value, 10));
+    if (updateTempo) {
+      updateTempo(parseInt(e.target.value, 10));
+    }
   }
 
   return (

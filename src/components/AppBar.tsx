@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { MouseEvent, useContext } from 'react';
 import Link from 'next/link';
 import {
   List as IconListOpen,
@@ -13,9 +13,12 @@ export function AppBar(): JSX.Element {
   const visible = useContext(ListContext);
   const toggleVisible = useContext(ListDispatchContext);
 
-  function handleListButtonClick(e) {
+  function handleListButtonClick(e: MouseEvent) {
     e.preventDefault();
-    toggleVisible();
+
+    if (toggleVisible) {
+      toggleVisible();
+    }
   }
 
   const IconList = visible ? <IconListClose /> : <IconListOpen />;
@@ -30,7 +33,7 @@ export function AppBar(): JSX.Element {
       </Link>
       <button
         type="button"
-        onClick={handleListButtonClick.bind(this)}
+        onClick={handleListButtonClick}
         aria-label={labelText}
         title={labelText}
         className={styles.listButton}

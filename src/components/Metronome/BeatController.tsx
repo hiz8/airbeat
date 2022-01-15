@@ -13,14 +13,18 @@ export function BeatController(): JSX.Element {
   const updateBeat = useContext(BeatDispatchContext);
 
   function handleBeatSelectChange(e: ChangeEvent<HTMLSelectElement>) {
-    updateBeat(e.target.value as Beats);
+    if (updateBeat) {
+      updateBeat(e.target.value as Beats);
+    }
   }
 
   const options = [];
 
   for (let i in Beats) {
     options.push(
+      // @ts-ignore
       <option value={Beats[i]} key={i}>
+        {/** @ts-ignore */}
         {Beats[i]}
       </option>,
     );
@@ -28,7 +32,7 @@ export function BeatController(): JSX.Element {
 
   return (
     <select
-      onChange={handleBeatSelectChange.bind(this)}
+      onChange={handleBeatSelectChange}
       value={beat}
       aria-label="Set the beat"
       className={styles.select}
