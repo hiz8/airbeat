@@ -1,12 +1,14 @@
 import { useState, useContext } from 'react';
+import type { ChangeEvent, SyntheticEvent, MouseEvent, FormEvent } from 'react';
 import { Save as IconSave } from 'react-feather';
 
 import { ListItems } from './ListItems';
-import { List as ListStore } from '../../model/list';
+import { List as ListStore, Set } from '../../model/list';
 import {
   BeatContext,
   BeatDispatchContext,
   TempoContext,
+  Beats,
 } from '../../hooks/useMetoronome';
 import { ListDispatchContext } from '../../hooks/useList';
 
@@ -17,13 +19,13 @@ const listStore = new ListStore();
 export function List(): JSX.Element {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
-  const [items, setItems] = useState(null);
+  const [items, setItems] = useState<Record<string, Set>>({});
   const tempo = useContext(TempoContext);
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
   const toggleVisible = useContext(ListDispatchContext);
 
-  function handleChangeEvent(e) {
+  function handleChangeEvent(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value.length) {
       setName(e.target.value);
       setSaveButton(true);
@@ -44,10 +46,10 @@ export function List(): JSX.Element {
       });
   }
 
-  function saveItem(e) {
+  function saveItem(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const input = e.target.name;
+    const input = e.currentTarget;
 
     listStore
       .setItem({
@@ -66,10 +68,14 @@ export function List(): JSX.Element {
       });
   }
 
-  function deleteItem(e) {
+  function deleteItem(e: SyntheticEvent<EventTarget>) {
+    if (!(e.target instanceof HTMLButtonElement)) {
+      return;
+    }
+
     const key = e.target.dataset.key;
 
-    if (confirm('Delete the item?')) {
+    if (key && confirm('Delete the item?')) {
       listStore
         .removeItem(key)
         .then(() => {
@@ -81,23 +87,31 @@ export function List(): JSX.Element {
     }
   }
 
-  function setItem(e) {
+  function setItem(e: MouseEvent<HTMLSpanElement>) {
     e.preventDefault();
 
     const { tempo, beat } = e.currentTarget.dataset;
 
-    updateBeat(beat);
-    toggleVisible();
+    if (!beat) {
+      return;
+    }
+
+    if (updateBeat && toggleVisible) {
+      updateBeat(beat as Beats);
+      toggleVisible();
+    }
 
     const event = new CustomEvent('input');
-    const tempoInput: any = document.getElementById('range');
-    tempoInput.value = tempo;
-    tempoInput.dispatchEvent(event);
+    const tempoInput = document.getElementById('range');
+    if (tempoInput instanceof HTMLInputElement && tempo) {
+      tempoInput.value = tempo;
+      tempoInput.dispatchEvent(event);
+    }
   }
 
-  const list: Array<any> = [];
+  const list: JSX.Element[] = [];
 
-  if (items) {
+  if (Object.keys(items).length) {
     Object.keys(items).forEach((key, i) => {
       list.push(
         <ListItems
@@ -107,7 +121,7 @@ export function List(): JSX.Element {
           tempo={items[key].tempo}
           beat={items[key].beat}
           setItem={setItem}
-          deleteItem={deleteItem.bind(this)}
+          deleteItem={deleteItem}
         />,
       );
     });
@@ -118,13 +132,13 @@ export function List(): JSX.Element {
   return (
     <ul className={styles.listWrapper}>
       <li className={styles.listItem}>
-        <form id="save" onSubmit={saveItem.bind(this)} />
+        <form id="save" onSubmit={saveItem} />
         <span className={styles.listItemInfo}>
           <input
             name="name"
             form="save"
             placeholder="Save as..."
-            onChange={handleChangeEvent.bind(this)}
+            onChange={handleChangeEvent}
             className={styles.listItemInfoNameInput}
           />
           <span className={styles.listItemInfoTempo}>BPM:{tempo}</span>

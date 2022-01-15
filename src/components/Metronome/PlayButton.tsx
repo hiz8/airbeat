@@ -7,18 +7,26 @@ import * as styles from './PlayButton.css';
 
 export function PlayButton() {
   const status = useContext(StatusContext);
-  const { start, stop, init } = useContext(StatusDispatchContext);
-  const playButton = useRef<HTMLButtonElement>();
+  const actions = useContext(StatusDispatchContext);
+  const playButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    init(playButton.current);
+    if (!actions) {
+      return;
+    }
+
+    actions.init(playButton.current!);
   }, []);
 
   function handleButtonClick() {
+    if (!actions) {
+      return;
+    }
+
     if (status === 'on') {
-      stop();
+      actions.stop();
     } else {
-      start();
+      actions.start();
     }
   }
 

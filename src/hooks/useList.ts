@@ -12,7 +12,7 @@ function useList(): [boolean, () => void] {
 }
 
 export const ListContext = createContext(false);
-export const ListDispatchContext = createContext<() => void>(null);
+export const ListDispatchContext = createContext<(() => void) | null>(null);
 
 export const ListProvider = ({ children }: { children: ReactNode }) => {
   const [visible, toggleVisible] = useList();
