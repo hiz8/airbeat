@@ -41,7 +41,7 @@ const thumbBase = style({
   width: 20,
   height: 20,
   borderRadius: '50%',
-  border: '1px solid rgba(0, 0, 0, 0.7)',
+  boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.6)',
 });
 
 export const thumb = styleVariants({

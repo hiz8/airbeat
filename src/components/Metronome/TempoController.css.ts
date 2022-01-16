@@ -20,14 +20,9 @@ export const button = style({
   fontFamily: 'inherit',
   transition: 'box-shadow 0 linear',
   position: 'relative',
-  outline: 'none',
 
-  ':focus': {
-    outline: 'none',
-  },
   ':active': {
     boxShadow: '0 0 0 4px rgba(255, 255, 255, 0.4)',
-    outline: 'none',
   },
   '::before': {
     backgroundColor: '#fff',
@@ -61,20 +56,15 @@ export const plusButton = style({
   height: '44px',
   width: '44px',
   cursor: 'pointer',
-  fontSize: '1.2rem',
+  fontSize: '0',
   boxSizing: 'border-box',
   color: '#fff',
   fontFamily: 'inherit',
   transition: 'box-shadow 0 linear',
   position: 'relative',
-  outline: 'none',
 
-  ':focus': {
-    outline: 'none',
-  },
   ':active': {
     boxShadow: '0 0 0 4px rgba(255, 255, 255, 0.4)',
-    outline: 'none',
   },
   '::before': {
     backgroundColor: '#fff',
@@ -111,20 +101,15 @@ export const minusButton = style({
   height: '44px',
   width: '44px',
   cursor: 'pointer',
-  fontSize: '1.2rem',
+  fontSize: '0',
   boxSizing: 'border-box',
   color: '#fff',
   fontFamily: 'inherit',
   transition: 'box-shadow 0 linear',
   position: 'relative',
-  outline: 'none',
 
-  ':focus': {
-    outline: 'none',
-  },
   ':active': {
     boxShadow: '0 0 0 4px rgba(255, 255, 255, 0.4)',
-    outline: 'none',
   },
   '::before': {
     backgroundColor: '#fff',
