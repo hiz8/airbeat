@@ -18,6 +18,7 @@ export function PlayButton() {
     }
 
     actions.init(playButton.current!);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isSelected = status === 'on';
