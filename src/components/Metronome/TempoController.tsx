@@ -1,5 +1,8 @@
-import { useState, useEffect, useRef, useContext, ReactNode } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { useButton } from '@react-aria/button';
+import { AriaButtonProps } from '@react-types/button';
+import { useFocusRing } from '@react-aria/focus';
+import { mergeProps } from '@react-aria/utils';
 
 import { TempoContext, TempoDispatchContext } from '../../hooks/useMetoronome';
 
@@ -38,7 +41,7 @@ export function TempoController(): JSX.Element {
     return () => clearInterval(id);
   }, [updateTempo, tempo, pressPlus]);
 
-  function _handleChangeEvent2(value: number[]): void {
+  function handleChangeEvent(value: number[]): void {
     if (updateTempo) {
       updateTempo(value[0]);
     }
@@ -54,7 +57,10 @@ export function TempoController(): JSX.Element {
 
   return (
     <div className={styles.controller}>
-      <Button onPress={handlePressMinusButton} className={styles.minusButton}>
+      <Button
+        onPressChange={handlePressMinusButton}
+        classNames={styles.minusButton}
+      >
         Minus
       </Button>
       <TempoSlider
@@ -64,38 +70,37 @@ export function TempoController(): JSX.Element {
         defaultValue={[120]}
         step={1}
         value={[tempo]}
-        onChange={_handleChangeEvent2}
+        onChange={handleChangeEvent}
       />
-      <Button onPress={handlePressPlusButton} className={styles.plusButton}>
+      <Button
+        onPressChange={handlePressPlusButton}
+        classNames={styles.plusButton}
+      >
         Plus
       </Button>
     </div>
   );
 }
 
-type ButtonProps = {
-  children: ReactNode;
-  onPress: (isPressed: boolean) => void;
-  className: string;
+type ButtonProps = AriaButtonProps & {
+  classNames: Record<'normal' | 'focus', string>;
 };
-function Button({ onPress, className, ...props }: ButtonProps) {
-  const { children } = props;
+function Button({ classNames, ...props }: ButtonProps) {
   const ref = useRef(null);
-  const { buttonProps, isPressed } = useButton(
+  const { buttonProps } = useButton(
     {
       ...props,
-      elementType: 'span',
     },
     ref,
   );
-
-  useEffect(() => {
-    onPress(isPressed);
-  }, [onPress, isPressed]);
+  const { focusProps, isFocusVisible } = useFocusRing();
+  console.log({ isFocusVisible });
 
   return (
-    <button {...buttonProps} className={className} ref={ref}>
-      {children}
-    </button>
+    <button
+      className={classNames[isFocusVisible ? 'focus' : 'normal']}
+      ref={ref}
+      {...mergeProps(buttonProps, focusProps)}
+    />
   );
 }
