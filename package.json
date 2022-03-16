@@ -10,15 +10,8 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "@react-aria/button": "^3.4.2",
-    "@react-aria/focus": "^3.5.3",
-    "@react-aria/i18n": "^3.3.7",
-    "@react-aria/slider": "^3.0.6",
-    "@react-aria/ssr": "^3.1.2",
-    "@react-aria/utils": "^3.11.3",
-    "@react-aria/visually-hidden": "^3.2.6",
-    "@react-stately/slider": "^3.0.6",
-    "@react-stately/toggle": "^3.2.6",
+    "react-aria": "^3.14.0",
+    "react-stately": "^3.12.2",
     "localforage": "^1.10.0",
     "localforage-getitems": "^1.4.2",
     "nanoid": "^3.3.1",

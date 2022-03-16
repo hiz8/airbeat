@@ -94,7 +94,6 @@ function Button({ classNames, ...props }: ButtonProps) {
     ref,
   );
   const { focusProps, isFocusVisible } = useFocusRing();
-  console.log({ isFocusVisible });
 
   return (
     <button
