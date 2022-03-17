@@ -9,30 +9,30 @@ export type Set = {
 };
 
 export class List {
-  private myLF: LocalForage;
+  private _localforage: LocalForage;
 
   constructor() {
-    this.myLF = localforage.createInstance({
-      name: 'metro',
+    this._localforage = localforage.createInstance({
+      name: 'airbeat',
       version: 1.0,
       storeName: 'music_list',
-      description: '名前を付けて保存した楽曲リスト',
+      description: 'List of musics saved as',
     });
   }
 
   public length() {
-    return this.myLF.length();
+    return this._localforage.length();
   }
 
   public getItems() {
-    return this.myLF.getItems() as Promise<Record<string, Set>>;
+    return this._localforage.getItems() as Promise<Record<string, Set>>;
   }
 
   public setItem(setData: Set) {
-    return this.myLF.setItem(nanoid(), setData);
+    return this._localforage.setItem(nanoid(), setData);
   }
 
   public removeItem(key: string) {
-    return this.myLF.removeItem(key);
+    return this._localforage.removeItem(key);
   }
 }
