@@ -13,10 +13,6 @@ globalStyle('html, body', {
   // "2020年に最適なfont-familyの書き方 - ICS MEDIA" を参考に設定。
   // https://ics.media/entry/200317/
   fontFamily: `"Helvetica Neue", "Helvetica", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "Hiragino Sans", "Arial", "BIZ UDPGothic", "Meiryo", sans-serif`,
-
-  // 作品リストのページング時にコンテンツの量に応じてスクロールバーの有無が変化しリフローが発生する。
-  // これを抑制する為にスクロールバーは常に表示しておく
-  overflowY: 'scroll',
 });
 
 globalStyle('body', {
