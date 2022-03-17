@@ -22,7 +22,7 @@ class Metoronome {
   private readonly notesInQueue: note[] = [];
   private readonly noteLength = 0.05;
   private readonly lookahead = 25.0;
-  private last16thNoteDrawn = -1; // the last "box" we drew on the screen / 最後に画面上に描いた "ボックス"
+  private last16thNoteDrawn = -1; // the last "box" we drew on the screen
 
   private nextNoteTime: number = 0.0;
   private scheduleAheadTime: number = 0.1;
@@ -91,11 +91,10 @@ class Metoronome {
       this.notesInQueue[0].time < currentTime
     ) {
       currentNote = this.notesInQueue[0].note;
-      this.notesInQueue.splice(0, 1); // remove note from queue / キューからメモを削除する
+      this.notesInQueue.splice(0, 1); // remove note from queue
     }
 
     // We only need to draw if the note has moved.
-    // ノートが移動した場合にのみ描画する必要があります。
     if (this.last16thNoteDrawn != currentNote) {
       this.last16thNoteDrawn = currentNote;
 
@@ -111,19 +110,20 @@ class Metoronome {
             { backgroundColor: activeColor, easing: 'linear' },
           ],
           {
-            duration: 20000 / this.tempo,
+            duration: 30000 / this.tempo,
             iterations: 1,
           },
         );
       }
     }
 
-    // set up to draw again / 再び描画するように設定する
+    // set up to draw again
     requestAnimationFrame(this._draw.bind(this));
   }
 
   /**
-   * 次の区間の前に演奏する必要がある音符がある間、それらをスケジュールし、ポインタを前進させます。
+   * While there are notes that need to be played before the next interval,
+   * schedule them and move the pointer forward.
    */
   private scheduler(): void {
     while (
@@ -136,20 +136,20 @@ class Metoronome {
   }
 
   /**
-   * テンポに応じて音を出す
+   * Sound according to tempo
    *
    * @param beatNumber
    * @param time
    */
   private scheduleNote(beatNumber: number, time: number): void {
     /**
-     * 出す音のコントロール
+     * Control of the sound emitted
      */
     this.notesInQueue.push({ note: beatNumber, time: time });
 
     const noteResolution = this.beat;
 
-    // beat に応じて
+    // depending on beat
     if (noteResolution === '16beat' && beatNumber % 3) {
       return;
     }
@@ -183,10 +183,10 @@ class Metoronome {
         // beat 0 == high pitch
         oscillator.frequency.value = 880.0;
       } else if (beatNumber % 4 === 0) {
-        // quarter notes = medium pitch / 四分音符=中音域
+        // quarter notes = medium pitch
         oscillator.frequency.value = 440.0;
       } else {
-        // other 16th notes = low pitch / その他の16th notes =ロー・ピッチ
+        // other 16th notes = low pitch
         oscillator.frequency.value = 320.0;
       }
     }
@@ -196,7 +196,7 @@ class Metoronome {
   }
 
   /**
-   * 16分音符で現在のノートと時間を進める
+   * 16th note to advance the current note and time
    */
   private nextNote(): void {
     let secondsPerBeat = 20 / this.tempo;
