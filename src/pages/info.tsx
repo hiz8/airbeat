@@ -23,10 +23,10 @@ const Info = () => {
         </div>
         <h1 className={styles.title}>airbeat</h1>
         <h2 className={styles.description}>
-          Offline supported metronome application
+          Offline first metronome application
         </h2>
       </main>
-      <div className={styles.copyright}>© 2019 plyr.</div>
+      <div className={styles.copyright}>© 2019 hiz.</div>
     </div>
   );
 };

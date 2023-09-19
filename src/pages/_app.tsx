@@ -1,12 +1,8 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import Router from 'next/router';
 import { SSRProvider } from '@react-aria/ssr';
-import * as gtag from '../lib/gtag';
 
 import '../styles/pages/global.css';
-
-Router.events.on('routeChangeComplete', (url) => gtag.pageview(url));
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -22,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no"
         />
-        <link rel="canonical" href="https://airbeat.plyrs.app/" />
+        <link rel="canonical" href="https://airbeat.hizapp.blue/" />
         <link rel="manifest" href="/static/app.webmanifest" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

@@ -10,9 +10,7 @@ globalFontFace('Overpass Mono', {
 globalStyle('html, body', {
   margin: '0',
   position: 'relative',
-  // "2020年に最適なfont-familyの書き方 - ICS MEDIA" を参考に設定。
-  // https://ics.media/entry/200317/
-  fontFamily: `"Helvetica Neue", "Helvetica", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "Hiragino Sans", "Arial", "BIZ UDPGothic", "Meiryo", sans-serif`,
+  fontFamily: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;`,
 });
 
 globalStyle('body', {

@@ -4,11 +4,12 @@ import { Save as IconSave } from 'react-feather';
 
 import { ListItems } from './ListItems';
 import { List as ListStore, Set } from '../../model/list';
+import type { Beats } from '../../lib/metoronome';
 import {
   BeatContext,
   BeatDispatchContext,
+  TempoDispatchContext,
   TempoContext,
-  Beats,
 } from '../../hooks/useMetoronome';
 import { ListDispatchContext } from '../../hooks/useList';
 
@@ -23,6 +24,7 @@ export function List(): JSX.Element {
   const tempo = useContext(TempoContext);
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
+  const updateTempo = useContext(TempoDispatchContext);
   const toggleVisible = useContext(ListDispatchContext);
 
   function handleChangeEvent(e: ChangeEvent<HTMLInputElement>) {
@@ -92,20 +94,11 @@ export function List(): JSX.Element {
 
     const { tempo, beat } = e.currentTarget.dataset;
 
-    if (!beat) {
-      return;
-    }
-
-    if (updateBeat && toggleVisible) {
+    // Update the beat and tempo
+    if (tempo && beat && updateBeat && updateTempo && toggleVisible) {
       updateBeat(beat as Beats);
+      updateTempo(parseInt(tempo, 10));
       toggleVisible();
-    }
-
-    const event = new CustomEvent('input');
-    const tempoInput = document.getElementById('range');
-    if (tempoInput instanceof HTMLInputElement && tempo) {
-      tempoInput.value = tempo;
-      tempoInput.dispatchEvent(event);
     }
   }
 

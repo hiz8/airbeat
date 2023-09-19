@@ -1,10 +1,7 @@
 import { useContext } from 'react';
 import type { ChangeEvent } from 'react';
-import {
-  BeatContext,
-  BeatDispatchContext,
-  Beats,
-} from '../../hooks/useMetoronome';
+import { Beats } from '../../lib/metoronome';
+import { BeatContext, BeatDispatchContext } from '../../hooks/useMetoronome';
 
 import * as styles from './BeatController.css';
 
