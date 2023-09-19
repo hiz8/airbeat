@@ -10,28 +10,27 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "react-aria": "^3.14.0",
-    "react-stately": "^3.12.2",
     "localforage": "^1.10.0",
     "localforage-getitems": "^1.4.2",
     "nanoid": "^3.3.1",
-    "next": "^12.1.0",
+    "next": "^13.4.19",
     "next-offline": "^5.0.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-feather": "^2.0.9"
+    "react": "^18.2.0",
+    "react-aria": "^3.28.0",
+    "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
+    "react-stately": "^3.26.0"
   },
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^13.13.52",
-    "@types/react": "^17.0.40",
-    "@types/react-dom": "^17.0.13",
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
     "@typescript-eslint/parser": "^5.14.0",
-    "@vanilla-extract/babel-plugin": "^1.1.4",
     "@vanilla-extract/css": "^1.6.8",
-    "@vanilla-extract/next-plugin": "^2.0.1",
+    "@vanilla-extract/next-plugin": "^2.3.1",
     "eslint": "^8.11.0",
-    "eslint-config-next": "^12.1.0",
+    "eslint-config-next": "^13.4.19",
     "typescript": "^4.6.2"
   }
 }

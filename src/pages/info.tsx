@@ -11,10 +11,8 @@ const Info = () => {
         <title>Information - airbeat</title>
       </Head>
       <div>
-        <Link href="/" passHref>
-          <a className={styles.infoButton}>
-            <IconArrowLeft />
-          </a>
+        <Link href="/" className={styles.infoButton}>
+          <IconArrowLeft />
         </Link>
       </div>
       <main className={styles.main}>
