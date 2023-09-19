@@ -1,12 +1,8 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import Router from 'next/router';
 import { SSRProvider } from '@react-aria/ssr';
-import * as gtag from '../lib/gtag';
 
 import '../styles/pages/global.css';
-
-Router.events.on('routeChangeComplete', (url) => gtag.pageview(url));
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
