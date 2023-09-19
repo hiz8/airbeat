@@ -4,11 +4,11 @@ import { Save as IconSave } from 'react-feather';
 
 import { ListItems } from './ListItems';
 import { List as ListStore, Set } from '../../model/list';
+import type { Beats } from '../../lib/metoronome';
 import {
   BeatContext,
   BeatDispatchContext,
   TempoContext,
-  Beats,
 } from '../../hooks/useMetoronome';
 import { ListDispatchContext } from '../../hooks/useList';
 
