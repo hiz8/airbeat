@@ -1,6 +1,5 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { SSRProvider } from '@react-aria/ssr';
 
 import '../styles/pages/global.css';
 
@@ -26,9 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-title" content="airbeat" />
       </Head>
-      <SSRProvider>
-        <Component {...pageProps} />
-      </SSRProvider>
+      <Component {...pageProps} />
     </>
   );
 }
