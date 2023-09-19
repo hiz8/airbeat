@@ -26,10 +26,8 @@ export function AppBar(): JSX.Element {
 
   return (
     <div className={styles.navBar}>
-      <Link href="/info" passHref>
-        <a className={styles.infoButton}>
-          <IconInfo color="white" />
-        </a>
+      <Link href="/info" className={styles.infoButton}>
+        <IconInfo color="white" />
       </Link>
       <button
         type="button"

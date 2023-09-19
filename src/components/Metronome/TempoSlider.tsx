@@ -12,7 +12,7 @@ import { useNumberFormatter } from '@react-aria/i18n';
 
 import * as styles from './TempoSlider.css';
 
-type TempoSliderProps = Omit<SliderStateOptions, 'numberFormatter'>;
+type TempoSliderProps = Omit<SliderStateOptions<number[]>, 'numberFormatter'>;
 
 export function TempoSlider(props: TempoSliderProps) {
   const trackRef = useRef(null);
