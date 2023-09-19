@@ -2,22 +2,20 @@
 
 ### 0.5.0
 
-- テンポボタンの長押しに対応
+- Compatible with long pressing of tempo buttons
 
 ### 0.4.0
 
-- オフライン対応
-- 本番環境リリースへ向けた設定の追加
+- Offline support
 
-### 0.３.0
+### 0.3.0
 
-- 楽曲の保存・選択・削除機能を実装
+- Implement the presecation, selection, deletion function of songs
 
 ### 0.2.0
 
-- テンポ・ビートのコントロール機能を実装
+- Implement a tempo and beat controller
 
 ### 0.1.0
 
-- とりあえずメトロノームの音が出るまでは実装
-- その他の無駄な要素は極力削除
+- Initial implementation
