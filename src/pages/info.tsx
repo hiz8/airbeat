@@ -26,7 +26,7 @@ const Info = () => {
           Offline supported metronome application
         </h2>
       </main>
-      <div className={styles.copyright}>© 2019 plyr.</div>
+      <div className={styles.copyright}>© 2019 hiz.</div>
     </div>
   );
 };
