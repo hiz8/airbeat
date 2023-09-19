@@ -11,13 +11,13 @@ export const group = style({
 });
 
 export const track = style({
-  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
   height: 30,
-  width: ' 100%',
+  width: '100%',
 });
 
 export const trackBar = style({
-  position: 'absolute',
   backgroundColor: '#dee2e6',
   height: 3,
   top: 13,
@@ -32,9 +32,7 @@ export const slider = style({
 });
 
 export const thumbWrapper = style({
-  position: 'absolute',
   top: 3,
-  transform: 'translateX(-50%)',
 });
 
 const thumbBase = style({
