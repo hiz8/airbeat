@@ -3,8 +3,6 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["next.config.js"],
-  "extends": ["next"],
   "env": {
     "es2020": true,
     "browser": true,
