@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { PlayButton } from '../components/Metronome/PlayButton';
 import { TempoController } from '../components/Metronome/TempoController';
 import { BeatController } from '../components/Metronome/BeatController';
@@ -10,6 +10,10 @@ import { MetoronomeProvider } from '../hooks/useMetoronome';
 import { ListProvider, ListContext } from '../hooks/useList';
 
 const Home = () => {
+  useEffect(() => {
+    document.title = 'airbeat';
+  }, []);
+
   return (
     <ListProvider>
       <MetoronomeProvider>

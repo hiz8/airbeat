@@ -1,17 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
-import Link from 'next/link';
-import Head from 'next/head';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowLeft as IconArrowLeft } from 'react-feather';
 import * as styles from '../styles/pages/info.css';
 
 const Info = () => {
+  useEffect(() => {
+    document.title = 'Information - airbeat';
+  }, []);
+
   return (
     <div className={styles.infoWrapper}>
-      <Head>
-        <title>Information - airbeat</title>
-      </Head>
       <div>
-        <Link href="/" className={styles.infoButton}>
+        <Link to="/" className={styles.infoButton}>
           <IconArrowLeft />
         </Link>
       </div>

@@ -1,5 +1,5 @@
 import { MouseEvent, useContext } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import {
   List as IconListOpen,
   X as IconListClose,
@@ -26,7 +26,7 @@ export function AppBar(): JSX.Element {
 
   return (
     <div className={styles.navBar}>
-      <Link href="/info" className={styles.infoButton}>
+      <Link to="/info" className={styles.infoButton}>
         <IconInfo color="white" />
       </Link>
       <button
