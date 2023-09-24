@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import color from '../../const/color';
 
 export const group = style({
   position: 'relative',
@@ -18,10 +19,12 @@ export const track = style({
 });
 
 export const trackBar = style({
-  backgroundColor: '#dee2e6',
-  height: 3,
+  backgroundColor: '#fff',
+  height: 5,
   top: 13,
   width: '100%',
+  boxShadow: '-1px 1px 1px #cdcfd4 inset',
+  borderRadius: 5,
 });
 
 export const slider = style({
@@ -36,20 +39,24 @@ export const thumbWrapper = style({
 });
 
 const thumbBase = style({
-  width: 20,
-  height: 20,
+  width: 22,
+  height: 22,
   borderRadius: '50%',
-  boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.6)',
+  border: '2px solid #fff',
+  boxShadow: '2px 4px 5px #cdcfd4, -2px -2px 4px #fff',
+  boxSizing: 'border-box',
+  cursor: 'grab',
 });
 
 export const thumb = styleVariants({
-  normal: [thumbBase, { backgroundColor: '#fff' }],
+  normal: [thumbBase, { backgroundColor: color.ACCENT }],
   focus: [thumbBase, { backgroundColor: 'orange' }],
   dragging: [
     thumbBase,
     {
-      backgroundColor: '#e3e3e3',
-      boxShadow: '0 0 0 4px rgba(255, 255, 255, 0.6)',
+      background: 'linear-gradient(145deg, #8cb8e6, #a6daff)',
+      boxShadow: 'none',
+      cursor: 'grabbing',
     },
   ],
 });

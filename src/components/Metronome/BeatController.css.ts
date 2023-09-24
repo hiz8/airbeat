@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import color from '../../const/color';
 
 export const select = style({
   padding: '5px',
@@ -10,6 +11,6 @@ export const select = style({
   appearance: 'none',
   cursor: 'pointer',
   background: 'none',
-  color: '#fff',
+  color: color.FONT,
   fontFamily: 'inherit',
 });
