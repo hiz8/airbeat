@@ -3,7 +3,7 @@
   "version": "0.5.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && workbox generateSW workbox-config.js",
     "preview": "vite preview",
     "type-check": "tsc",
     "lint": "eslint . --ext .ts,.tsx"
@@ -30,6 +30,7 @@
     "@vitejs/plugin-react": "^4.0.4",
     "eslint": "^8.49.0",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "workbox-cli": "^7.0.0"
   }
 }
