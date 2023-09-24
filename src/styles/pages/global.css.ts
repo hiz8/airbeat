@@ -16,8 +16,8 @@ globalStyle('html, body', {
 globalStyle('body', {
   overflow: 'auto',
   fontSize: '62.5%',
-  backgroundColor: color.BASE,
-  color: '#fff',
+  backgroundColor: color.BG,
+  color: color.FONT,
   fontFamily: "'Overpass Mono', monospace",
 });
 

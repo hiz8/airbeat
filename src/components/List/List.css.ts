@@ -1,11 +1,12 @@
 import { style } from '@vanilla-extract/css';
+import color from '../../const/color';
 
 export const listWrapper = style({
   position: 'absolute',
   top: '44px',
   left: '0',
   width: '100%',
-  backgroundColor: '#16364b',
+  backgroundColor: color.BG,
   minHeight: 'calc(100vh - 44px)',
   margin: '0',
   padding: '0 0 1em',
@@ -14,7 +15,7 @@ export const listWrapper = style({
 });
 
 export const listItem = style({
-  color: '#fff',
+  color: color.FONT,
   fontSize: '1rem',
   display: 'flex',
   justifyContent: 'space-between',
@@ -62,7 +63,7 @@ export const listItemControlleSave = style({
   display: 'flex',
   background: 'none',
   border: 'none',
-  color: '#fff',
+  color: color.FONT,
   padding: '0',
   width: '44px',
   height: '100%',

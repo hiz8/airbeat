@@ -12,6 +12,7 @@ import {
   TempoContext,
 } from '../../hooks/useMetoronome';
 import { ListDispatchContext } from '../../hooks/useList';
+import color from '../../const/color';
 
 import * as styles from './List.css';
 
@@ -144,7 +145,7 @@ export function List(): JSX.Element {
             disabled={!saveButton}
             className={styles.listItemControlleSave}
           >
-            <IconSave />
+            <IconSave color={color.FONT} />
           </button>
         </span>
       </li>

@@ -1,14 +1,15 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import color from '../../const/color';
 
 export const controller = style({
   display: 'flex',
   justifyContent: 'space-between',
-  margin: '0.5em 0.5em 0',
+  margin: '0.5em 2em 0',
 });
 
 const buttonBase = style({
-  backgroundColor: '#1baab1',
-  boxShadow: 'none',
+  backgroundColor: color.PRIMARY,
+  boxShadow: '2px 4px 5px #cdcfd4, -2px -2px 4px #fff',
   border: '2px solid #fff',
   borderRadius: '50%',
   height: '44px',
@@ -22,7 +23,8 @@ const buttonBase = style({
   position: 'relative',
 
   ':focus': {
-    boxShadow: '0 0 0 4px rgba(255, 255, 255, 0.4)',
+    boxShadow: 'none',
+    background: 'linear-gradient(145deg, #d9dce0, #ffffff)',
   },
 });
 
@@ -30,7 +32,7 @@ const plusButtonBase = style([
   buttonBase,
   {
     '::before': {
-      backgroundColor: '#fff',
+      backgroundColor: color.FONT,
       width: '22px',
       height: '2px',
       display: 'inline-block',
@@ -42,7 +44,7 @@ const plusButtonBase = style([
       content: '',
     },
     '::after': {
-      backgroundColor: '#fff',
+      backgroundColor: color.FONT,
       width: '22px',
       height: '2px',
       display: 'inline-block',
@@ -73,7 +75,7 @@ export const minusButtonBase = style([
   buttonBase,
   {
     '::before': {
-      backgroundColor: '#fff',
+      backgroundColor: color.FONT,
       width: '22px',
       height: '2px',
       display: 'inline-block',
@@ -85,7 +87,7 @@ export const minusButtonBase = style([
       content: '',
     },
     '::after': {
-      backgroundColor: '#fff',
+      backgroundColor: color.FONT,
       width: '22px',
       height: '2px',
       display: 'inline-block',

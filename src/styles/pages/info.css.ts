@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 import color from '../../const/color';
 
 export const infoWrapper = style({
-  backgroundColor: '#eee',
   minHeight: '100vh',
   margin: '0',
   listStyle: 'none',
@@ -20,11 +19,11 @@ export const main = style({
 export const logo = style({
   width: '80px',
   height: '80px',
-  margin: '-15% auto 0',
+  margin: '-80px auto 0',
 });
 
 export const title = style({
-  color: color.PRIMARY,
+  color: color.FONT,
   textAlign: 'center',
   fontSize: '1.7rem',
   margin: '0',
@@ -32,7 +31,7 @@ export const title = style({
 });
 
 export const description = style({
-  color: color.PRIMARY,
+  color: color.FONT,
   textAlign: 'center',
   fontSize: '0.9rem',
   margin: '0',
@@ -40,7 +39,7 @@ export const description = style({
 });
 
 export const copyright = style({
-  color: color.PRIMARY,
+  color: color.FONT,
   fontSize: '0.8rem',
   textAlign: 'center',
 });

@@ -6,6 +6,7 @@ import {
   Info as IconInfo,
 } from 'react-feather';
 import { ListContext, ListDispatchContext } from '../hooks/useList';
+import color from '../const/color';
 
 import * as styles from './AppBar.css';
 
@@ -21,13 +22,17 @@ export function AppBar(): JSX.Element {
     }
   }
 
-  const IconList = visible ? <IconListClose /> : <IconListOpen />;
+  const IconList = visible ? (
+    <IconListClose color={color.FONT} />
+  ) : (
+    <IconListOpen color={color.FONT} />
+  );
   const labelText = visible ? 'Close set list' : 'Open set list';
 
   return (
     <div className={styles.navBar}>
       <Link to="/info" className={styles.infoButton}>
-        <IconInfo color="white" />
+        <IconInfo color={color.FONT} />
       </Link>
       <button
         type="button"

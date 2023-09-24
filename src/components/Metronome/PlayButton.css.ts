@@ -2,7 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import color from '../../const/color';
 
 const buttonBase = style({
-  boxShadow: 'none',
+  boxShadow: '2px 4px 5px #cdcfd4, -2px -2px 4px #fff',
   background: 'none',
   border: '2px solid #fff',
   borderRadius: '30px',
@@ -14,7 +14,7 @@ const buttonBase = style({
   margin: '1.5em auto 1em',
   padding: ['0', '0'],
   display: 'block',
-  color: '#fff',
+  color: color.FONT,
   fontFamily: 'inherit',
   fontSize: '1rem',
   ':focus': {
@@ -27,14 +27,7 @@ export const button = styleVariants({
     buttonBase,
     {
       backgroundColor: color.PRIMARY,
-      boxShadow: 'none',
     },
   ],
-  playing: [
-    buttonBase,
-    {
-      backgroundColor: color.BASE,
-      boxShadow: '0 0 0 4px rgba(255, 255, 255, .4)',
-    },
-  ],
+  playing: [buttonBase],
 });

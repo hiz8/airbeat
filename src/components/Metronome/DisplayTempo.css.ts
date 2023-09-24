@@ -7,6 +7,7 @@ export const outputTempo = style({
   position: 'relative',
   textAlign: 'right',
   lineHeight: 1,
+  marginTop: '-40px',
 });
 
 export const outputTempoValue = style({
