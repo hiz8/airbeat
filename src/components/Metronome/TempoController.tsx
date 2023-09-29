@@ -1,8 +1,5 @@
-import { useState, useEffect, useRef, useContext } from 'react';
-import { useButton } from '@react-aria/button';
-import { AriaButtonProps } from '@react-types/button';
-import { useFocusRing } from '@react-aria/focus';
-import { mergeProps } from '@react-aria/utils';
+import { useState, useEffect, useContext } from 'react';
+import { Button } from 'react-aria-components';
 
 import { TempoContext, TempoDispatchContext } from '../../hooks/useMetoronome';
 
@@ -59,7 +56,7 @@ export function TempoController(): JSX.Element {
     <div className={styles.controller}>
       <Button
         onPressChange={handlePressMinusButton}
-        classNames={styles.minusButton}
+        className={styles.minusButton}
       >
         Minus
       </Button>
@@ -74,32 +71,10 @@ export function TempoController(): JSX.Element {
       />
       <Button
         onPressChange={handlePressPlusButton}
-        classNames={styles.plusButton}
+        className={styles.plusButton}
       >
         Plus
       </Button>
     </div>
-  );
-}
-
-type ButtonProps = AriaButtonProps & {
-  classNames: Record<'normal' | 'focus', string>;
-};
-function Button({ classNames, ...props }: ButtonProps) {
-  const ref = useRef(null);
-  const { buttonProps } = useButton(
-    {
-      ...props,
-    },
-    ref,
-  );
-  const { focusProps, isFocusVisible } = useFocusRing();
-
-  return (
-    <button
-      className={classNames[isFocusVisible ? 'focus' : 'normal']}
-      ref={ref}
-      {...mergeProps(buttonProps, focusProps)}
-    />
   );
 }

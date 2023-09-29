@@ -1,6 +1,5 @@
-import { useEffect, useRef, useContext, ReactNode, RefObject } from 'react';
-import { useToggleButton } from '@react-aria/button';
-import { useToggleState } from '@react-stately/toggle';
+import { useEffect, useRef, useContext } from 'react';
+import { ToggleButton } from 'react-aria-components';
 import {
   StatusContext,
   StatusDispatchContext,
@@ -18,7 +17,6 @@ export function PlayButton() {
     }
 
     actions.init(playButton.current!);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isSelected = status === 'on';
@@ -37,32 +35,11 @@ export function PlayButton() {
   return (
     <ToggleButton
       onPress={handleButtonClick}
-      buttonRef={playButton}
+      ref={playButton}
       isSelected={isSelected}
+      className={styles.button[isSelected ? 'playing' : 'pause']}
     >
       {isSelected ? 'Stop' : 'Play'}
     </ToggleButton>
-  );
-}
-
-type ToggleButtonProps = {
-  children: ReactNode;
-  buttonRef: RefObject<HTMLButtonElement>;
-  onPress: (e: any) => void;
-  isSelected: boolean;
-};
-
-function ToggleButton(props: ToggleButtonProps) {
-  const state = useToggleState(props);
-  const { buttonProps } = useToggleButton(props, state, props.buttonRef);
-
-  return (
-    <button
-      {...buttonProps}
-      className={styles.button[props.isSelected ? 'playing' : 'pause']}
-      ref={props.buttonRef}
-    >
-      {props.children}
-    </button>
   );
 }

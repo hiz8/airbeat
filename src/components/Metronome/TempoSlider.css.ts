@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import color from '../../const/color';
 
 export const group = style({
@@ -38,7 +38,7 @@ export const thumbWrapper = style({
   top: 3,
 });
 
-const thumbBase = style({
+export const thumb = style({
   width: 22,
   height: 22,
   borderRadius: '50%',
@@ -46,17 +46,17 @@ const thumbBase = style({
   boxShadow: '2px 4px 5px #cdcfd4, -2px -2px 4px #fff',
   boxSizing: 'border-box',
   cursor: 'grab',
-});
+  backgroundColor: color.ACCENT,
+  marginTop: 2,
 
-export const thumb = styleVariants({
-  normal: [thumbBase, { backgroundColor: color.ACCENT }],
-  focus: [thumbBase, { backgroundColor: 'orange' }],
-  dragging: [
-    thumbBase,
-    {
+  selectors: {
+    "&[data-dragging='true']": {
       background: 'linear-gradient(145deg, #8cb8e6, #a6daff)',
       boxShadow: 'none',
       cursor: 'grabbing',
     },
-  ],
+    "&[data-focus-visible='true']": {
+      backgroundColor: 'orange',
+    },
+  },
 });
