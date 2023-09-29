@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import color from '../../const/color';
 
 export const controller = style({
@@ -21,14 +21,20 @@ const buttonBase = style({
   fontFamily: 'inherit',
   transition: 'box-shadow 0 linear',
   position: 'relative',
+  outline: 'none',
 
-  ':focus': {
-    boxShadow: 'none',
-    background: 'linear-gradient(145deg, #d9dce0, #ffffff)',
+  selectors: {
+    "&[data-pressed='true']": {
+      boxShadow: 'none',
+      background: 'linear-gradient(145deg, #d9dce0, #ffffff)',
+    },
+    "&[data-focus-visible='true']": {
+      boxShadow: '0 0 0 4px orange',
+    },
   },
 });
 
-const plusButtonBase = style([
+export const plusButton = style([
   buttonBase,
   {
     '::before': {
@@ -59,19 +65,7 @@ const plusButtonBase = style([
   },
 ]);
 
-export const plusButton = styleVariants({
-  normal: [plusButtonBase, {}],
-  focus: [
-    plusButtonBase,
-    {
-      ':focus': {
-        boxShadow: '0 0 0 4px orange',
-      },
-    },
-  ],
-});
-
-export const minusButtonBase = style([
+export const minusButton = style([
   buttonBase,
   {
     '::before': {
@@ -99,15 +93,3 @@ export const minusButtonBase = style([
     },
   },
 ]);
-
-export const minusButton = styleVariants({
-  normal: [minusButtonBase, {}],
-  focus: [
-    minusButtonBase,
-    {
-      ':focus': {
-        boxShadow: '0 0 0 4px orange',
-      },
-    },
-  ],
-});

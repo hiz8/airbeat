@@ -13,11 +13,10 @@
     "localforage-getitems": "^1.4.2",
     "nanoid": "^5.0.1",
     "react": "^18.2.0",
-    "react-aria": "^3.28.0",
+    "react-aria-components": "^1.0.0-beta.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
-    "react-router-dom": "^6.16.0",
-    "react-stately": "^3.26.0"
+    "react-router-dom": "^6.16.0"
   },
   "license": "ISC",
   "devDependencies": {

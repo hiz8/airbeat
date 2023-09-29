@@ -17,8 +17,16 @@ const buttonBase = style({
   color: color.FONT,
   fontFamily: 'inherit',
   fontSize: '1rem',
-  ':focus': {
-    outline: 'none',
+  outline: 'none',
+
+  selectors: {
+    "&[data-pressed='true']": {
+      boxShadow: 'none',
+      background: 'linear-gradient(145deg, #d9dce0, #ffffff)',
+    },
+    "&[data-focus-visible='true']": {
+      boxShadow: '0 0 0 4px orange',
+    },
   },
 });
 
