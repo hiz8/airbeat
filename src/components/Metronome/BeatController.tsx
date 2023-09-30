@@ -1,5 +1,14 @@
-import { useContext } from 'react';
-import type { ChangeEvent } from 'react';
+import { useContext, type Key } from 'react';
+import {
+  Button,
+  Item,
+  ListBox,
+  Popover,
+  Select,
+  SelectValue,
+} from 'react-aria-components';
+import { ChevronDown as IconDown } from 'react-feather';
+
 import { Beats } from '../../lib/metoronome';
 import { BeatContext, BeatDispatchContext } from '../../hooks/useMetoronome';
 
@@ -9,32 +18,31 @@ export function BeatController(): JSX.Element {
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
 
-  function handleBeatSelectChange(e: ChangeEvent<HTMLSelectElement>) {
+  function handleBeatSelectChange(key: Key) {
     if (updateBeat) {
-      updateBeat(e.target.value as Beats);
+      updateBeat(key as Beats);
     }
   }
 
-  const options = [];
-
-  for (let i in Beats) {
-    options.push(
-      // @ts-ignore
-      <option value={Beats[i]} key={i}>
-        {/** @ts-ignore */}
-        {Beats[i]}
-      </option>,
-    );
-  }
+  const options = Object.values(Beats).map((value) => (
+    <Item id={value} className={styles.listItem}>
+      {value}
+    </Item>
+  ));
 
   return (
-    <select
-      onChange={handleBeatSelectChange}
-      value={beat}
+    <Select
+      selectedKey={beat}
+      onSelectionChange={handleBeatSelectChange}
       aria-label="Set the beat"
       className={styles.select}
     >
-      {options}
-    </select>
+      <Button className={styles.button}>
+        <SelectValue /> <IconDown size={18} />
+      </Button>
+      <Popover>
+        <ListBox className={styles.listBox}>{options}</ListBox>
+      </Popover>
+    </Select>
   );
 }
