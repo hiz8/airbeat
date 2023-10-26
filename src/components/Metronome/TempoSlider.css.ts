@@ -21,7 +21,7 @@ export const track = style({
 export const trackBar = style({
   backgroundColor: '#fff',
   height: 5,
-  top: 13,
+  top: 1,
   width: '100%',
   boxShadow: '-1px 1px 1px #cdcfd4 inset',
   borderRadius: 5,
