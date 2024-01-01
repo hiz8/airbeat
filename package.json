@@ -13,7 +13,7 @@
     "localforage-getitems": "^1.4.2",
     "nanoid": "^5.0.4",
     "react": "^18.2.0",
-    "react-aria-components": "^1.0.0-beta.2",
+    "react-aria-components": "^1.0.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
     "react-router-dom": "^6.21.1"

@@ -1,7 +1,7 @@
 import { useContext, type Key } from 'react';
 import {
   Button,
-  Item,
+  ListBoxItem,
   ListBox,
   Popover,
   Select,
@@ -25,9 +25,9 @@ export function BeatController(): JSX.Element {
   }
 
   const options = Object.values(Beats).map((value) => (
-    <Item id={value} className={styles.listItem}>
+    <ListBoxItem id={value} className={styles.listItem} key={value}>
       {value}
-    </Item>
+    </ListBoxItem>
   ));
 
   return (
