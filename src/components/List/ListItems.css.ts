@@ -1,7 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
 export const itemWrapper = style({
-  color: "#fff",
   fontSize: "1rem",
   display: "flex",
   justifyContent: "space-between",
@@ -45,7 +44,6 @@ export const listItemControlle = style({
 export const listItemControlleDelete = style({
   background: "none",
   border: "none",
-  color: "#fff",
   padding: "0",
   width: "44px",
   height: "44px",
