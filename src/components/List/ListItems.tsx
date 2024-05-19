@@ -1,7 +1,7 @@
-import type { MouseEvent } from 'react';
-import { Trash as IconTrash } from 'react-feather';
+import type { MouseEvent } from "react";
+import { Trash as IconTrash } from "react-feather";
 
-import * as styles from './ListItems.css';
+import * as styles from "./ListItems.css";
 
 export interface ListItemProps {
   itemKey: string;

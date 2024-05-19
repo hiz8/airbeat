@@ -1,10 +1,10 @@
-import color from '../const/color';
+import color from "../const/color";
 
 export const Beats = {
-  OPTION1: '4beat',
-  DEFAULT: '8beat',
-  OPTION2: '16beat',
-  OPTION3: 'Triplet',
+  OPTION1: "4beat",
+  DEFAULT: "8beat",
+  OPTION2: "16beat",
+  OPTION3: "Triplet",
 } as const;
 
 export type Beats = (typeof Beats)[keyof typeof Beats];
@@ -14,7 +14,7 @@ type note = {
   time: number;
 };
 
-export type Status = 'on' | 'off';
+export type Status = "on" | "off";
 
 /**
  * Metoronome
@@ -38,7 +38,7 @@ export class Metoronome {
   private _beat: Beats;
   private _tempo: number;
 
-  public status: Status = 'off';
+  public status: Status = "off";
 
   constructor() {
     this._beat = Beats.DEFAULT;
@@ -74,15 +74,15 @@ export class Metoronome {
    */
   public start() {
     if (!this.timerWorker) {
-      throw new Error('timerWorker is not defined');
+      throw new Error("timerWorker is not defined");
     }
 
-    this.timerWorker.postMessage('start');
-    this.status = 'on';
+    this.timerWorker.postMessage("start");
+    this.status = "on";
 
     setTimeout(() => {
       if (!this.audioCtx) {
-        throw new Error('audioCtx is not defined');
+        throw new Error("audioCtx is not defined");
       }
 
       this.current16thNote = 0;
@@ -95,11 +95,11 @@ export class Metoronome {
    */
   public stop() {
     if (!this.timerWorker) {
-      throw new Error('timerWorker is not defined');
+      throw new Error("timerWorker is not defined");
     }
 
-    this.timerWorker.postMessage('stop');
-    this.status = 'off';
+    this.timerWorker.postMessage("stop");
+    this.status = "off";
   }
 
   /**
@@ -107,7 +107,7 @@ export class Metoronome {
    */
   private _draw() {
     if (!this.audioCtx) {
-      throw new Error('audioCtx is not defined');
+      throw new Error("audioCtx is not defined");
     }
 
     let currentNote = this.last16thNoteDrawn;
@@ -133,9 +133,9 @@ export class Metoronome {
           [
             {
               backgroundColor: activeColor,
-              easing: 'steps(1, start)',
+              easing: "steps(1, start)",
             },
-            { backgroundColor: activeColor, easing: 'linear' },
+            { backgroundColor: activeColor, easing: "linear" },
           ],
           {
             duration: 30000 / this.tempo,
@@ -155,7 +155,7 @@ export class Metoronome {
    */
   private scheduler(): void {
     if (!this.audioCtx) {
-      throw new Error('audioCtx is not defined');
+      throw new Error("audioCtx is not defined");
     }
 
     while (
@@ -175,7 +175,7 @@ export class Metoronome {
    */
   private scheduleNote(beatNumber: number, time: number): void {
     if (!this.audioCtx) {
-      throw new Error('audioCtx is not defined');
+      throw new Error("audioCtx is not defined");
     }
 
     /**
@@ -186,27 +186,27 @@ export class Metoronome {
     const noteResolution = this.beat;
 
     // depending on beat
-    if (noteResolution === '16beat' && beatNumber % 3) {
+    if (noteResolution === "16beat" && beatNumber % 3) {
       return;
     }
 
-    if (noteResolution === '8beat' && beatNumber % 6) {
+    if (noteResolution === "8beat" && beatNumber % 6) {
       return;
     }
 
-    if (noteResolution === '4beat' && beatNumber % 12) {
+    if (noteResolution === "4beat" && beatNumber % 12) {
       return;
     }
 
-    if (noteResolution === 'Triplet' && beatNumber % 4) {
+    if (noteResolution === "Triplet" && beatNumber % 4) {
       return;
     }
 
     const oscillator = this.audioCtx.createOscillator();
-    oscillator.type = 'square';
+    oscillator.type = "square";
     oscillator.connect(this.audioCtx.destination);
 
-    if (noteResolution === 'Triplet') {
+    if (noteResolution === "Triplet") {
       if (beatNumber % 48 === 0) {
         oscillator.frequency.value = 880;
       } else if (beatNumber % 6 === 0) {
@@ -252,10 +252,10 @@ export class Metoronome {
     this.audioCtx = new AudioContext();
     requestAnimationFrame(this._draw.bind(this)); // start the drawing loop.
 
-    this.timerWorker = new Worker('/static/js/metronome.worker.js');
+    this.timerWorker = new Worker("/static/js/metronome.worker.js");
 
     this.timerWorker.onmessage = (e) => {
-      if (e.data === 'tick') {
+      if (e.data === "tick") {
         this.scheduler();
       } else {
         console.log(`message: ${e.data}`);
@@ -272,11 +272,11 @@ export class Metoronome {
    */
   public componentWillUnmount() {
     if (!this.timerWorker) {
-      throw new Error('timerWorker is not defined');
+      throw new Error("timerWorker is not defined");
     }
 
-    this.timerWorker.postMessage('stop');
+    this.timerWorker.postMessage("stop");
     this.timerWorker.terminate();
-    this.status = 'off';
+    this.status = "off";
   }
 }

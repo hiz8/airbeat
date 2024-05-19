@@ -1,6 +1,6 @@
-import * as localforage from 'localforage';
-import 'localforage-getitems';
-import { nanoid } from 'nanoid';
+import * as localforage from "localforage";
+import "localforage-getitems";
+import { nanoid } from "nanoid";
 
 export type ListItem = {
   name: string;
@@ -13,10 +13,10 @@ export class List {
 
   constructor() {
     this._localforage = localforage.createInstance({
-      name: 'airbeat',
+      name: "airbeat",
       version: 1.0,
-      storeName: 'music_list',
-      description: 'List of musics saved as',
+      storeName: "music_list",
+      description: "List of musics saved as",
     });
   }
 

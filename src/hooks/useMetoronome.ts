@@ -1,7 +1,7 @@
-import { useState, createContext, createElement, useEffect } from 'react';
-import type { ReactNode } from 'react';
+import { useState, createContext, createElement, useEffect } from "react";
+import type { ReactNode } from "react";
 
-import { Metoronome, type Status, type Beats } from '../lib/metoronome';
+import { Metoronome, type Status, type Beats } from "../lib/metoronome";
 
 const metoronome = new Metoronome();
 
@@ -17,12 +17,12 @@ function useController(): [
 
   function start() {
     metoronome.start();
-    updateStatus('on');
+    updateStatus("on");
   }
 
   function stop() {
     metoronome.stop();
-    updateStatus('off');
+    updateStatus("off");
   }
 
   function init(button: HTMLButtonElement | null) {
