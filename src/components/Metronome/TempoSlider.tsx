@@ -3,11 +3,11 @@ import {
   SliderThumb,
   SliderTrack,
   type SliderProps,
-} from 'react-aria-components';
+} from "react-aria-components";
 
-import * as styles from './TempoSlider.css';
+import * as styles from "./TempoSlider.css";
 
-type TempoSliderProps = Omit<SliderProps<number[]>, 'numberFormatter'>;
+type TempoSliderProps = Omit<SliderProps<number[]>, "numberFormatter">;
 
 export function TempoSlider(props: TempoSliderProps) {
   return (

@@ -1,4 +1,4 @@
-import { useContext, type Key } from 'react';
+import { useContext, type Key } from "react";
 import {
   Button,
   ListBoxItem,
@@ -6,13 +6,13 @@ import {
   Popover,
   Select,
   SelectValue,
-} from 'react-aria-components';
-import { ChevronDown as IconDown } from 'react-feather';
+} from "react-aria-components";
+import { ChevronDown as IconDown } from "react-feather";
 
-import { Beats } from '../../lib/metoronome';
-import { BeatContext, BeatDispatchContext } from '../../hooks/useMetoronome';
+import { Beats } from "../../lib/metoronome";
+import { BeatContext, BeatDispatchContext } from "../../hooks/useMetoronome";
 
-import * as styles from './BeatController.css';
+import * as styles from "./BeatController.css";
 
 export function BeatController(): JSX.Element {
   const beat = useContext(BeatContext);

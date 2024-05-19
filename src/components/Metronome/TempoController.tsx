@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
-import { Button } from 'react-aria-components';
+import { useState, useEffect, useContext } from "react";
+import { Button } from "react-aria-components";
 
-import { TempoContext, TempoDispatchContext } from '../../hooks/useMetoronome';
+import { TempoContext, TempoDispatchContext } from "../../hooks/useMetoronome";
 
-import { TempoSlider } from './TempoSlider';
-import * as styles from './TempoController.css';
+import { TempoSlider } from "./TempoSlider";
+import * as styles from "./TempoController.css";
 
 const MAXIMUM_TEMPO = 208;
 const MINIMUM_TEMPO = 40;

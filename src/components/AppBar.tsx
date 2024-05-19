@@ -1,14 +1,14 @@
-import { MouseEvent, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { type MouseEvent, useContext } from "react";
+import { Link } from "react-router-dom";
 import {
   List as IconListOpen,
   X as IconListClose,
   Info as IconInfo,
-} from 'react-feather';
-import { ListContext, ListDispatchContext } from '../hooks/useList';
-import color from '../const/color';
+} from "react-feather";
+import { ListContext, ListDispatchContext } from "../hooks/useList";
+import color from "../const/color";
 
-import * as styles from './AppBar.css';
+import * as styles from "./AppBar.css";
 
 export function AppBar(): JSX.Element {
   const visible = useContext(ListContext);
@@ -27,7 +27,7 @@ export function AppBar(): JSX.Element {
   ) : (
     <IconListOpen color={color.FONT} />
   );
-  const labelText = visible ? 'Close set list' : 'Open set list';
+  const labelText = visible ? "Close set list" : "Open set list";
 
   return (
     <div className={styles.navBar}>

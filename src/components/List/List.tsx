@@ -1,27 +1,27 @@
-import { useState, useContext } from 'react';
-import type { ChangeEvent, SyntheticEvent, MouseEvent, FormEvent } from 'react';
-import { Save as IconSave } from 'react-feather';
+import { useState, useContext } from "react";
+import type { ChangeEvent, SyntheticEvent, MouseEvent, FormEvent } from "react";
+import { Save as IconSave } from "react-feather";
 
-import { ListItems } from './ListItems';
-import { List as ListStore, Set } from '../../model/list';
-import type { Beats } from '../../lib/metoronome';
+import { ListItems } from "./ListItems";
+import { List as ListStore, type ListItem } from "../../model/list";
+import type { Beats } from "../../lib/metoronome";
 import {
   BeatContext,
   BeatDispatchContext,
   TempoDispatchContext,
   TempoContext,
-} from '../../hooks/useMetoronome';
-import { ListDispatchContext } from '../../hooks/useList';
-import color from '../../const/color';
+} from "../../hooks/useMetoronome";
+import { ListDispatchContext } from "../../hooks/useList";
+import color from "../../const/color";
 
-import * as styles from './List.css';
+import * as styles from "./List.css";
 
 const listStore = new ListStore();
 
 export function List(): JSX.Element {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [saveButton, setSaveButton] = useState(false);
-  const [items, setItems] = useState<Record<string, Set>>({});
+  const [items, setItems] = useState<Record<string, ListItem>>({});
   const tempo = useContext(TempoContext);
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
@@ -33,7 +33,7 @@ export function List(): JSX.Element {
       setName(e.target.value);
       setSaveButton(true);
     } else {
-      setName('');
+      setName("");
       setSaveButton(false);
     }
   }
@@ -62,7 +62,7 @@ export function List(): JSX.Element {
       })
       .then(() => {
         updateItems();
-        input.value = '';
+        input.value = "";
         input.blur();
         setSaveButton(false);
       })
@@ -78,7 +78,7 @@ export function List(): JSX.Element {
 
     const key = e.target.dataset.key;
 
-    if (key && confirm('Delete the item?')) {
+    if (key && confirm("Delete the item?")) {
       listStore
         .removeItem(key)
         .then(() => {
@@ -98,7 +98,7 @@ export function List(): JSX.Element {
     // Update the beat and tempo
     if (tempo && beat && updateBeat && updateTempo && toggleVisible) {
       updateBeat(beat as Beats);
-      updateTempo(parseInt(tempo, 10));
+      updateTempo(Number.parseInt(tempo, 10));
       toggleVisible();
     }
   }
@@ -109,7 +109,7 @@ export function List(): JSX.Element {
     Object.keys(items).forEach((key, i) => {
       list.push(
         <ListItems
-          key={i}
+          key={`${i}-${key}`}
           itemKey={key}
           name={items[key].name}
           tempo={items[key].tempo}
