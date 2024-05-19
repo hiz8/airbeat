@@ -15,6 +15,7 @@ export interface ListItemProps {
 export const ListItems = (props: ListItemProps): JSX.Element => {
   return (
     <li className={styles.itemWrapper}>
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: */}
       <span
         onClick={props.setItem}
         data-tempo={props.tempo}
@@ -32,6 +33,7 @@ export const ListItems = (props: ListItemProps): JSX.Element => {
         <button
           data-key={props.itemKey}
           onClick={props.deleteItem}
+          type="button"
           className={styles.listItemControlleDelete}
         >
           <IconTrash className={styles.listItemControlleDeleteInnerSvg} />

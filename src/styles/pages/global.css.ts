@@ -10,7 +10,7 @@ globalFontFace('Overpass Mono', {
 globalStyle('html, body', {
   margin: '0',
   position: 'relative',
-  fontFamily: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;`,
+  fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;',
 });
 
 globalStyle('body', {

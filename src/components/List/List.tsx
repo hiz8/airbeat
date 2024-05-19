@@ -3,7 +3,7 @@ import type { ChangeEvent, SyntheticEvent, MouseEvent, FormEvent } from 'react';
 import { Save as IconSave } from 'react-feather';
 
 import { ListItems } from './ListItems';
-import { List as ListStore, Set } from '../../model/list';
+import { List as ListStore, type ListItem } from '../../model/list';
 import type { Beats } from '../../lib/metoronome';
 import {
   BeatContext,
@@ -21,7 +21,7 @@ const listStore = new ListStore();
 export function List(): JSX.Element {
   const [name, setName] = useState('');
   const [saveButton, setSaveButton] = useState(false);
-  const [items, setItems] = useState<Record<string, Set>>({});
+  const [items, setItems] = useState<Record<string, ListItem>>({});
   const tempo = useContext(TempoContext);
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
@@ -98,7 +98,7 @@ export function List(): JSX.Element {
     // Update the beat and tempo
     if (tempo && beat && updateBeat && updateTempo && toggleVisible) {
       updateBeat(beat as Beats);
-      updateTempo(parseInt(tempo, 10));
+      updateTempo(Number.parseInt(tempo, 10));
       toggleVisible();
     }
   }
@@ -109,7 +109,7 @@ export function List(): JSX.Element {
     Object.keys(items).forEach((key, i) => {
       list.push(
         <ListItems
-          key={i}
+          key={`${i}-${key}`}
           itemKey={key}
           name={items[key].name}
           tempo={items[key].tempo}

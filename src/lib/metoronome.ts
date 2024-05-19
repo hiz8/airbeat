@@ -27,9 +27,9 @@ export class Metoronome {
   private readonly lookahead = 25;
   private last16thNoteDrawn = -1; // the last "box" we drew on the screen
 
-  private nextNoteTime: number = 0;
-  private scheduleAheadTime: number = 0.1;
-  private current16thNote: number = 0;
+  private nextNoteTime = 0;
+  private scheduleAheadTime = 0.1;
+  private current16thNote = 0;
 
   private audioCtx: AudioContext | null = null;
   private timerWorker: Worker | null = null;
@@ -73,12 +73,20 @@ export class Metoronome {
    * Start the metronome
    */
   public start() {
-    this.timerWorker!.postMessage('start');
+    if (!this.timerWorker) {
+      throw new Error('timerWorker is not defined');
+    }
+
+    this.timerWorker.postMessage('start');
     this.status = 'on';
 
     setTimeout(() => {
+      if (!this.audioCtx) {
+        throw new Error('audioCtx is not defined');
+      }
+
       this.current16thNote = 0;
-      this.nextNoteTime = this.audioCtx!.currentTime;
+      this.nextNoteTime = this.audioCtx.currentTime;
     }, 10);
   }
 
@@ -86,7 +94,11 @@ export class Metoronome {
    * Stop the metronome
    */
   public stop() {
-    this.timerWorker!.postMessage('stop');
+    if (!this.timerWorker) {
+      throw new Error('timerWorker is not defined');
+    }
+
+    this.timerWorker.postMessage('stop');
     this.status = 'off';
   }
 
@@ -94,8 +106,12 @@ export class Metoronome {
    * Draw the metronome
    */
   private _draw() {
+    if (!this.audioCtx) {
+      throw new Error('audioCtx is not defined');
+    }
+
     let currentNote = this.last16thNoteDrawn;
-    const currentTime = this.audioCtx!.currentTime;
+    const currentTime = this.audioCtx.currentTime;
     const button = this.playButton || null;
 
     while (
@@ -107,7 +123,7 @@ export class Metoronome {
     }
 
     // We only need to draw if the note has moved.
-    if (this.last16thNoteDrawn != currentNote) {
+    if (this.last16thNoteDrawn !== currentNote) {
       this.last16thNoteDrawn = currentNote;
 
       if (currentNote % 12 === 0 && button) {
@@ -138,9 +154,13 @@ export class Metoronome {
    * schedule them and move the pointer forward.
    */
   private scheduler(): void {
+    if (!this.audioCtx) {
+      throw new Error('audioCtx is not defined');
+    }
+
     while (
       this.nextNoteTime <
-      this.audioCtx!.currentTime + this.scheduleAheadTime
+      this.audioCtx.currentTime + this.scheduleAheadTime
     ) {
       this.scheduleNote(this.current16thNote, this.nextNoteTime);
       this.nextNote();
@@ -154,6 +174,10 @@ export class Metoronome {
    * @param time - time
    */
   private scheduleNote(beatNumber: number, time: number): void {
+    if (!this.audioCtx) {
+      throw new Error('audioCtx is not defined');
+    }
+
     /**
      * Control of the sound emitted
      */
@@ -178,9 +202,9 @@ export class Metoronome {
       return;
     }
 
-    const oscillator = this.audioCtx!.createOscillator();
+    const oscillator = this.audioCtx.createOscillator();
     oscillator.type = 'square';
-    oscillator.connect(this.audioCtx!.destination);
+    oscillator.connect(this.audioCtx.destination);
 
     if (noteResolution === 'Triplet') {
       if (beatNumber % 48 === 0) {
@@ -211,7 +235,7 @@ export class Metoronome {
    * 16th note to advance the current note and time
    */
   private nextNote(): void {
-    let secondsPerBeat = 20 / this.tempo;
+    const secondsPerBeat = 20 / this.tempo;
 
     this.nextNoteTime += 0.25 * secondsPerBeat;
     this.current16thNote++;
@@ -231,10 +255,10 @@ export class Metoronome {
     this.timerWorker = new Worker('/static/js/metronome.worker.js');
 
     this.timerWorker.onmessage = (e) => {
-      if (e.data == 'tick') {
+      if (e.data === 'tick') {
         this.scheduler();
       } else {
-        console.log('message: ' + e.data);
+        console.log(`message: ${e.data}`);
       }
     };
 
@@ -247,8 +271,12 @@ export class Metoronome {
    * Stop the metronome
    */
   public componentWillUnmount() {
-    this.timerWorker!.postMessage('stop');
-    this.timerWorker!.terminate();
+    if (!this.timerWorker) {
+      throw new Error('timerWorker is not defined');
+    }
+
+    this.timerWorker.postMessage('stop');
+    this.timerWorker.terminate();
     this.status = 'off';
   }
 }

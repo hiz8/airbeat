@@ -1,4 +1,4 @@
-import { MouseEvent, useContext } from 'react';
+import { type MouseEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {
   List as IconListOpen,

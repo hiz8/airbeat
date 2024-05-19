@@ -11,12 +11,13 @@ export function PlayButton() {
   const actions = useContext(StatusDispatchContext);
   const playButton = useRef<HTMLButtonElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies:
   useEffect(() => {
     if (!actions) {
       return;
     }
 
-    actions.init(playButton.current!);
+    actions.init(playButton.current);
   }, []);
 
   const isSelected = status === 'on';

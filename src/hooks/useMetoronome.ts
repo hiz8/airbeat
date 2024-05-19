@@ -30,6 +30,7 @@ function useController(): [
     metoronome.componentDidMount();
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies:
   useEffect(() => {
     return () => {
       stop();
