@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import {
   List as IconListOpen,
   X as IconListClose,
   Info as IconInfo,
 } from "react-feather";
-import { Button } from "react-aria-components";
+import { Button, Link } from "react-aria-components";
 
 import { ListContext, ListDispatchContext } from "../hooks/useList";
 import color from "../const/color";
@@ -31,7 +30,7 @@ export function AppBar(): JSX.Element {
 
   return (
     <div className={styles.navBar}>
-      <Link to="/info" className={styles.infoButton}>
+      <Link href="/info" className={styles.infoButton}>
         <IconInfo color={color.FONT} />
       </Link>
       <Button
