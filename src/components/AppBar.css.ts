@@ -17,14 +17,16 @@ export const listButton = style({
   cursor: "pointer",
   color: "#fff",
 
-  ":hover": {
-    backgroundColor: "rgba(255, 255, 255, 0.25)",
-  },
-  ":focus": {
-    outline: "none",
-  },
-  ":active": {
-    outline: "none",
+  selectors: {
+    "&[data-hovered='true']": {
+      backgroundColor: "rgba(255, 255, 255, 0.25)",
+    },
+    "&[data-focused='true']": {
+      outline: "none",
+    },
+    "&[data-focus-visible='true']": {
+      outline: "solid orange",
+    },
   },
 });
 
@@ -35,4 +37,16 @@ export const infoButton = style({
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
+
+  selectors: {
+    "&[data-hovered='true']": {
+      backgroundColor: "rgba(255, 255, 255, 0.25)",
+    },
+    "&[data-focused='true']": {
+      outline: "none",
+    },
+    "&[data-focus-visible='true']": {
+      outline: "solid orange",
+    },
+  },
 });

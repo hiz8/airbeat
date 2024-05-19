@@ -1,5 +1,6 @@
 import type { MouseEvent } from "react";
 import { Trash as IconTrash } from "react-feather";
+import { GridListItem, Button, type PressEvent } from "react-aria-components";
 
 import * as styles from "./ListItems.css";
 
@@ -9,12 +10,12 @@ export interface ListItemProps {
   tempo: number;
   name: string;
   setItem: (e: MouseEvent<HTMLSpanElement>) => void;
-  deleteItem: (e: MouseEvent<HTMLButtonElement>) => void;
+  deleteItem: (e: PressEvent) => void;
 }
 
 export const ListItems = (props: ListItemProps): JSX.Element => {
   return (
-    <li className={styles.itemWrapper}>
+    <GridListItem className={styles.itemWrapper}>
       {/* biome-ignore lint/a11y/useKeyWithClickEvents: */}
       <span
         onClick={props.setItem}
@@ -30,15 +31,15 @@ export const ListItems = (props: ListItemProps): JSX.Element => {
         <span className={styles.listItemInfoBeat}>{props.beat}</span>
       </span>
       <span className={styles.listItemControlle}>
-        <button
+        <Button
           data-key={props.itemKey}
-          onClick={props.deleteItem}
+          onPress={props.deleteItem}
           type="button"
           className={styles.listItemControlleDelete}
         >
           <IconTrash className={styles.listItemControlleDeleteInnerSvg} />
-        </button>
+        </Button>
       </span>
-    </li>
+    </GridListItem>
   );
 };

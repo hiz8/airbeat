@@ -29,18 +29,29 @@ export const listItemInfo = style({
   flex: 1,
 });
 
-export const listItemInfoNameInput = style({
+export const listItemInfoNameInputWrapper = style({
   width: "100%",
   marginBottom: "0.1em",
+});
+
+export const listItemInfoNameInput = style({
   backgroundColor: "inherit",
   fontFamily: "inherit",
   fontSize: "1rem",
   color: "inherit",
   border: "none",
   padding: "0.5em 0.5em 0.25em",
+  width: "100%",
+  boxSizing: "border-box",
 
-  ":focus": {
-    backgroundColor: "rgba(255, 255, 255, 0.25)",
+  selectors: {
+    "&[data-focused='true']": {
+      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      outline: "none",
+    },
+    "&[data-focus-visible='true']": {
+      outline: "solid orange",
+    },
   },
 });
 
@@ -61,20 +72,32 @@ export const listItemControlle = style({
 
 export const listItemControlleSave = style({
   display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   background: "none",
   border: "none",
   color: color.FONT,
   padding: "0",
   width: "44px",
-  height: "100%",
+  height: "44px",
   cursor: "pointer",
 
   // @ts-ignore
   ":not(:disabled):hover": {
     backgroundColor: "rgba(255, 255, 255, 0.25)",
   },
-  ":disabled": {
-    color: "#aaa",
-    pointerEvents: "none",
+
+  selectors: {
+    "&[data-disabled='true']": {
+      opacity: 0.5,
+      pointerEvents: "none",
+    },
+    "&[data-focused='true']": {
+      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      outline: "none",
+    },
+    "&[data-focus-visible='true']": {
+      outline: "solid orange",
+    },
   },
 });

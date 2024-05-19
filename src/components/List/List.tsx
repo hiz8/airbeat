@@ -1,6 +1,14 @@
 import { useState, useContext } from "react";
-import type { ChangeEvent, SyntheticEvent, MouseEvent, FormEvent } from "react";
+import type { ChangeEvent, MouseEvent, FormEvent } from "react";
 import { Save as IconSave } from "react-feather";
+import {
+  GridList,
+  GridListItem,
+  Button,
+  TextField,
+  Input,
+  type PressEvent,
+} from "react-aria-components";
 
 import { ListItems } from "./ListItems";
 import { List as ListStore, type ListItem } from "../../model/list";
@@ -71,7 +79,7 @@ export function List(): JSX.Element {
       });
   }
 
-  function deleteItem(e: SyntheticEvent<EventTarget>) {
+  function deleteItem(e: PressEvent) {
     if (!(e.target instanceof HTMLButtonElement)) {
       return;
     }
@@ -116,7 +124,7 @@ export function List(): JSX.Element {
           beat={items[key].beat}
           setItem={setItem}
           deleteItem={deleteItem}
-        />,
+        />
       );
     });
   } else {
@@ -124,32 +132,34 @@ export function List(): JSX.Element {
   }
 
   return (
-    <ul className={styles.listWrapper}>
-      <li className={styles.listItem}>
+    <GridList className={styles.listWrapper}>
+      <GridListItem className={styles.listItem}>
         <form id="save" onSubmit={saveItem} />
         <span className={styles.listItemInfo}>
-          <input
-            name="name"
-            form="save"
-            placeholder="Save as..."
-            onChange={handleChangeEvent}
-            className={styles.listItemInfoNameInput}
-          />
+          <TextField className={styles.listItemInfoNameInputWrapper}>
+            <Input
+              name="name"
+              form="save"
+              placeholder="Save as..."
+              onChange={handleChangeEvent}
+              className={styles.listItemInfoNameInput}
+            />
+          </TextField>
           <span className={styles.listItemInfoTempo}>BPM:{tempo}</span>
           <span className={styles.listItemInfoBeat}>{beat}</span>
         </span>
         <span className={styles.listItemControlle}>
-          <button
+          <Button
             form="save"
             type="submit"
-            disabled={!saveButton}
+            isDisabled={!saveButton}
             className={styles.listItemControlleSave}
           >
             <IconSave color={color.FONT} />
-          </button>
+          </Button>
         </span>
-      </li>
+      </GridListItem>
       {list}
-    </ul>
+    </GridList>
   );
 }
