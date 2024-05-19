@@ -1,10 +1,12 @@
-import { type MouseEvent, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   List as IconListOpen,
   X as IconListClose,
   Info as IconInfo,
 } from "react-feather";
+import { Button } from "react-aria-components";
+
 import { ListContext, ListDispatchContext } from "../hooks/useList";
 import color from "../const/color";
 
@@ -14,9 +16,7 @@ export function AppBar(): JSX.Element {
   const visible = useContext(ListContext);
   const toggleVisible = useContext(ListDispatchContext);
 
-  function handleListButtonClick(e: MouseEvent) {
-    e.preventDefault();
-
+  function handleListButtonClick() {
     if (toggleVisible) {
       toggleVisible();
     }
@@ -34,15 +34,14 @@ export function AppBar(): JSX.Element {
       <Link to="/info" className={styles.infoButton}>
         <IconInfo color={color.FONT} />
       </Link>
-      <button
+      <Button
         type="button"
-        onClick={handleListButtonClick}
+        onPress={handleListButtonClick}
         aria-label={labelText}
-        title={labelText}
         className={styles.listButton}
       >
         {IconList}
-      </button>
+      </Button>
     </div>
   );
 }
