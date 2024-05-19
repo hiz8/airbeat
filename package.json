@@ -6,7 +6,8 @@
     "build": "tsc && vite build && workbox generateSW workbox-config.js",
     "preview": "vite preview",
     "type-check": "tsc",
-    "lint": "biome lint ./src"
+    "lint": "biome lint ./src",
+    "fmt": "biome format --write ./src"
   },
   "dependencies": {
     "localforage": "^1.10.0",
