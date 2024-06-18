@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { PlayButton } from "../components/Metronome/PlayButton";
 import { TempoController } from "../components/Metronome/TempoController";
 import { BeatController } from "../components/Metronome/BeatController";
@@ -9,13 +9,12 @@ import * as styles from "../styles/pages/home.css";
 import { MetoronomeProvider } from "../hooks/useMetoronome";
 import { ListProvider, ListContext } from "../hooks/useList";
 
-const Home = () => {
-  useEffect(() => {
-    document.title = "airbeat";
-  }, []);
+const title = "airbeat";
 
+const Home = () => {
   return (
     <ListProvider>
+      <title>{title}</title>
       <MetoronomeProvider>
         <AppBar />
         <main className={styles.wrapper}>

@@ -124,7 +124,7 @@ export function List(): JSX.Element {
           beat={items[key].beat}
           setItem={setItem}
           deleteItem={deleteItem}
-        />
+        />,
       );
     });
   } else {
