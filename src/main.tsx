@@ -7,7 +7,7 @@ import {
   type NavigateOptions,
   useHref,
   useNavigate,
-} from "react-router-dom";
+} from "react-router";
 import { RouterProvider } from "react-aria-components";
 
 import Index from "./pages/index";
