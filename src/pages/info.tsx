@@ -1,15 +1,13 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft as IconArrowLeft } from "react-feather";
 import * as styles from "../styles/pages/info.css";
 
-const Info = () => {
-  useEffect(() => {
-    document.title = "Information - airbeat";
-  }, []);
+const title = "Information - airbeat";
 
+const Info = () => {
   return (
     <div className={styles.infoWrapper}>
+      <title>{title}</title>
       <div>
         <Link to="/" className={styles.infoButton}>
           <IconArrowLeft />
