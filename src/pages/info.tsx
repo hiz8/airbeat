@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowLeft as IconArrowLeft } from "react-feather";
 import * as styles from "../styles/pages/info.css";
 

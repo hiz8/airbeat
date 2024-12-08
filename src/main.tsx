@@ -7,7 +7,7 @@ import {
   type NavigateOptions,
   useHref,
   useNavigate,
-} from "react-router-dom";
+} from "react-router";
 import { RouterProvider } from "react-aria-components";
 
 import Index from "./pages/index";
@@ -39,12 +39,7 @@ if (!root) {
 }
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <BrowserRouter
-      future={{
-        v7_relativeSplatPath: true,
-        v7_startTransition: true,
-      }}
-    >
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
