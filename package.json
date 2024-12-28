@@ -17,7 +17,7 @@
     "react-aria-components": "^1.5.0",
     "react-dom": "^18.3.1",
     "react-feather": "^2.0.10",
-    "react-router": "^7.0.2"
+    "react-router": "^7.1.1"
   },
   "license": "ISC",
   "devDependencies": {
@@ -25,8 +25,8 @@
     "@types/node": "^20.17.9",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@vanilla-extract/css": "^1.16.1",
-    "@vanilla-extract/vite-plugin": "^4.0.18",
+    "@vanilla-extract/css": "^1.17.0",
+    "@vanilla-extract/vite-plugin": "^4.0.19",
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
