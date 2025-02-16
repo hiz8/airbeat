@@ -1,20 +1,27 @@
 import { style } from "@vanilla-extract/css";
+import { responsiveStyle } from "../../styles/theme.css";
 import color from "../../const/color";
 
 export const infoWrapper = style({
-  minHeight: "100vh",
   margin: "0",
   listStyle: "none",
   boxSizing: "border-box",
 });
 
-export const main = style({
-  height: "calc(100vh - 44px - 30px)",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-});
+export const main = style([
+  {
+    height: "calc(100vh - 44px - 30px)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  responsiveStyle({
+    sm: {
+      height: "calc(100vh - 44px - 30px - 4em)",
+    },
+  }),
+]);
 
 export const logo = style({
   width: "80px",

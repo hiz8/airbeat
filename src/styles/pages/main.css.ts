@@ -22,8 +22,12 @@ export const inner = style([
     maxWidth: tabletSize,
   },
   responsiveStyle({
+    sm: {
+      padding: "2em",
+    },
     md: {
-      border: "1px solid #fff",
+      borderRight: "1px solid #fff",
+      borderLeft: "1px solid #fff",
     },
   }),
 ]);
