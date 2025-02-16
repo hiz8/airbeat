@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import color from "../../const/color";
 
 export const select = style({
@@ -59,4 +59,54 @@ export const listItem = style({
       outline: "solid orange",
     },
   },
+});
+
+export const popover = style({
+  boxShadow: "2px 4px 5px #cdcfd4, -2px -2px 4px #fff",
+  border: "2px solid #fff",
+  padding: "0",
+  fontSize: "1rem",
+  cursor: "pointer",
+  backgroundColor: "#f1f4f9",
+  color: color.FONT,
+  width: "120px",
+  boxSizing: "border-box",
+  borderRadius: "10px",
+});
+
+const entering = keyframes({
+  '0%': {
+    opacity: 0,
+    transform: "scale(0.9)",
+  },
+  '60%': {
+    opacity: 1,
+    transform: "scale(1.05)",
+  },
+  '100%': {
+    opacity: 1,
+    transform: "scale(1)",
+  },
+});
+
+const exiting = keyframes({
+  '0%': {
+    opacity: 1,
+    transform: "scale(1)",
+  },
+  '100%': {
+    opacity: 0,
+    transform: "scale(0.9)",
+  },
+});
+
+export const popoverEntering = style({
+  animationName: entering,
+  animationDuration: "0.3s",
+  animationTimingFunction: "ease-in-out",
+});
+
+export const popoverExiting = style({
+  animationName: exiting,
+  animationDuration: "0.15s",
 });
