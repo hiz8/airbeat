@@ -22,7 +22,7 @@ export const button = style({
   cursor: "pointer",
   color: color.FONT,
   fontFamily: "inherit",
-  boxShadow: "2px 2px 3px #cdcfd4 inset, -2px -2px 3px #fff inset",
+  boxShadow: "1px 1px 2px #cdcfd4 inset, -1px -1px 2px #fff inset",
   width: "120px",
   textAlign: "left",
   outline: "none",
@@ -62,8 +62,6 @@ export const listItem = style({
 });
 
 export const popover = style({
-  boxShadow: "2px 4px 5px #cdcfd4, -2px -2px 4px #fff",
-  border: "2px solid #fff",
   padding: "0",
   fontSize: "1rem",
   cursor: "pointer",
