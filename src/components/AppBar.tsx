@@ -1,11 +1,8 @@
 import { useContext } from "react";
-import {
-  List as IconListOpen,
-  X as IconListClose,
-  Info as IconInfo,
-} from "react-feather";
-import { Button, Link } from "react-aria-components";
+import { List as IconListOpen, Info as IconInfo } from "react-feather";
+import { Button, Link, DialogTrigger } from "react-aria-components";
 
+import { List } from "../components/List/List";
 import { ListContext, ListDispatchContext } from "../hooks/useList";
 import color from "../const/color";
 
@@ -21,11 +18,6 @@ export function AppBar(): JSX.Element {
     }
   }
 
-  const IconList = visible ? (
-    <IconListClose color={color.FONT} />
-  ) : (
-    <IconListOpen color={color.FONT} />
-  );
   const labelText = visible ? "Close set list" : "Open set list";
 
   return (
@@ -33,14 +25,17 @@ export function AppBar(): JSX.Element {
       <Link href="/info" className={styles.infoButton}>
         <IconInfo color={color.FONT} />
       </Link>
-      <Button
-        type="button"
-        onPress={handleListButtonClick}
-        aria-label={labelText}
-        className={styles.listButton}
-      >
-        {IconList}
-      </Button>
+      <DialogTrigger>
+        <Button
+          type="button"
+          onPress={handleListButtonClick}
+          aria-label={labelText}
+          className={styles.listButton}
+        >
+          <IconListOpen color={color.FONT} />
+        </Button>
+        <List />
+      </DialogTrigger>
     </div>
   );
 }

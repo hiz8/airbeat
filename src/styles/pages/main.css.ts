@@ -20,6 +20,7 @@ export const inner = style([
   {
     width: "100%",
     maxWidth: tabletSize,
+    boxSizing: "border-box",
   },
   responsiveStyle({
     sm: {
