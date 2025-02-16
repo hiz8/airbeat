@@ -73,26 +73,26 @@ export const popover = style({
 });
 
 const entering = keyframes({
-  '0%': {
+  "0%": {
     opacity: 0,
     transform: "scale(0.9)",
   },
-  '60%': {
+  "60%": {
     opacity: 1,
     transform: "scale(1.05)",
   },
-  '100%': {
+  "100%": {
     opacity: 1,
     transform: "scale(1)",
   },
 });
 
 const exiting = keyframes({
-  '0%': {
+  "0%": {
     opacity: 1,
     transform: "scale(1)",
   },
-  '100%': {
+  "100%": {
     opacity: 0,
     transform: "scale(0.9)",
   },
