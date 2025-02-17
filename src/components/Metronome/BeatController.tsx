@@ -40,7 +40,13 @@ export function BeatController(): JSX.Element {
       <Button className={styles.button}>
         <SelectValue /> <IconDown size={18} />
       </Button>
-      <Popover>
+      <Popover
+        className={({ isEntering, isExiting }) =>
+          `${styles.popover} ${isEntering ? styles.popoverEntering : ""} ${
+            isExiting ? styles.popoverExiting : ""
+          }`
+        }
+      >
         <ListBox className={styles.listBox}>{options}</ListBox>
       </Popover>
     </Select>

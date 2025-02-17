@@ -25,8 +25,7 @@ const buttonBase = style({
 
   selectors: {
     "&[data-pressed='true']": {
-      boxShadow: "none",
-      background: "linear-gradient(145deg, #d9dce0, #ffffff)",
+      boxShadow: "1px 1px 2px #cdcfd4 inset, -1px -1px 2px #fff inset",
     },
     "&[data-focus-visible='true']": {
       boxShadow: "0 0 0 4px orange",

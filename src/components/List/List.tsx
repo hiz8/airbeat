@@ -2,6 +2,9 @@ import { useState, useContext } from "react";
 import type { ChangeEvent, MouseEvent, FormEvent } from "react";
 import { Save as IconSave } from "react-feather";
 import {
+  Dialog,
+  Modal,
+  ModalOverlay,
   GridList,
   GridListItem,
   Button,
@@ -9,6 +12,7 @@ import {
   Input,
   type PressEvent,
 } from "react-aria-components";
+import { X as IconListClose } from "react-feather";
 
 import { ListItems } from "./ListItems";
 import { List as ListStore, type ListItem } from "../../model/list";
@@ -19,7 +23,7 @@ import {
   TempoDispatchContext,
   TempoContext,
 } from "../../hooks/useMetoronome";
-import { ListDispatchContext } from "../../hooks/useList";
+import { ListDispatchContext, ListContext } from "../../hooks/useList";
 import color from "../../const/color";
 
 import * as styles from "./List.css";
@@ -35,6 +39,13 @@ export function List(): JSX.Element {
   const updateBeat = useContext(BeatDispatchContext);
   const updateTempo = useContext(TempoDispatchContext);
   const toggleVisible = useContext(ListDispatchContext);
+  const visible = useContext(ListContext);
+
+  function handleClose() {
+    if (toggleVisible) {
+      toggleVisible();
+    }
+  }
 
   function handleChangeEvent(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value.length) {
@@ -132,34 +143,43 @@ export function List(): JSX.Element {
   }
 
   return (
-    <GridList className={styles.listWrapper}>
-      <GridListItem className={styles.listItem}>
-        <form id="save" onSubmit={saveItem} />
-        <span className={styles.listItemInfo}>
-          <TextField className={styles.listItemInfoNameInputWrapper}>
-            <Input
-              name="name"
-              form="save"
-              placeholder="Save as..."
-              onChange={handleChangeEvent}
-              className={styles.listItemInfoNameInput}
-            />
-          </TextField>
-          <span className={styles.listItemInfoTempo}>BPM:{tempo}</span>
-          <span className={styles.listItemInfoBeat}>{beat}</span>
-        </span>
-        <span className={styles.listItemControlle}>
-          <Button
-            form="save"
-            type="submit"
-            isDisabled={!saveButton}
-            className={styles.listItemControlleSave}
-          >
-            <IconSave color={color.FONT} />
+    <ModalOverlay className={styles.modalOverray} isOpen={visible}>
+      <Modal className={styles.modal}>
+        <Dialog>
+          <Button className={styles.listButton} onPress={handleClose}>
+            <IconListClose color={color.FONT} />
           </Button>
-        </span>
-      </GridListItem>
-      {list}
-    </GridList>
+          <GridList className={styles.listWrapper}>
+            <GridListItem className={styles.listItem}>
+              <form id="save" onSubmit={saveItem} />
+              <span className={styles.listItemInfo}>
+                <TextField className={styles.listItemInfoNameInputWrapper}>
+                  <Input
+                    name="name"
+                    form="save"
+                    placeholder="Save as..."
+                    onChange={handleChangeEvent}
+                    className={styles.listItemInfoNameInput}
+                  />
+                </TextField>
+                <span className={styles.listItemInfoTempo}>BPM:{tempo}</span>
+                <span className={styles.listItemInfoBeat}>{beat}</span>
+              </span>
+              <span className={styles.listItemControlle}>
+                <Button
+                  form="save"
+                  type="submit"
+                  isDisabled={!saveButton}
+                  className={styles.listItemControlleSave}
+                >
+                  <IconSave color={color.FONT} />
+                </Button>
+              </span>
+            </GridListItem>
+            {list}
+          </GridList>
+        </Dialog>
+      </Modal>
+    </ModalOverlay>
   );
 }

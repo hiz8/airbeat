@@ -9,3 +9,28 @@ export const vars = createGlobalTheme(":root", {
     5: "21px",
   },
 });
+
+export const breakpointNames = ["sm", "md", "lg", "xl"] as const;
+
+export const breakpoints = {
+  sm: 600,
+  md: 840,
+  lg: 1280,
+  xl: 1920,
+} as const;
+
+type ResponsiveStyle = {
+  sm?: any;
+  md?: any;
+  lg?: any;
+  xl?: any;
+};
+
+export const responsiveStyle = ({ sm, md, lg, xl }: ResponsiveStyle) => ({
+  "@media": {
+    [`screen and (min-width: ${breakpoints.sm}px)`]: sm ?? {}, // Hnadset
+    [`screen and (min-width: ${breakpoints.md}px)`]: md ?? {}, // Small tablet
+    [`screen and (min-width: ${breakpoints.lg}px)`]: lg ?? {}, // Large tablet
+    [`screen and (min-width: ${breakpoints.xl}px)`]: xl ?? {},
+  },
+});
