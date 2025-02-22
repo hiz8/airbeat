@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, type JSX } from "react";
 import { List as IconListOpen, Info as IconInfo } from "react-feather";
 import { Button, Link, DialogTrigger } from "react-aria-components";
 

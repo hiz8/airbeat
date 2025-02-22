@@ -1,4 +1,4 @@
-import type { MouseEvent } from "react";
+import type { JSX, MouseEvent, } from "react";
 import { Trash as IconTrash } from "react-feather";
 import { GridListItem, Button, type PressEvent } from "react-aria-components";
 

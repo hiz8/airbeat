@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, type JSX } from "react";
 import type { ChangeEvent, MouseEvent, FormEvent } from "react";
 import { Save as IconSave } from "react-feather";
 import {
