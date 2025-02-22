@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, type JSX } from "react";
 import { Button } from "react-aria-components";
 
 import { TempoContext, TempoDispatchContext } from "../../hooks/useMetoronome";
