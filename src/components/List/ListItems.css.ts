@@ -21,7 +21,7 @@ export const listItemInfo = style({
 
 export const listItemInfoName = style({
   width: "100%",
-  marginBottom: "0.1em",
+  marginBottom: "0.25em",
   overflow: "hidden",
   whiteSpace: "nowrap",
   textOverflow: "ellipsis",

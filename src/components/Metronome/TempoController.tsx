@@ -1,4 +1,11 @@
-import { useState, useEffect, useContext, type JSX } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useMemo,
+  type JSX,
+} from "react";
 import { Button } from "react-aria-components";
 
 import { TempoContext, TempoDispatchContext } from "../../hooks/useMetoronome";
@@ -13,6 +20,22 @@ export function TempoController(): JSX.Element {
   const tempo = useContext(TempoContext);
   const updateTempo = useContext(TempoDispatchContext);
   const [pressMinus, setPressMinus] = useState(false);
+  const [pressPlus, setPressPlus] = useState(false);
+  const soundCounter = useRef(0);
+
+  const audio = useMemo(() => new Audio("/static/audio/tap.wav"), []);
+
+  const resetAndPlaySound = () => {
+    soundCounter.current = 0;
+    audio.play();
+  };
+
+  const conditionalPlaySound = () => {
+    soundCounter.current++;
+    if (soundCounter.current > 0 && soundCounter.current % 2 === 0) {
+      audio.play();
+    }
+  };
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -20,12 +43,11 @@ export function TempoController(): JSX.Element {
         clearInterval(id);
       } else {
         updateTempo(tempo - 1);
+        conditionalPlaySound();
       }
     }, 50);
     return () => clearInterval(id);
   }, [updateTempo, tempo, pressMinus]);
-
-  const [pressPlus, setPressPlus] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -33,6 +55,7 @@ export function TempoController(): JSX.Element {
         clearInterval(id);
       } else {
         updateTempo(tempo + 1);
+        conditionalPlaySound();
       }
     }, 50);
     return () => clearInterval(id);
@@ -41,15 +64,19 @@ export function TempoController(): JSX.Element {
   function handleChangeEvent(value: number[]): void {
     if (updateTempo) {
       updateTempo(value[0]);
+      conditionalPlaySound();
     }
   }
 
   function handlePressMinusButton(isPressed: boolean): void {
     setPressMinus(isPressed);
+    if (isPressed) resetAndPlaySound();
   }
 
   function handlePressPlusButton(isPressed: boolean): void {
     setPressPlus(isPressed);
+    if (isPressed) resetAndPlaySound();
+    soundCounter.current = 0;
   }
 
   return (

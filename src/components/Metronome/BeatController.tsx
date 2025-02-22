@@ -1,4 +1,4 @@
-import { useContext, type JSX, type Key } from "react";
+import { useContext, useMemo, type JSX, type Key } from "react";
 import {
   Button,
   ListBoxItem,
@@ -18,6 +18,17 @@ export function BeatController(): JSX.Element {
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
 
+  const openMenuAudio = useMemo(() => new Audio('/static/audio/transition_up.wav'), []);
+  const closeMenuAudio = useMemo(() => new Audio('/static/audio/transition_down.wav'), []);
+
+  function handlePressButton(isOpen: boolean) {
+    if (isOpen) {
+      openMenuAudio.play();
+    } else {
+      closeMenuAudio.play();
+    }
+  }
+
   function handleBeatSelectChange(key: Key) {
     if (updateBeat) {
       updateBeat(key as Beats);
@@ -34,6 +45,7 @@ export function BeatController(): JSX.Element {
     <Select
       selectedKey={beat}
       onSelectionChange={handleBeatSelectChange}
+      onOpenChange={handlePressButton}
       aria-label="Set the beat"
       className={styles.select}
     >

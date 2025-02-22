@@ -7,7 +7,6 @@ export const modalOverray = style({
   top: "0",
   left: "0",
   width: "100vw",
-  height: "100vh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -30,6 +29,8 @@ export const modal = style({
   color: color.FONT,
   maxWidth: `${breakpoints.md}px`,
   width: "100%",
+  padding: "20px",
+  boxSizing: "border-box",
 
   selectors: {
     "&[data-entering]": {
@@ -39,6 +40,9 @@ export const modal = style({
 });
 
 export const listWrapper = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
   width: "100%",
   backgroundColor: color.BG,
   minHeight: "calc(100vh - 44px)",
@@ -65,7 +69,7 @@ export const listItemInfo = style({
 
 export const listItemInfoNameInputWrapper = style({
   width: "100%",
-  marginBottom: "0.1em",
+  marginBottom: "0.25em",
 });
 
 export const listItemInfoNameInput = style({
@@ -77,6 +81,10 @@ export const listItemInfoNameInput = style({
   padding: "0.5em 0.5em 0.25em",
   width: "100%",
   boxSizing: "border-box",
+  borderRadius: "4px",
+  boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
+  transition: "box-shadow 0.2s",
+  outline: "none",
 
   selectors: {
     "&[data-focused='true']": {
