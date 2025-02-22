@@ -1,4 +1,4 @@
-import { useState, useContext, type JSX } from "react";
+import { useState, useContext, useMemo, type JSX, useEffect } from "react";
 import type { ChangeEvent, MouseEvent, FormEvent } from "react";
 import { Save as IconSave } from "react-feather";
 import {
@@ -41,8 +41,15 @@ export function List(): JSX.Element {
   const toggleVisible = useContext(ListDispatchContext);
   const visible = useContext(ListContext);
 
+  const openMenuAudio = useMemo(() => new Audio('/static/audio/transition_up.wav'), []);
+  const closeMenuAudio = useMemo(() => new Audio('/static/audio/transition_down.wav'), []);
+  const selectItemAudio = useMemo(() => new Audio('/static/audio/select.wav'), []);
+  const deleteItemAudio = useMemo(() => new Audio('/static/audio/swipe.wav'), []);
+
   function handleClose() {
     if (toggleVisible) {
+      console.log("close");
+      closeMenuAudio.play();
       toggleVisible();
     }
   }
@@ -84,6 +91,7 @@ export function List(): JSX.Element {
         input.value = "";
         input.blur();
         setSaveButton(false);
+        selectItemAudio.play();
       })
       .catch((err) => {
         console.error(err);
@@ -102,6 +110,7 @@ export function List(): JSX.Element {
         .removeItem(key)
         .then(() => {
           updateItems();
+          deleteItemAudio.play();
         })
         .catch((err) => {
           console.error(err);
@@ -119,6 +128,7 @@ export function List(): JSX.Element {
       updateBeat(beat as Beats);
       updateTempo(Number.parseInt(tempo, 10));
       toggleVisible();
+      selectItemAudio.play();
     }
   }
 
@@ -141,6 +151,13 @@ export function List(): JSX.Element {
   } else {
     updateItems();
   }
+
+  useEffect(() => {
+    if (visible) {
+      openMenuAudio.play();
+    }
+  }
+  , [visible]);
 
   return (
     <ModalOverlay className={styles.modalOverray} isOpen={visible}>
