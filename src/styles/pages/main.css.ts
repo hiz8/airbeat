@@ -27,8 +27,9 @@ export const inner = style([
       padding: "2em",
     },
     md: {
-      borderRight: "1px solid #fff",
-      borderLeft: "1px solid #fff",
+      borderRight: "2px solid #fff",
+      borderLeft: "2px solid #fff",
+      boxShadow: "0 0 1px #cdcfd4 inset",
     },
   }),
 ]);
