@@ -1,15 +1,25 @@
+import { useEffect } from "react";
 import { Link } from "react-router";
 import { ArrowLeft as IconArrowLeft } from "react-feather";
 import * as styles from "../styles/pages/info.css";
+import { audioPlayer } from "../lib/audio";
 
 const title = "Information - airbeat";
 
 const Info = () => {
+  const handleClickLink = () => {
+    audioPlayer.play("swipe2");
+  };
+
+  useEffect(() => {
+    audioPlayer.play("swipe");
+  }, []);
+
   return (
     <div className={styles.infoWrapper}>
       <title>{title}</title>
       <div>
-        <Link to="/" className={styles.infoButton}>
+        <Link to="/" className={styles.infoButton} onClick={handleClickLink}>
           <IconArrowLeft />
         </Link>
       </div>

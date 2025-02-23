@@ -1,14 +1,8 @@
-import {
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-  useMemo,
-  type JSX,
-} from "react";
+import { useState, useEffect, useContext, useRef, type JSX } from "react";
 import { Button } from "react-aria-components";
 
 import { TempoContext, TempoDispatchContext } from "../../hooks/useMetoronome";
+import { audioPlayer } from "../../lib/audio";
 
 import { TempoSlider } from "./TempoSlider";
 import * as styles from "./TempoController.css";
@@ -23,19 +17,21 @@ export function TempoController(): JSX.Element {
   const [pressPlus, setPressPlus] = useState(false);
   const soundCounter = useRef(0);
 
-  const audio = useMemo(() => new Audio("/static/audio/tap.wav"), []);
-
   const resetAndPlaySound = () => {
     soundCounter.current = 0;
-    audio.play();
+    audioPlayer.play("tap");
   };
 
   const conditionalPlaySound = () => {
     soundCounter.current++;
     if (soundCounter.current > 0 && soundCounter.current % 2 === 0) {
-      audio.play();
+      audioPlayer.play("tap");
     }
   };
+
+  useEffect(() => {
+    audioPlayer.preload(["tap"]);
+  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
