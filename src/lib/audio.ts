@@ -1,12 +1,12 @@
 class AudioPlayer {
   private static instance: AudioPlayer;
   private audioFiles = {
-    transitionUp: "/static/audio/transition_up.wav",
-    transitionDown: "/static/audio/transition_down.wav",
-    select: "/static/audio/select.wav",
-    swipe: "/static/audio/swipe_01.wav",
-    swipe2: "/static/audio/swipe_03.wav",
-    tap: "/static/audio/tap.wav",
+    transitionUp: "/static/audio/transition_up.mp3",
+    transitionDown: "/static/audio/transition_down.mp3",
+    select: "/static/audio/select.mp3",
+    swipe: "/static/audio/swipe_01.mp3",
+    swipe2: "/static/audio/swipe_03.mp3",
+    tap: "/static/audio/tap.mp3",
   };
   private audioCache: Record<string, HTMLAudioElement> = {};
 
