@@ -50,13 +50,13 @@ export function List(): JSX.Element {
   const visible = useContext(ListContext);
 
   useEffect(() => {
-    audioPlayer.preload(["transitionUp", "transitionDown", "select", "swipe"]);
+    audioPlayer.preload(["select", "swipe"]);
   }, []);
 
   function handleClose() {
     if (toggleVisible) {
       console.log("close");
-      audioPlayer.play("transitionDown");
+      audioPlayer.play("swipe");
       toggleVisible();
     }
   }
@@ -161,7 +161,7 @@ export function List(): JSX.Element {
 
   useEffect(() => {
     if (visible) {
-      audioPlayer.play("transitionUp");
+      audioPlayer.play("swipe");
     }
   }, [visible]);
 
