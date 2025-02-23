@@ -4,7 +4,8 @@ class AudioPlayer {
     transitionUp: "/static/audio/transition_up.wav",
     transitionDown: "/static/audio/transition_down.wav",
     select: "/static/audio/select.wav",
-    swipe: "/static/audio/swipe.wav",
+    swipe: "/static/audio/swipe_01.wav",
+    swipe2: "/static/audio/swipe_03.wav",
     tap: "/static/audio/tap.wav",
   };
   private audioCache: Record<string, HTMLAudioElement> = {};

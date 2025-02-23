@@ -50,13 +50,12 @@ export function List(): JSX.Element {
   const visible = useContext(ListContext);
 
   useEffect(() => {
-    audioPlayer.preload(["select", "swipe"]);
+    audioPlayer.preload(["select", "swipe2", "swipe"]);
   }, []);
 
   function handleClose() {
     if (toggleVisible) {
-      console.log("close");
-      audioPlayer.play("swipe");
+      audioPlayer.play("swipe2");
       toggleVisible();
     }
   }
@@ -117,7 +116,7 @@ export function List(): JSX.Element {
         .removeItem(key)
         .then(() => {
           updateItems();
-          audioPlayer.play("swipe");
+          audioPlayer.play("swipe2");
         })
         .catch((err) => {
           console.error(err);
