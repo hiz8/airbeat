@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { breakpoints } from "../../styles/theme.css";
+import { breakpoints, responsiveStyle } from "../../styles/theme.css";
 import color from "../../const/color";
 
 export const modalOverray = style({
@@ -22,14 +22,13 @@ export const modalOverray = style({
   },
 });
 
-export const modal = style({
+export const modal = style([{
   background: color.BG,
   borderLeft: `1px solid #fff`,
   borderRight: `1px solid #fff`,
   color: color.FONT,
   maxWidth: `${breakpoints.md}px`,
   width: "100%",
-  padding: "20px",
   boxSizing: "border-box",
 
   selectors: {
@@ -37,7 +36,11 @@ export const modal = style({
       animation: "modal-zoom 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
     },
   },
-});
+}, responsiveStyle({
+    sm: {
+      padding: "2em",
+    },
+  }),]);
 
 export const listWrapper = style({
   display: "flex",
