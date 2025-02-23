@@ -1,4 +1,4 @@
-import { useContext, useMemo, type JSX, type Key } from "react";
+import { useContext, useEffect, type JSX, type Key } from "react";
 import {
   Button,
   ListBoxItem,
@@ -11,6 +11,7 @@ import { ChevronDown as IconDown } from "react-feather";
 
 import { Beats } from "../../lib/metoronome";
 import { BeatContext, BeatDispatchContext } from "../../hooks/useMetoronome";
+import { audioPlayer } from "../../lib/audio";
 
 import * as styles from "./BeatController.css";
 
@@ -18,14 +19,15 @@ export function BeatController(): JSX.Element {
   const beat = useContext(BeatContext);
   const updateBeat = useContext(BeatDispatchContext);
 
-  const openMenuAudio = useMemo(() => new Audio('/static/audio/transition_up.wav'), []);
-  const closeMenuAudio = useMemo(() => new Audio('/static/audio/transition_down.wav'), []);
+  useEffect(() => {
+    audioPlayer.preload(["transitionUp", "transitionDown"]);
+  }, []);
 
   function handlePressButton(isOpen: boolean) {
     if (isOpen) {
-      openMenuAudio.play();
+      audioPlayer.play("transitionUp");
     } else {
-      closeMenuAudio.play();
+      audioPlayer.play("transitionDown");
     }
   }
 

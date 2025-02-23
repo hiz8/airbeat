@@ -1,5 +1,12 @@
-import { useState, useContext, useMemo, type JSX, useEffect } from "react";
-import type { ChangeEvent, MouseEvent, FormEvent } from "react";
+import {
+  useState,
+  useContext,
+  useEffect,
+  type JSX,
+  type ChangeEvent,
+  type MouseEvent,
+  type FormEvent,
+} from "react";
 import { Save as IconSave } from "react-feather";
 import {
   Dialog,
@@ -24,6 +31,7 @@ import {
   TempoContext,
 } from "../../hooks/useMetoronome";
 import { ListDispatchContext, ListContext } from "../../hooks/useList";
+import { audioPlayer } from "../../lib/audio";
 import color from "../../const/color";
 
 import * as styles from "./List.css";
@@ -41,15 +49,14 @@ export function List(): JSX.Element {
   const toggleVisible = useContext(ListDispatchContext);
   const visible = useContext(ListContext);
 
-  const openMenuAudio = useMemo(() => new Audio('/static/audio/transition_up.wav'), []);
-  const closeMenuAudio = useMemo(() => new Audio('/static/audio/transition_down.wav'), []);
-  const selectItemAudio = useMemo(() => new Audio('/static/audio/select.wav'), []);
-  const deleteItemAudio = useMemo(() => new Audio('/static/audio/swipe.wav'), []);
+  useEffect(() => {
+    audioPlayer.preload(["transitionUp", "transitionDown", "select", "swipe"]);
+  }, []);
 
   function handleClose() {
     if (toggleVisible) {
       console.log("close");
-      closeMenuAudio.play();
+      audioPlayer.play("transitionDown");
       toggleVisible();
     }
   }
@@ -91,7 +98,7 @@ export function List(): JSX.Element {
         input.value = "";
         input.blur();
         setSaveButton(false);
-        selectItemAudio.play();
+        audioPlayer.play("select");
       })
       .catch((err) => {
         console.error(err);
@@ -110,7 +117,7 @@ export function List(): JSX.Element {
         .removeItem(key)
         .then(() => {
           updateItems();
-          deleteItemAudio.play();
+          audioPlayer.play("swipe");
         })
         .catch((err) => {
           console.error(err);
@@ -128,7 +135,7 @@ export function List(): JSX.Element {
       updateBeat(beat as Beats);
       updateTempo(Number.parseInt(tempo, 10));
       toggleVisible();
-      selectItemAudio.play();
+      audioPlayer.play("select");
     }
   }
 
@@ -145,7 +152,7 @@ export function List(): JSX.Element {
           beat={items[key].beat}
           setItem={setItem}
           deleteItem={deleteItem}
-        />,
+        />
       );
     });
   } else {
@@ -154,10 +161,9 @@ export function List(): JSX.Element {
 
   useEffect(() => {
     if (visible) {
-      openMenuAudio.play();
+      audioPlayer.play("transitionUp");
     }
-  }
-  , [visible]);
+  }, [visible]);
 
   return (
     <ModalOverlay className={styles.modalOverray} isOpen={visible}>
